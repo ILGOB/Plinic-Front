@@ -1,4 +1,8 @@
-import CE from './CE';
+import CE from './ce/CE';
+import TestGenreBtn from './ce/TestGenreBtn';
+import TestTextBtn from './ce/TestTextBtn';
+import TestTextIconBtn from './ce/TestTextIconBtn';
+import TestSlider from './ce/TestSlider';
 import TY from './ty/TY';
 import TestPagination from './ty/TestPagination';
 import TestInput from './ty/TestInput';
@@ -15,6 +19,10 @@ import TestPost from './hl/TestPost';
 
 export {
   CE,
+  TestGenreBtn,
+  TestTextBtn,
+  TestTextIconBtn,
+  TestSlider,
   TY,
   TestPagination,
   TestInput,

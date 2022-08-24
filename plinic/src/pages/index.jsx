@@ -1,6 +1,10 @@
 import Home from './home/Home';
 import {
   CE,
+  TestGenreBtn,
+  TestTextBtn,
+  TestTextIconBtn,
+  TestSlider,
   TY,
   TestPagination,
   TestInput,
@@ -19,6 +23,10 @@ import {
 export {
   Home,
   CE,
+  TestGenreBtn,
+  TestTextBtn,
+  TestTextIconBtn,
+  TestSlider,
   TY,
   TestPagination,
   TestInput,
