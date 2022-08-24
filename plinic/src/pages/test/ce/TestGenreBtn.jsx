@@ -1,7 +1,8 @@
 import React from 'react';
+import Genre from '../../../components/button/genre/Genre';
 
 function TestGenreBtn() {
-  return <div>TestGenreBtn</div>;
+  return <Genre />;
 }
 
 export default TestGenreBtn;

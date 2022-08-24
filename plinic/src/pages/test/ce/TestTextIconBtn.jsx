@@ -1,7 +1,8 @@
 import React from 'react';
+import TextIconBtn from '../../../components/button/textIcon/TextIconBtn';
 
 function TestTextIconBtn() {
-  return <div>TestTextIconBtn</div>;
+  return <TextIconBtn />;
 }
 
 export default TestTextIconBtn;
