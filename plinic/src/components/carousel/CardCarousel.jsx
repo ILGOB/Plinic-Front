@@ -39,6 +39,7 @@ function CardCarousel() {
     setTimeout(() => {
       setTransition('');
       setCurrentIndex(index);
+      setIsTransition(false);
     }, transitionTime);
   }
 
