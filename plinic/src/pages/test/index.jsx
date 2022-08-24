@@ -3,7 +3,7 @@ import TY from './ty/TY';
 import TestPagination from './ty/TestPagination';
 import TestInput from './ty/TestInput';
 import TestSelectBox from './ty/TestSelectBox';
-import TestCardSwipe from './ty/TestCardSwipe';
+import TestCardCarousel from './ty/TestCardCarousel';
 import HL from './hl/HL';
 import TestProfile from './hl/TestProfile';
 import TestThumbnail from './hl/TestThumbnail';
@@ -19,7 +19,7 @@ export {
   TestPagination,
   TestInput,
   TestSelectBox,
-  TestCardSwipe,
+  TestCardCarousel,
   HL,
   TestProfile,
   TestThumbnail,

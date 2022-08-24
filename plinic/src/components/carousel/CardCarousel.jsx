@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function CardSwipe() {
+function CardCarousel() {
   const items = ['#33a', '#8c9', '#f3e074', '#44a', '#8a0', '#e3f093', '#33a', '#8c9', '#f3e074', '#44a'];
   const itemSize = items.length;
   const addedItems = 10;
@@ -92,7 +92,7 @@ function CardSwipe() {
   );
 }
 
-export default CardSwipe;
+export default CardCarousel;
 
 const NAVY = ({ theme }) => theme.color.navy;
 const CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
