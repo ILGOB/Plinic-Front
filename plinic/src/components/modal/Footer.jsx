@@ -1,26 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import TextBtn from '../button/text/TextBtn';
 
-function Footer({ onClose }) {
-  const clickedCloseButton = () => {
-    onClose();
-    console.log('clicked close button');
-  };
-
-  const clickedCreateButton = () => {
-    onClose();
-    console.log('clicked create button');
+function Footer({ usedFor, leftOnClick, rightOnClick }) {
+  const modalTypes = {
+    playlist: ['취소', '생성'],
+    membershipWithdrawal: ['네', '아니오'],
   };
   return (
     <Wrapper>
-      <Text>{'장르 또는 분위기에서 하나만 선택해주세요.'}</Text>
-      <ButtonGroup>
-        <Button type={'close'} onClick={clickedCloseButton}>
-          취소
-        </Button>
-        <Button type={'create'} onClick={clickedCreateButton}>
-          생성
-        </Button>
+      {usedFor === 'playlist' && <Text>{'장르 또는 분위기에서 하나만 선택해주세요.'}</Text>}
+      <ButtonGroup modalType={usedFor}>
+        <TextBtn btnName={modalTypes[usedFor][0]} color={'white'} onClick={leftOnClick} />
+        <TextBtn btnName={modalTypes[usedFor][1]} color={'lightGreen'} onClick={rightOnClick} />
       </ButtonGroup>
     </Wrapper>
   );
@@ -30,14 +22,11 @@ export default Footer;
 
 const FLEX_CENTER = ({ theme }) => theme.align.flexCenter;
 const WHITE = ({ theme }) => theme.color.white;
-const LIGHTGREEN = ({ theme }) => theme.color.lightGreen;
 const THICK = ({ theme }) => theme.font.weight.thick;
-const BOLD = ({ theme }) => theme.font.weight.bold;
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 177px;
 `;
 
 const Text = styled.span`
@@ -48,12 +37,7 @@ const Text = styled.span`
 
 const ButtonGroup = styled.div`
   ${FLEX_CENTER}
+  width: fit-content;
   gap: 25px;
-`;
-
-const Button = styled.div`
-  cursor: pointer;
-  ${BOLD};
-  ${({ theme }) => theme.font.size[20]}
-  color: ${props => (props.type === 'close' ? WHITE : LIGHTGREEN)};
+  margin-left: ${props => (props.modalType === 'playlist' ? '177px' : '401px')};
 `;

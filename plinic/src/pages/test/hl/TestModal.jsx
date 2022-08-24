@@ -4,20 +4,59 @@ import Modal from '../../../components/modal/Modal';
 import ModalPortal from '../../../components/modal/ModalPortal';
 
 function TestModal() {
-  const [isModal, setIsModal] = useState(false);
+  const [isPlaylistModal, setIsPlaylistModal] = useState(false);
+  const [isMembershipWithdrawalModal, setIsMembershipWithdrawalModal] = useState(false);
 
-  const handleModal = () => {
-    setIsModal(!isModal);
+  // 플레이리스트 모달
+  const handlePlaylistModal = () => {
+    setIsPlaylistModal(!isPlaylistModal);
+  };
+
+  const clickedCloseButton = () => {
+    handlePlaylistModal();
+    console.log('clicked close button');
+  };
+
+  const clickedCreateButton = () => {
+    handlePlaylistModal();
+    console.log('clicked create button');
+  };
+
+  // 회원탈퇴 모달
+  const handleMembershipWithdrawalModal = () => {
+    setIsMembershipWithdrawalModal(!isMembershipWithdrawalModal);
+  };
+
+  const clickedYesButton = () => {
+    handleMembershipWithdrawalModal();
+    console.log('clicked Yes button');
+  };
+
+  const clickedNoButton = () => {
+    handleMembershipWithdrawalModal();
+    console.log('clicked No button');
   };
 
   useEffect(() => {
-    console.log('modal State', isModal);
-  }, [isModal]);
+    console.log('Playlist modal State:', isPlaylistModal);
+    console.log('MembershipWithdrawal modal State:', isMembershipWithdrawalModal);
+  }, [isPlaylistModal, isMembershipWithdrawalModal]);
 
   return (
     <Wrapper>
-      <Button onClick={handleModal}>모달 버튼</Button>
-      <ModalPortal>{isModal && <Modal onClose={handleModal} />}</ModalPortal>
+      <Button onClick={handlePlaylistModal}>플레이리스트 모달 버튼</Button>
+      <ModalPortal>
+        {isPlaylistModal && (
+          <Modal leftOnClick={clickedCloseButton} rightOnClick={clickedCreateButton} usedFor={'playlist'} />
+        )}
+      </ModalPortal>
+
+      <Button onClick={handleMembershipWithdrawalModal}>회원탈퇴 모달 버튼</Button>
+      <ModalPortal>
+        {isMembershipWithdrawalModal && (
+          <Modal leftOnClick={clickedYesButton} rightOnClick={clickedNoButton} usedFor={'membershipWithdrawal'} />
+        )}
+      </ModalPortal>
     </Wrapper>
   );
 }
@@ -32,8 +71,9 @@ const Wrapper = styled.div`
 `;
 
 const Button = styled.div`
-  width: 100px;
+  width: fit-content;
   height: 30px;
+  padding: 5px;
   border-radius: 10px;
   cursor: pointer;
   background-color: #314260;
