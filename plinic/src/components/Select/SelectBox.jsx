@@ -28,7 +28,7 @@ function SelectBox({ sortBy }) {
     <Container>
       <SortLabel onClick={() => setToggleMenu(current => !current)}>
         <div>{currentSortType}</div>
-        <FontAwesomeIcon icon={Down} />
+        <IconStyled icon={Down} isShow={toggleMenu} />
       </SortLabel>
       <SelectWrapper>
         <Select isShow={toggleMenu}>
@@ -78,6 +78,11 @@ const SortLabel = styled.div`
   color: ${NAVY};
   user-select: none;
   cursor: pointer;
+`;
+
+const IconStyled = styled(FontAwesomeIcon)`
+  transform: rotate(${props => (props.isShow ? '-180deg' : '0deg')});
+  transition: ease transform 0.5s;
 `;
 
 const SelectWrapper = styled.div`
