@@ -11,6 +11,9 @@ import {
   TestThumbnail,
   TestScroll,
   TestSwitch,
+  TestModal,
+  TestCard,
+  TestPost,
 } from './test';
 
 export {
@@ -26,4 +29,7 @@ export {
   TestThumbnail,
   TestScroll,
   TestSwitch,
+  TestModal,
+  TestCard,
+  TestPost,
 };

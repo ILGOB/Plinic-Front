@@ -1,45 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useNavigate } from 'react-router-dom';
 
-function TextBtn() {
-  let [likedCount, setLikedCount] = useState(0);
-  let [likedBtnActive, setLikedBtnActive] = useState(false);
+const TextBtn = ({ btnName, location, color, onClick }) => {
+  const navigate = useNavigate();
 
-  const onClickLikedBtn = () => {
-    setLikedBtnActive(!likedBtnActive);
-    likedBtnActive ? setLikedCount((likedCount -= 1)) : setLikedCount((likedCount += 1));
+  const onClickTxtBtn = () => {
+    onClick && onClick();
+    location && navigate(`${location}`);
   };
 
-  useEffect(() => {
-    console.log(likedCount, likedBtnActive);
-  }, [likedBtnActive]);
-
   return (
-    <LikedBtn>
-      {/* <FontAwesomeIcon icon={faHeart} /> */}
-      <FavoriteBorderIcon fontSize="40px" onClick={onClickLikedBtn} />
-      {likedCount}
-    </LikedBtn>
+    <TextBtnStyled onClick={onClickTxtBtn} color={color}>
+      {btnName}
+    </TextBtnStyled>
   );
-}
+};
 
 export default TextBtn;
 
-const NAVY = ({ theme }) => theme.color.navy;
 const WHITE = ({ theme }) => theme.color.white;
+const NAVY = ({ theme }) => theme.color.navy;
+const LIGHTGREEN = ({ theme }) => theme.color.lightGreen;
 
-const LikedBtn = styled.button`
-  width: 70px;
-  height: 30px;
-  border: solid 1.5px ${NAVY};
-  border-radius: 15px;
-  background-color: ${WHITE};
-  ${({ theme }) => theme.align.flexCenter};
-  color: ${NAVY};
-  ${({ theme }) => theme.font.weight.thick};
-  ${({ theme }) => theme.font.size[10]};
+const colorList = { white: WHITE, navy: NAVY, lightGreen: LIGHTGREEN };
+
+const BOLD = ({ theme }) => theme.font.weight.bold;
+
+const TextBtnStyled = styled.div`
+  color: ${props => colorList[props.color]};
+  ${({ theme }) => theme.font.size[20]};
+  ${BOLD};
   cursor: pointer;
 `;

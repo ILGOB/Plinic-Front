@@ -6,9 +6,12 @@ function HL() {
   return (
     <Wrapper>
       <Link to="/hl/profile">Profile Component</Link>
-      <Link to="/hl/thumbnail">thumbnail Component</Link>
-      <Link to="/hl/scroll">scroll Component</Link>
-      <Link to="/hl/switch">switch Component</Link>
+      <Link to="/hl/thumbnail">Thumbnail Component</Link>
+      <Link to="/hl/scroll">Scroll Component</Link>
+      <Link to="/hl/switch">Switch Component</Link>
+      <Link to="/hl/modal">Modal Component</Link>
+      <Link to="/hl/card">Card Component</Link>
+      <Link to="/hl/post">Post Component</Link>
     </Wrapper>
   );
 }
