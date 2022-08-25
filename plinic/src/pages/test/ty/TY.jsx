@@ -10,6 +10,7 @@ function TY() {
       <Link to="/ty/select">SelectBox Component</Link>
       <Link to="/ty/card-carousel">CardCarousel Component</Link>
       <Link to="/ty/playlist-swipe">PlaylistSwipe Component</Link>
+      <Link to="/ty/card-swipe">CardSwipe Component</Link>
     </Wrapper>
   );
 }

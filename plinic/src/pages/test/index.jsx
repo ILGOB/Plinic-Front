@@ -5,6 +5,7 @@ import TestInput from './ty/TestInput';
 import TestSelectBox from './ty/TestSelectBox';
 import TestCardCarousel from './ty/TestCardCarousel';
 import TestPlaylistSwipe from './ty/TestPlaylistSwipe';
+import TestCardSwipe from './ty/TestCardSwipe';
 import HL from './hl/HL';
 import TestProfile from './hl/TestProfile';
 import TestThumbnail from './hl/TestThumbnail';
@@ -22,6 +23,7 @@ export {
   TestSelectBox,
   TestCardCarousel,
   TestPlaylistSwipe,
+  TestCardSwipe,
   HL,
   TestProfile,
   TestThumbnail,

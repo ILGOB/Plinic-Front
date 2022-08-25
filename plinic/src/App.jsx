@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import PlaylistSwipe from './components/swipe/PlaylistSwipe';
 import {
   Home,
   CE,
@@ -9,6 +8,8 @@ import {
   TestInput,
   TestSelectBox,
   TestCardCarousel,
+  TestPlaylistSwipe,
+  TestCardSwipe,
   HL,
   TestProfile,
   TestThumbnail,
@@ -31,7 +32,8 @@ function App() {
           <Route path="/TY/input" element={<TestInput />} />
           <Route path="/TY/select" element={<TestSelectBox />} />
           <Route path="/TY/card-carousel" element={<TestCardCarousel />} />
-          <Route path="/TY/playlist-swipe" element={<PlaylistSwipe />} />
+          <Route path="/TY/playlist-swipe" element={<TestPlaylistSwipe />} />
+          <Route path="/TY/card-swipe" element={<TestCardSwipe />} />
           <Route path="/HL" element={<HL />} />
           <Route path="/HL/profile" element={<TestProfile />} />
           <Route path="/HL/thumbnail" element={<TestThumbnail />} />
