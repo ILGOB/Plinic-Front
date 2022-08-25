@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import HeaderMenu from '../../components/header/HeaderMenu';
 
 function Header() {
   return (
     <Wrapper>
       <img src={'/plinic_logo.png'} height={'57px'} />
+      <HeaderMenu />
     </Wrapper>
   );
 }

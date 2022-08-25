@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import {
   Home,
   CE,
+  TestGenreBtn,
+  TestTextBtn,
+  TestTextIconBtn,
+  TestSlider,
   TY,
   TestPagination,
   TestInput,
@@ -25,6 +29,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/CE" element={<CE />} />
+          <Route path="/CE/genre-button" element={<TestGenreBtn />} />
+          <Route path="/CE/text-button" element={<TestTextBtn />} />
+          <Route path="/CE/text-icon-button" element={<TestTextIconBtn />} />
+          <Route path="/CE/slider" element={<TestSlider />} />
           <Route path="/TY" element={<TY />} />
           <Route path="/TY/pagination" element={<TestPagination />} />
           <Route path="/TY/input" element={<TestInput />} />
