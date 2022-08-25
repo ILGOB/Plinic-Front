@@ -1,5 +1,5 @@
 import React from 'react';
-import CardSwipe from '../../../components/carousel/CardSwipe';
+import CardSwipe from '../../../components/swipe/CardSwipe';
 
 function TestCardSwipe() {
   return (
