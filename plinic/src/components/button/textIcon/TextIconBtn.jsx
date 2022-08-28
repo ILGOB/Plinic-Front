@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as noLike } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as Like } from '@fortawesome/free-solid-svg-icons';
 
 function TextIconBtn() {
   const [likedCount, setLikedCount] = useState(0);
@@ -16,8 +18,8 @@ function TextIconBtn() {
   }, [likedBtnActive]);
 
   return (
-    <LikedBtn>
-      <HeartIcon fontSize="40px" onClick={onClickLikedBtn} />
+    <LikedBtn onClick={onClickLikedBtn}>
+      <HeartIcon icon={likedBtnActive ? Like : noLike} />
       {likedCount}
     </LikedBtn>
   );
@@ -37,12 +39,11 @@ const LikedBtn = styled.button`
   ${({ theme }) => theme.align.flexCenter};
   color: ${NAVY};
   ${({ theme }) => theme.font.weight.thick};
-  ${({ theme }) => theme.font.size[10]};
+  ${({ theme }) => theme.font.size[14]};
   cursor: pointer;
 `;
 
-const HeartIcon = styled(FavoriteBorderIcon)`
-  size: 11px;
-  background-color: ${NAVY};
-  color: ${({ likedBtnActive }) => (likedBtnActive ? NAVY : WHITE)};
+const HeartIcon = styled(FontAwesomeIcon)`
+  font-size: 14px;
+  margin-right: 7px;
 `;
