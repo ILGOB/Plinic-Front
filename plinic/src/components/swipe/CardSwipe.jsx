@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { EffectCoverflow } from 'swiper';
+import SwiperCore, { EffectCoverflow, Scrollbar } from 'swiper';
 import 'swiper/swiper.min.css';
 import 'swiper/swiper-bundle.css';
 import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
@@ -14,7 +14,7 @@ function CardSwipe() {
   const [swiper, setSwiper] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  SwiperCore.use([EffectCoverflow]);
+  SwiperCore.use([EffectCoverflow, Scrollbar]);
 
   const swiperParams = {
     onBeforeInit: swiper => {
@@ -31,6 +31,7 @@ function CardSwipe() {
       modifier: 2,
       slideShadows: false,
     },
+    scrollbar: { dragsize: 'auto', draggable: true },
     onSwiper: setSwiper,
     onSlideChange: e => setCurrentIndex(e.activeIndex),
   };
@@ -68,6 +69,7 @@ const Box = styled.div`
   .swiper-wrapper {
     width: 550px;
     padding: 20px 0;
+    margin-bottom: 20px;
   }
 
   .swiper-slide {
@@ -82,6 +84,17 @@ const Box = styled.div`
     }
     & + .swiper-slide {
       visibility: visible;
+    }
+  }
+
+  .swiper-scrollbar {
+    background: #d9d9d9;
+    height: 13px;
+    border-radius: 0px;
+
+    .swiper-scrollbar-drag {
+      background: #22577a;
+      border-radius: 0px;
     }
   }
 `;
