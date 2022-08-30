@@ -25,8 +25,10 @@ const WHITE = ({ theme }) => theme.color.white;
 const THICK = ({ theme }) => theme.font.weight.thick;
 
 const Wrapper = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const Text = styled.span`
