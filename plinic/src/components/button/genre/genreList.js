@@ -1,4 +1,4 @@
-export const genreFirstLine = [
+export const genreList = [
   {
     id: 1,
     name: 'acoustic',
@@ -23,9 +23,6 @@ export const genreFirstLine = [
     id: 6,
     name: 'disney',
   },
-];
-
-export const genreSecondLine = [
   {
     id: 7,
     name: 'hip-hop',
@@ -50,9 +47,6 @@ export const genreSecondLine = [
     id: 12,
     name: 'opera',
   },
-];
-
-export const genreThirdLine = [
   {
     id: 13,
     name: 'pop',
@@ -77,9 +71,6 @@ export const genreThirdLine = [
     id: 18,
     name: 'R&B',
   },
-];
-
-export const genreFourthLine = [
   {
     id: 19,
     name: 'british',
@@ -106,7 +97,7 @@ export const genreFourthLine = [
   },
 ];
 
-export const moodFirstLine = [
+export const moodList = [
   {
     id: 25,
     name: 'sleep',
@@ -131,9 +122,6 @@ export const moodFirstLine = [
     id: 30,
     name: 'rainy day',
   },
-];
-
-export const moodSecondLine = [
   {
     id: 31,
     name: 'dance',
