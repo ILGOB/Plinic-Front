@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import HeaderMenu from '../../components/header/HeaderMenu';
 
-function Header() {
+function Header({ themeMode, toggleDarkMode }) {
   return (
     <Wrapper>
       <img src={'/plinic_logo.png'} height={'57px'} />
+      <button onClick={() => toggleDarkMode()}>{themeMode === 'light' ? 'light' : 'dark'}</button>
       <HeaderMenu />
     </Wrapper>
   );

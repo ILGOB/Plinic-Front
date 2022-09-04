@@ -1,13 +1,34 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { darkTheme, lightTheme } from '../../styles/theme';
+import { GlobalStyle } from '../GlobalStyles';
 
 import Header from './Header';
 import Main from './Main';
 
 function Layout({ children }) {
+  const localTheme = window.localStorage.getItem('theme') || 'light';
+  const [themeMode, setThemeMode] = useState(localTheme);
+  const themeObject = themeMode === 'light' ? lightTheme : darkTheme;
+
+  const toggleThemeMode = () => {
+    if (themeMode === 'light') {
+      setThemeMode('dark');
+      window.localStorage.setItem('theme', 'dark');
+    } else {
+      setThemeMode('light');
+      window.localStorage.setItem('theme', 'light');
+    }
+  };
+
   return (
     <Wrapper>
-      <Header />
-      <Main>{children}</Main>
+      <ThemeProvider theme={themeObject}>
+        <GlobalStyle />
+        <Header themeMode={themeMode} toggleDarkMode={toggleThemeMode} />
+        <Main>{children}</Main>
+      </ThemeProvider>
     </Wrapper>
   );
 }

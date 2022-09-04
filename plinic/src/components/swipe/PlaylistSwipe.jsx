@@ -23,6 +23,7 @@ function PlaylistSwipe() {
     },
     slidesPerView: 3,
     centeredSlides: true,
+    slideToClickedSlide: true,
     slidesOffsetBefore: 0,
     slidesOffsetAfter: 0,
     effect: 'coverflow',
