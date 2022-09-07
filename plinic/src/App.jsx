@@ -11,6 +11,8 @@ import {
   TestPagination,
   TestInput,
   TestSelectBox,
+  TestCardCarousel,
+  TestPlaylistSwipe,
   TestCardSwipe,
   HL,
   TestProfile,
@@ -37,6 +39,8 @@ function App() {
           <Route path="/TY/pagination" element={<TestPagination />} />
           <Route path="/TY/input" element={<TestInput />} />
           <Route path="/TY/select" element={<TestSelectBox />} />
+          <Route path="/TY/card-carousel" element={<TestCardCarousel />} />
+          <Route path="/TY/playlist-swipe" element={<TestPlaylistSwipe />} />
           <Route path="/TY/card-swipe" element={<TestCardSwipe />} />
           <Route path="/HL" element={<HL />} />
           <Route path="/HL/profile" element={<TestProfile />} />

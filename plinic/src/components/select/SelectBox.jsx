@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown as Down } from '@fortawesome/free-solid-svg-icons';
 
 function SelectBox({ sortBy }) {
+  const isMounted = useRef(false);
   const [currentSortType, setCurrentSortType] = useState('정확도순');
   const [toggleMenu, setToggleMenu] = useState(false);
   const sortLabel = sortBy === 'playlists' ? '플레이리스트수' : sortBy === 'likes' ? '좋아요' : '';
@@ -18,20 +19,21 @@ function SelectBox({ sortBy }) {
     const selectedOption = sortOptions.find(option => option.name === innerText);
     setCurrentSortType(innerText);
     setToggleMenu(false);
-    console.log(selectedOption.value);
   };
 
-  console.log(currentSortType);
-  console.log(toggleMenu);
+  useEffect(() => {
+    isMounted.current = true;
+    return () => (isMounted.current = false);
+  }, []);
 
   return (
     <Container>
       <SortLabel onClick={() => setToggleMenu(current => !current)}>
         <div>{currentSortType}</div>
-        <FontAwesomeIcon icon={Down} />
+        <IconStyled icon={Down} $isShow={toggleMenu} />
       </SortLabel>
       <SelectWrapper>
-        <Select isShow={toggleMenu}>
+        <Select $isMounted={isMounted.current} $isShow={toggleMenu}>
           <OptionBox>
             {sortOptions.map(option => (
               <Option key={option.value} onClick={handleChange}>
@@ -53,12 +55,12 @@ const GRAY = ({ theme }) => theme.color.gray;
 
 const slideUpDown = isShow => keyframes`
   from {
-    -webkit-transform: translateY(${isShow ? 0 : -130}px);
-            transform: translateY(${isShow ? 0 : -130}px);
+    -webkit-transform: translateY(${isShow ? 0 : 130}px);
+            transform: translateY(${isShow ? 0 : 130}px);
   }
   to {
-    -webkit-transform: translateY(${isShow ? -130 : 0}px);
-            transform: translateY(${isShow ? -130 : 0}px);
+    -webkit-transform: translateY(${isShow ? 130 : 0}px);
+            transform: translateY(${isShow ? 130 : 0}px);
   }
 `;
 
@@ -80,6 +82,11 @@ const SortLabel = styled.div`
   cursor: pointer;
 `;
 
+const IconStyled = styled(FontAwesomeIcon)`
+  transform: rotate(${props => (props.$isShow ? '-180deg' : '0deg')});
+  transition: ease transform 0.5s;
+`;
+
 const SelectWrapper = styled.div`
   position: absolute;
   padding: 10px;
@@ -89,11 +96,12 @@ const SelectWrapper = styled.div`
 
 const Select = styled.ul`
   position: relative;
+  top: -130px;
   padding: 0;
   margin: 0;
   border: 0;
   list-style: none;
-  animation: ${props => slideUpDown(props.isShow)} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: ${props => props.$isMounted && slideUpDown(props.$isShow)} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 `;
 
 const OptionBox = styled.div`

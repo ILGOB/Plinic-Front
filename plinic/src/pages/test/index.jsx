@@ -7,6 +7,8 @@ import TY from './ty/TY';
 import TestPagination from './ty/TestPagination';
 import TestInput from './ty/TestInput';
 import TestSelectBox from './ty/TestSelectBox';
+import TestCardCarousel from './ty/TestCardCarousel';
+import TestPlaylistSwipe from './ty/TestPlaylistSwipe';
 import TestCardSwipe from './ty/TestCardSwipe';
 import HL from './hl/HL';
 import TestProfile from './hl/TestProfile';
@@ -27,6 +29,8 @@ export {
   TestPagination,
   TestInput,
   TestSelectBox,
+  TestCardCarousel,
+  TestPlaylistSwipe,
   TestCardSwipe,
   HL,
   TestProfile,

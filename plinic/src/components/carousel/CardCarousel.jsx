@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function CardSwipe() {
-  const items = ['#33a', '#8c9', '#f3e074', '#44a', '#8a0', '#e3f093', '#33a', '#8c9', '#f3e074', '#44a'];
+function CardCarousel({ data }) {
+  const items = data;
   const itemSize = items.length;
   const addedItems = 10;
   let slides = setSlides();
@@ -27,18 +27,25 @@ function CardSwipe() {
 
   function getItemIndex(index) {
     index -= addedItems;
-    if (index < 0) {
+    if (index < 1) {
       index += itemSize;
-    } else if (index >= itemSize) {
+    } else if (index > itemSize) {
       index -= itemSize;
     }
     return index;
+  }
+
+  function getSlideItem(itemIndex) {
+    const slideItem = items.filter(item => itemIndex === item.id);
+    const slideItemTitle = slideItem.map(item => item.title).join();
+    return slideItemTitle;
   }
 
   function replaceSlide(index) {
     setTimeout(() => {
       setTransition('');
       setCurrentIndex(index);
+      setIsTransition(false);
     }, transitionTime);
   }
 
@@ -83,7 +90,8 @@ function CardSwipe() {
           >
             {slides.map((slide, slideIndex) => {
               const itemIndex = getItemIndex(slideIndex);
-              return <SlideItem key={slideIndex} style={{ background: items[itemIndex] }}></SlideItem>;
+              const genre = getSlideItem(itemIndex);
+              return <SlideItem key={slideIndex}>{genre}</SlideItem>;
             })}
           </SlideTrack>
         </SlideList>
@@ -92,7 +100,7 @@ function CardSwipe() {
   );
 }
 
-export default CardSwipe;
+export default CardCarousel;
 
 const NAVY = ({ theme }) => theme.color.navy;
 const CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
@@ -137,4 +145,5 @@ const SlideTrack = styled.div`
 const SlideItem = styled.div`
   min-width: 160px;
   height: 160px;
+  border: 1px solid #000;
 `;
