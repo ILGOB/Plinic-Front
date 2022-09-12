@@ -1,4 +1,6 @@
 import Home from './home/Home';
+import Login from './login/Login';
+import Search from './search/Search';
 import {
   CE,
   TestGenreBtn,
@@ -24,6 +26,8 @@ import {
 
 export {
   Home,
+  Login,
+  Search,
   CE,
   TestGenreBtn,
   TestTextBtn,
