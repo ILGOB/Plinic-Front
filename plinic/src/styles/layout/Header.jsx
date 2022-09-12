@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Header({ themeMode, toggleDarkMode }) {
+function Header() {
   return (
     <Wrapper>
       <img src={'/plinic_logo.png'} height={'57px'} />
-      <button onClick={() => toggleDarkMode()}>{themeMode === 'light' ? 'light' : 'dark'}</button>
     </Wrapper>
   );
 }

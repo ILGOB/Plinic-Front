@@ -79,19 +79,3 @@ const theme = {
 };
 
 export default theme;
-
-/* ==========================
-LIGHT & DARK THEME
-============================ */
-
-export const lightTheme = {
-  bgColor: color.white,
-  textColor: color.navy,
-  borderColor: `1px solid ${color.navy}`,
-};
-
-export const darkTheme = {
-  bgColor: color.navy,
-  textColor: color.white,
-  borderColor: `1px solid ${color.white}`,
-};
