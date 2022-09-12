@@ -16,13 +16,13 @@ export default Layout;
 
 const Wrapper = styled.div`
   height: 100vh;
-  @media (max-width: 1100px) {
-    width: 1024px;
-    padding: 0 calc((1100px - 1024px) / 2);
+  @media (max-width: 1300px) {
+    width: 1200px;
+    padding: 0 calc((1300px - 1200px) / 2);
   }
-  @media (min-width: 1100px) {
+  @media (min-width: 1300px) {
     width: 100vw;
-    padding: 0 calc((100vw - 1024px) / 2);
+    padding: 0 calc((100vw - 1200px) / 2);
     overflow-x: hidden;
   }
 `;
