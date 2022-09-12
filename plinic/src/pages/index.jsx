@@ -1,4 +1,5 @@
 import Home from './home/Home';
+import Login from './login/Login';
 import {
   CE,
   TestGenreBtn,
@@ -24,6 +25,7 @@ import {
 
 export {
   Home,
+  Login,
   CE,
   TestGenreBtn,
   TestTextBtn,

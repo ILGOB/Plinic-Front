@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './styles/layout';
 import styled from 'styled-components';
 import {
   Home,
+  Login,
   CE,
   TestGenreBtn,
   TestTextBtn,
@@ -29,27 +31,28 @@ function App() {
     <Wrapper>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/CE" element={<CE />} />
-          <Route path="/CE/genre-button" element={<TestGenreBtn />} />
-          <Route path="/CE/text-button" element={<TestTextBtn />} />
-          <Route path="/CE/text-icon-button" element={<TestTextIconBtn />} />
-          <Route path="/CE/slider" element={<TestSlider />} />
-          <Route path="/TY" element={<TY />} />
-          <Route path="/TY/pagination" element={<TestPagination />} />
-          <Route path="/TY/input" element={<TestInput />} />
-          <Route path="/TY/select" element={<TestSelectBox />} />
-          <Route path="/TY/card-carousel" element={<TestCardCarousel />} />
-          <Route path="/TY/playlist-swipe" element={<TestPlaylistSwipe />} />
-          <Route path="/TY/card-swipe" element={<TestCardSwipe />} />
-          <Route path="/HL" element={<HL />} />
-          <Route path="/HL/profile" element={<TestProfile />} />
-          <Route path="/HL/thumbnail" element={<TestThumbnail />} />
-          <Route path="/HL/scroll" element={<TestScroll />} />
-          <Route path="/HL/switch" element={<TestSwitch />} />
-          <Route path="/HL/modal" element={<TestModal />} />
-          <Route path="/HL/card" element={<TestCard />} />
-          <Route path="/HL/post" element={<TestPost />} />
+          <Route path="/" element={<Layout page={<Home />} />} />
+          <Route path="/login" element={<Layout page={<Login />} />} />
+          <Route path="/CE" element={<Layout page={<CE />} />} />
+          <Route path="/CE/genre-button" element={<Layout page={<TestGenreBtn />} />} />
+          <Route path="/CE/text-button" element={<Layout page={<TestTextBtn />} />} />
+          <Route path="/CE/text-icon-button" element={<Layout page={<TestTextIconBtn />} />} />
+          <Route path="/CE/slider" element={<Layout page={<TestSlider />} />} />
+          <Route path="/TY" element={<Layout page={<TY />} />} />
+          <Route path="/TY/pagination" element={<Layout page={<TestPagination />} />} />
+          <Route path="/TY/input" element={<Layout page={<TestInput />} />} />
+          <Route path="/TY/select" element={<Layout page={<TestSelectBox />} />} />
+          <Route path="/TY/card-carousel" element={<Layout page={<TestCardCarousel />} />} />
+          <Route path="/TY/playlist-swipe" element={<Layout page={<TestPlaylistSwipe />} />} />
+          <Route path="/TY/card-swipe" element={<Layout page={<TestCardSwipe />} />} />
+          <Route path="/HL" element={<Layout page={<HL />} />} />
+          <Route path="/HL/profile" element={<Layout page={<TestProfile />} />} />
+          <Route path="/HL/thumbnail" element={<Layout page={<TestThumbnail />} />} />
+          <Route path="/HL/scroll" element={<Layout page={<TestScroll />} />} />
+          <Route path="/HL/switch" element={<Layout page={<TestSwitch />} />} />
+          <Route path="/HL/modal" element={<Layout page={<TestModal />} />} />
+          <Route path="/HL/card" element={<Layout page={<TestCard />} />} />
+          <Route path="/HL/post" element={<Layout page={<TestPost />} />} />
         </Routes>
       </BrowserRouter>
     </Wrapper>

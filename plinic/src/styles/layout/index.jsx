@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import Header from './Header';
 import Main from './Main';
 
-function Layout({ children }) {
+function Layout({ page }) {
   return (
     <Wrapper>
       <Header />
-      <Main>{children}</Main>
+      <Main>{page}</Main>
     </Wrapper>
   );
 }
