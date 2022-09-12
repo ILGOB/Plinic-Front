@@ -3,16 +3,28 @@ import styled from 'styled-components';
 import Header from './Header';
 import Main from './Main';
 
-function Layout({ page }) {
-  return (
-    <Wrapper>
-      <Header />
-      <Main>{page}</Main>
-    </Wrapper>
-  );
+function Layout({ page, fullScreen }) {
+  if (fullScreen) {
+    return <FullWrapper>{page}</FullWrapper>;
+  } else {
+    return (
+      <Wrapper>
+        <Header />
+        <Main>{page}</Main>
+      </Wrapper>
+    );
+  }
 }
 
 export default Layout;
+
+const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
+
+const FullWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  ${FLEX_CENTER_COLUMN}
+`;
 
 const Wrapper = styled.div`
   height: 100vh;

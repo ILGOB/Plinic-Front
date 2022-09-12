@@ -32,7 +32,7 @@ function App() {
     <Wrapper>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout page={<Home />} />} />
+          <Route path="/" element={<Layout page={<Home />} fullScreen />} />
           <Route path="/login" element={<Layout page={<Login />} />} />
           <Route path="/search" element={<Layout page={<Search />} />} />
           <Route path="/CE" element={<Layout page={<CE />} />} />
