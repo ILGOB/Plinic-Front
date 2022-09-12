@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {
   Home,
   CE,
+  Resign,
   TestGenreBtn,
   TestTextBtn,
   TestTextIconBtn,
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/CE" element={<CE />} />
+          <Route path="/CE/resign" element={<Resign />} />
           <Route path="/CE/genre-button" element={<TestGenreBtn />} />
           <Route path="/CE/text-button" element={<TestTextBtn />} />
           <Route path="/CE/text-icon-button" element={<TestTextIconBtn />} />
