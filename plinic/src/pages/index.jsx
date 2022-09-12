@@ -1,6 +1,7 @@
 import Home from './home/Home';
 import {
   CE,
+  Resign,
   TestGenreBtn,
   TestTextBtn,
   TestTextIconBtn,
@@ -25,6 +26,7 @@ import {
 export {
   Home,
   CE,
+  Resign,
   TestGenreBtn,
   TestTextBtn,
   TestTextIconBtn,

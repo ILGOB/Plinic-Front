@@ -1,4 +1,4 @@
-export const genreData = [
+export const genreList = [
   {
     id: 1,
     name: 'acoustic',
@@ -94,5 +94,56 @@ export const genreData = [
   {
     id: 24,
     name: 'edm',
+  },
+];
+
+export const moodList = [
+  {
+    id: 25,
+    name: 'sleep',
+  },
+  {
+    id: 26,
+    name: 'soul',
+  },
+  {
+    id: 27,
+    name: 'study',
+  },
+  {
+    id: 28,
+    name: 'summer',
+  },
+  {
+    id: 29,
+    name: 'road trip',
+  },
+  {
+    id: 30,
+    name: 'rainy day',
+  },
+  {
+    id: 31,
+    name: 'dance',
+  },
+  {
+    id: 32,
+    name: 'holidays',
+  },
+  {
+    id: 33,
+    name: 'party',
+  },
+  {
+    id: 34,
+    name: 'work out',
+  },
+  {
+    id: 35,
+    name: 'sad',
+  },
+  {
+    id: 36,
+    name: 'romance',
   },
 ];
