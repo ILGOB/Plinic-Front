@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-function Input({ usedFor }) {
-  const [userInput, setUserInput] = useState('');
-  const [userSubmit, setUserSubmit] = useState('');
-
+function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit }) {
   const placeholder = {
     nickname: '닉네임',
     search: '검색어',
@@ -14,7 +11,6 @@ function Input({ usedFor }) {
 
   const handleInput = e => {
     setUserInput(e.target.value);
-    console.log(userInput);
   };
 
   const handleSubmit = e => {
@@ -39,9 +35,6 @@ function Input({ usedFor }) {
         />
         {usedFor === 'nickname' ? <span></span> : usedFor === 'search' && <div>🔍</div>}
       </FormStyled>
-
-      <div>{userInput} 을 입력하였습니다.</div>
-      <div>{userSubmit} 을 제출하였습니다.</div>
     </div>
   );
 }
