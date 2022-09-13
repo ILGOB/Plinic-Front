@@ -11,7 +11,6 @@ function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit }) 
 
   const handleInput = e => {
     setUserInput(e.target.value);
-    console.log(userInput);
   };
 
   const handleSubmit = e => {
@@ -36,9 +35,6 @@ function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit }) 
         />
         {usedFor === 'nickname' ? <span></span> : usedFor === 'search' && <div>🔍</div>}
       </FormStyled>
-
-      <div>{userInput} 을 입력하였습니다.</div>
-      <div>{userSubmit} 을 제출하였습니다.</div>
     </div>
   );
 }
