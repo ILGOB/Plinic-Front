@@ -3,9 +3,9 @@ import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown as Down } from '@fortawesome/free-solid-svg-icons';
 
-function SelectBox({ sortBy }) {
+function SelectBox({ sortBy, setCurrentSortType }) {
   const isMounted = useRef(false);
-  const [currentSortType, setCurrentSortType] = useState('정확도순');
+  const [currentSortTypeLabel, setCurrentSortTypeLabel] = useState('정확도순');
   const [toggleMenu, setToggleMenu] = useState(false);
   const sortLabel = sortBy === 'playlists' ? '플레이리스트수' : sortBy === 'likes' ? '좋아요' : '';
   const sortOptions = [
@@ -17,7 +17,8 @@ function SelectBox({ sortBy }) {
   const handleChange = e => {
     const { innerText } = e.target;
     const selectedOption = sortOptions.find(option => option.name === innerText);
-    setCurrentSortType(innerText);
+    setCurrentSortTypeLabel(innerText);
+    setCurrentSortType(selectedOption.value);
     setToggleMenu(false);
   };
 
@@ -29,7 +30,7 @@ function SelectBox({ sortBy }) {
   return (
     <Container>
       <SortLabel onClick={() => setToggleMenu(current => !current)}>
-        <div>{currentSortType}</div>
+        <div>{currentSortTypeLabel}</div>
         <IconStyled icon={Down} $isShow={toggleMenu} />
       </SortLabel>
       <SelectWrapper>
