@@ -56,12 +56,12 @@ const GRAY = ({ theme }) => theme.color.gray;
 
 const slideUpDown = isShow => keyframes`
   from {
-    -webkit-transform: translateY(${isShow ? 0 : 130}px);
-            transform: translateY(${isShow ? 0 : 130}px);
+    -webkit-transform: translateY(${isShow ? 0 : 140}px);
+            transform: translateY(${isShow ? 0 : 140}px);
   }
   to {
-    -webkit-transform: translateY(${isShow ? 130 : 0}px);
-            transform: translateY(${isShow ? 130 : 0}px);
+    -webkit-transform: translateY(${isShow ? 140 : 0}px);
+            transform: translateY(${isShow ? 140 : 0}px);
   }
 `;
 
@@ -97,7 +97,7 @@ const SelectWrapper = styled.div`
 
 const Select = styled.ul`
   position: relative;
-  top: -130px;
+  top: -140px;
   padding: 0;
   margin: 0;
   border: 0;
