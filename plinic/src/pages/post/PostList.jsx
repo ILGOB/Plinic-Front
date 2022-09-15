@@ -7,6 +7,11 @@ import { posts } from '../../components/pagination/posts';
 function PostList() {
   const [data, setData] = useState([]);
   const [activePage, setActivePage] = useState(1);
+  const latestNotice = data.filter(notice => {
+    if (notice.id === 1) {
+      return notice;
+    }
+  });
 
   const handlePageChange = pageNumber => {
     setActivePage(pageNumber);
@@ -18,11 +23,14 @@ function PostList() {
 
   return (
     <Wrapper>
-      <NoticeContainer>
-        <div>[공지] 플리닉 업데이트 공지입니다.</div>
-        <div>관리자</div>
-        <div>2022.09.15</div>
-      </NoticeContainer>
+      {latestNotice.map(n => (
+        <NoticeContainer>
+          <div>[공지] {n.title}</div>
+          <div>{n.nickname}</div>
+          <div>2022.09.15</div>
+        </NoticeContainer>
+      ))}
+
       <Posts>
         {data &&
           data.slice(8 * (activePage - 1), 8 * (activePage - 1) + 8).map(d => (
