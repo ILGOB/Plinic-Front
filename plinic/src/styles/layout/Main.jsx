@@ -2,11 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 function Main({ children }) {
-  return (
-    <Wrapper>
-      <div>{children}</div>
-    </Wrapper>
-  );
+  return <Wrapper>{children}</Wrapper>;
 }
 
 export default Main;
