@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import Thumbnail from '../../components/thumbnail/Thumbnail';
 import Pagination from '../../components/pagination/Pagination';
 import { posts } from '../../components/pagination/posts';
@@ -24,8 +27,14 @@ function PostList() {
   return (
     <Wrapper>
       {latestNotice.map(n => (
-        <NoticeContainer>
-          <div>[공지] {n.title}</div>
+        <NoticeContainer key={n.id}>
+          <div>
+            <LinkStyled to="/">
+              <IconStyled icon={faWarning} />
+              [공지]
+            </LinkStyled>
+            {n.title}
+          </div>
           <div>{n.nickname}</div>
           <div>2022.09.15</div>
         </NoticeContainer>
@@ -57,6 +66,7 @@ function PostList() {
 export default PostList;
 
 const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
+const BOLDTEXT = ({ theme }) => theme.font.weight['bold'];
 const DANGER = ({ theme }) => theme.color.warning;
 
 const Wrapper = styled.div`
@@ -96,6 +106,17 @@ const NoticeContainer = styled.div`
       text-align: right;
     }
   }
+`;
+
+const IconStyled = styled(FontAwesomeIcon)`
+  padding-right: 10px;
+`;
+
+const LinkStyled = styled(Link)`
+  padding-right: 10px;
+  color: inherit;
+  text-decoration: none;
+  ${BOLDTEXT}
 `;
 
 const Posts = styled.div`
