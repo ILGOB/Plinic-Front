@@ -5,20 +5,22 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-function Header() {
+function Header({ noMenu }) {
   return (
     <Wrapper>
       <LinkStyle to="/">
         <img src={'/plinic_logo.png'} height={'60px'} />
       </LinkStyle>
-      <Menu>
-        <LinkStyle to="/search">
-          <SearchIcon icon={faMagnifyingGlass} />
-        </LinkStyle>
-        <DivideLine />
-        <LinkStyle to="/login">로그인</LinkStyle>
-        <Button to="/login">회원가입</Button>
-      </Menu>
+      {noMenu || (
+        <Menu>
+          <LinkStyle to="/search">
+            <SearchIcon icon={faMagnifyingGlass} />
+          </LinkStyle>
+          <DivideLine />
+          <LinkStyle to="/login">로그인</LinkStyle>
+          <Button to="/login">회원가입</Button>
+        </Menu>
+      )}
     </Wrapper>
   );
 }
