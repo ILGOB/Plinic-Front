@@ -6,6 +6,7 @@ import {
   Login,
   Search,
   PostList,
+  SignUp,
   CE,
   TestGenreBtn,
   TestTextBtn,
@@ -37,6 +38,7 @@ function App() {
           <Route path="/login" element={<Layout noMenu page={<Login />} />} />
           <Route path="/search" element={<Layout page={<Search />} />} />
           <Route path="/post-list" element={<Layout page={<PostList />} />} />
+          <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
           <Route path="/CE" element={<Layout page={<CE />} />} />
           <Route path="/CE/genre-button" element={<Layout page={<TestGenreBtn />} />} />
           <Route path="/CE/text-button" element={<Layout page={<TestTextBtn />} />} />
