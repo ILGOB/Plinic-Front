@@ -1,6 +1,7 @@
 import Home from './home/Home';
 import Login from './login/Login';
 import Search from './search/Search';
+import PostList from './post/PostList';
 import {
   CE,
   TestGenreBtn,
@@ -28,6 +29,7 @@ export {
   Home,
   Login,
   Search,
+  PostList,
   CE,
   TestGenreBtn,
   TestTextBtn,
