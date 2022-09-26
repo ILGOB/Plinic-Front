@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
 function Header({ noMenu }) {
+  const [isLogin, setIsLogin] = useState(false);
+
+  const loginHandler = () => {
+    setIsLogin(!isLogin);
+  };
+
+  const loginHeader = (
+    <LinkStyle to="/search">
+      <LoginInfo>
+        <ProfileIcon icon={faCircleUser} />
+        <Nickname>Lami</Nickname>
+      </LoginInfo>
+    </LinkStyle>
+  );
+  const logoutHeader = <Button to="/">로그인</Button>;
+
   return (
     <Wrapper>
-      <LinkStyle to="/">
+      <LinkStyle to={isLogin ? '/search' : '/'}>
         <img src={'/plinic_logo.png'} height={'60px'} />
       </LinkStyle>
+      <button onClick={loginHandler}>{isLogin ? 'logout' : 'login'}</button>
+      login state : {isLogin ? 'login' : 'logout'}
       {noMenu || (
         <Menu>
           <LinkStyle to="/search">
@@ -18,7 +36,7 @@ function Header({ noMenu }) {
           </LinkStyle>
           <LinkStyle to="/post-list">게시판</LinkStyle>
           <DivideLine />
-          <Button to="/">로그인</Button>
+          {isLogin ? loginHeader : logoutHeader}
         </Menu>
       )}
     </Wrapper>
@@ -26,6 +44,10 @@ function Header({ noMenu }) {
 }
 
 export default Header;
+
+const NAVY = ({ theme }) => theme.color.navy;
+const FLEX_CENTER = ({ theme }) => theme.align.flexCenter;
+const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -65,4 +87,19 @@ const Button = styled(LinkStyle)`
   color: ${({ theme }) => theme.color.white};
   padding: 10px 16px;
   border-radius: 12px;
+`;
+
+const LoginInfo = styled.div`
+  cursor: pointer;
+  ${FLEX_CENTER};
+  gap: 15px;
+`;
+
+const ProfileIcon = styled(FontAwesomeIcon)`
+  font-size: 30px;
+  color: ${NAVY};
+`;
+
+const Nickname = styled.span`
+  ${({ theme }) => theme.font.size[16]}
 `;
