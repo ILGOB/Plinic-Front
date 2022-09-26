@@ -16,9 +16,9 @@ function Header({ noMenu }) {
           <LinkStyle to="/search">
             <SearchIcon icon={faMagnifyingGlass} />
           </LinkStyle>
+          <LinkStyle to="/post-list">게시판</LinkStyle>
           <DivideLine />
-          <LinkStyle to="/login">로그인</LinkStyle>
-          <Button to="/login">회원가입</Button>
+          <Button to="/">로그인</Button>
         </Menu>
       )}
     </Wrapper>
