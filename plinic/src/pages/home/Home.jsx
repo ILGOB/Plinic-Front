@@ -20,10 +20,6 @@ function Home() {
       <PlinicLogo src="plinic_logo.png" />
       {/* </LogoOverlay> */}
       <LoginBtns>
-        <GoogleBtn>
-          <LogoImg src="img/google.png" />
-          <Text>Continue with Google</Text>
-        </GoogleBtn>
         <KakaoBtn onClick={handleLogin}>
           <LogoImg src="img/kakao.png" />
           <Text>Continue with Kakao</Text>
