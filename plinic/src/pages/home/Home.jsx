@@ -17,7 +17,10 @@ function Home() {
         <source src="video/video4.mp4" type="video/mp4" />
       </Video>
       <PlinicLogo src="plinic_logo.png" />
-      <KakaoBtn onClick={handleLogin} src="img/kakao.png" />
+      <BtnWrapper onClick={handleLogin}>
+        <Symbol src="img/symbol.png" />
+        <Text>Login with Kakao</Text>
+      </BtnWrapper>
     </Wrapper>
   );
 }
@@ -46,12 +49,26 @@ const PlinicLogo = styled.img`
   width: 550px;
 `;
 
-const KakaoBtn = styled.img`
+const BtnWrapper = styled.div`
   cursor: pointer;
+  width: 300px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: #fee500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+`;
+
+const Symbol = styled.img`
+  width: 20px;
+  position: absolute;
+  left: 15px;
 `;
 
 const Text = styled.span`
-  ${({ theme }) => theme.font.weight.bold};
-  ${({ theme }) => theme.font.size[20]};
-  margin-left: 25px;
+  ${({ theme }) => theme.font.weight.thick};
+  margin-left: 20px;
+  line-height: 1;
 `;
