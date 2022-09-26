@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import Header from './Header';
 import Main from './Main';
 
-function Layout({ page, fullScreen }) {
+function Layout({ page, fullScreen, noMenu }) {
   if (fullScreen) {
     return <FullWrapper>{page}</FullWrapper>;
   } else {
     return (
       <Wrapper>
-        <Header />
+        <Header noMenu={noMenu} />
         <Main>{page}</Main>
       </Wrapper>
     );

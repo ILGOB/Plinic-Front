@@ -34,7 +34,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout page={<Home />} fullScreen />} />
-          <Route path="/login" element={<Layout page={<Login />} />} />
+          <Route path="/login" element={<Layout noMenu page={<Login />} />} />
           <Route path="/search" element={<Layout page={<Search />} />} />
           <Route path="/post-list" element={<Layout page={<PostList />} />} />
           <Route path="/CE" element={<Layout page={<CE />} />} />
