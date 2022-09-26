@@ -2,6 +2,12 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 function Home() {
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`;
+
+  const handleLogin = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
+
   return (
     <Wrapper>
       <Video autoPlay loop muted>
@@ -18,7 +24,7 @@ function Home() {
           <LogoImg src="img/google.png" />
           <Text>Continue with Google</Text>
         </GoogleBtn>
-        <KakaoBtn>
+        <KakaoBtn onClick={handleLogin}>
           <LogoImg src="img/kakao.png" />
           <Text>Continue with Kakao</Text>
         </KakaoBtn>
