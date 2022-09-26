@@ -16,19 +16,8 @@ function Home() {
         {/* <source src="video/video3.mp4" type="video/mp4" /> */}
         <source src="video/video4.mp4" type="video/mp4" />
       </Video>
-      {/* <LogoOverlay> */}
       <PlinicLogo src="plinic_logo.png" />
-      {/* </LogoOverlay> */}
-      <LoginBtns>
-        <GoogleBtn>
-          <LogoImg src="img/google.png" />
-          <Text>Continue with Google</Text>
-        </GoogleBtn>
-        <KakaoBtn onClick={handleLogin}>
-          <LogoImg src="img/kakao.png" />
-          <Text>Continue with Kakao</Text>
-        </KakaoBtn>
-      </LoginBtns>
+      <KakaoBtn onClick={handleLogin} src="img/kakao.png" />
     </Wrapper>
   );
 }
@@ -37,7 +26,11 @@ export default Home;
 
 const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  ${FLEX_CENTER_COLUMN}
+`;
 
 const Video = styled.video`
   object-fit: cover;
@@ -49,46 +42,12 @@ const Video = styled.video`
   z-index: -1;
 `;
 
-const LogoOverlay = styled.div`
-  width: 500px;
-  height: 230px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.6);
-  ${FLEX_CENTER_COLUMN}
-`;
-
 const PlinicLogo = styled.img`
-  width: 407px;
+  width: 550px;
 `;
 
-const LoginBtns = styled.div`
-  width: 100%;
-  height: fit-content;
-  ${FLEX_CENTER_COLUMN}
-  margin-top: 44px;
-`;
-
-const GoogleBtn = styled.div`
-  width: 300px;
-  height: 40px;
-  border-radius: 50px;
-  background-color: rgba(255, 255, 255, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+const KakaoBtn = styled.img`
   cursor: pointer;
-`;
-
-const KakaoBtn = styled(GoogleBtn)`
-  background-color: rgba(250, 255, 0, 0.7);
-  margin-top: 24px;
-`;
-
-const LogoImg = styled.img`
-  position: absolute;
-  left: 13px;
-  top: 8px;
 `;
 
 const Text = styled.span`
