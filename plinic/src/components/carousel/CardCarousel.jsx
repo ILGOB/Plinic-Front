@@ -107,6 +107,7 @@ const NAVY = ({ theme }) => theme.color.navy;
 const BOLD = ({ theme }) => theme.font.weight['bold'];
 const MEDIUM_TEXT = ({ theme }) => theme.font.size['16'];
 const BOLD_TEXT = [({ theme }) => theme.font.size['30'], BOLD];
+const CENTER = ({ theme }) => theme.align.flexCenter;
 const CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 
 const SlideBox = styled.div`
@@ -141,10 +142,7 @@ const Button = styled.button`
 `;
 
 const ButtonContainer = styled.div`
-  width: 960px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  ${CENTER}
 `;
 
 const SlideList = styled.div`
