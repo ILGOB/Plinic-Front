@@ -86,7 +86,7 @@ function CardCarousel({ label, data }) {
         <SlideTrack
           onTransitionEnd={handleTransitionEnd}
           style={{
-            transform: `translateX(${-185 * currentIndex}px)`,
+            transform: `translateX(${-247 * (currentIndex + 1)}px)`,
             transition: slideTransition,
           }}
         >
@@ -146,7 +146,7 @@ const ButtonContainer = styled.div`
 `;
 
 const SlideList = styled.div`
-  width: calc(160px * 5 + 100px);
+  width: calc(222px * 5 + 100px);
   overflow: hidden;
 `;
 
@@ -158,7 +158,7 @@ const SlideTrack = styled.div`
 `;
 
 const SlideItem = styled.div`
-  min-width: 160px;
-  height: 160px;
+  min-width: 222px;
+  height: 222px;
   border: 1px solid #000;
 `;
