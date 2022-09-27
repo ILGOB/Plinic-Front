@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function CardCarousel({ data }) {
+function CardCarousel({ label, data }) {
   const items = data;
   const itemSize = items.length;
   const addedItems = 10;
@@ -74,35 +74,38 @@ function CardCarousel({ data }) {
   console.log(currentIndex);
 
   return (
-    <div>
-      <SlideBox>
+    <SlideBox>
+      <SlideHeader>
+        <div>{label} 둘러보기</div>
         <ButtonContainer>
           <Button onClick={isTransition ? null : () => handleOnClick(-1)}>〈</Button>
           <Button onClick={isTransition ? null : () => handleOnClick(1)}>〉</Button>
         </ButtonContainer>
-        <SlideList>
-          <SlideTrack
-            onTransitionEnd={handleTransitionEnd}
-            style={{
-              transform: `translateX(${-185 * currentIndex}px)`,
-              transition: slideTransition,
-            }}
-          >
-            {slides.map((slide, slideIndex) => {
-              const itemIndex = getItemIndex(slideIndex);
-              const genre = getSlideItem(itemIndex);
-              return <SlideItem key={slideIndex}>{genre}</SlideItem>;
-            })}
-          </SlideTrack>
-        </SlideList>
-      </SlideBox>
-    </div>
+      </SlideHeader>
+      <SlideList>
+        <SlideTrack
+          onTransitionEnd={handleTransitionEnd}
+          style={{
+            transform: `translateX(${-185 * currentIndex}px)`,
+            transition: slideTransition,
+          }}
+        >
+          {slides.map((slide, slideIndex) => {
+            const itemIndex = getItemIndex(slideIndex);
+            const genre = getSlideItem(itemIndex);
+            return <SlideItem key={slideIndex}>{genre}</SlideItem>;
+          })}
+        </SlideTrack>
+      </SlideList>
+    </SlideBox>
   );
 }
 
 export default CardCarousel;
 
 const NAVY = ({ theme }) => theme.color.navy;
+const BOLD = ({ theme }) => theme.font.weight['bold'];
+const BOLD_TEXT = [({ theme }) => theme.font.size['30'], BOLD];
 const CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 
 const SlideBox = styled.div`
@@ -110,6 +113,14 @@ const SlideBox = styled.div`
   gap: 25px;
   width: 960px;
   height: fit-content;
+`;
+
+const SlideHeader = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: ${NAVY};
+  ${BOLD_TEXT};
 `;
 
 const Button = styled.button`
