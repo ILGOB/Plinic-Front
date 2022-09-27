@@ -105,13 +105,14 @@ export default CardCarousel;
 
 const NAVY = ({ theme }) => theme.color.navy;
 const BOLD = ({ theme }) => theme.font.weight['bold'];
+const MEDIUM_TEXT = ({ theme }) => theme.font.size['16'];
 const BOLD_TEXT = [({ theme }) => theme.font.size['30'], BOLD];
 const CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 
 const SlideBox = styled.div`
   ${CENTER_COLUMN}
   gap: 25px;
-  width: 960px;
+  width: 100%;
   height: fit-content;
 `;
 
@@ -130,7 +131,12 @@ const Button = styled.button`
   background: transparent;
   border: 1px solid ${NAVY};
   border-radius: 20px;
+  text-align: center;
+  line-height: 40px;
+  text-decoration: none;
   color: ${NAVY};
+  ${MEDIUM_TEXT};
+  ${BOLD};
   cursor: pointer;
 `;
 
