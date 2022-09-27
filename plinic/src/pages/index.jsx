@@ -3,6 +3,8 @@ import Login from './login/Login';
 import Search from './search/Search';
 import PostList from './post/PostList';
 import SignUp from './sign-up/SignUp';
+import MyPage from './my-page/MyPage';
+
 import {
   CE,
   TestGenreBtn,
@@ -32,6 +34,7 @@ export {
   Search,
   PostList,
   SignUp,
+  MyPage,
   CE,
   TestGenreBtn,
   TestTextBtn,
