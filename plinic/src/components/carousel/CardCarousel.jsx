@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Thumbnail from '../thumbnail/Thumbnail';
 
 function CardCarousel({ label, data }) {
   const items = data;
@@ -38,7 +39,8 @@ function CardCarousel({ label, data }) {
   function getSlideItem(itemIndex) {
     const slideItem = items.filter(item => itemIndex === item.id);
     const slideItemTitle = slideItem.map(item => item.title).join();
-    return slideItemTitle;
+    const slideItemImage = slideItem.map(item => item.thumbnail);
+    return [slideItemTitle, slideItemImage];
   }
 
   function replaceSlide(index) {
@@ -92,8 +94,13 @@ function CardCarousel({ label, data }) {
         >
           {slides.map((slide, slideIndex) => {
             const itemIndex = getItemIndex(slideIndex);
-            const genre = getSlideItem(itemIndex);
-            return <SlideItem key={slideIndex}>{genre}</SlideItem>;
+            const [genre, img] = getSlideItem(itemIndex);
+            return (
+              <SlideItem key={slideIndex}>
+                <Thumbnail img={img} />
+                <Label>{genre}</Label>
+              </SlideItem>
+            );
           })}
         </SlideTrack>
       </SlideList>
@@ -158,7 +165,19 @@ const SlideTrack = styled.div`
 `;
 
 const SlideItem = styled.div`
-  min-width: 222px;
-  height: 222px;
-  border: 1px solid #000;
+  position: relative;
+  ${CENTER_COLUMN}
+  cursor: pointer;
+`;
+
+const Label = styled.div`
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  ${({ theme }) => theme.font.size['20']};
+  color: ${({ theme }) => theme.color.white};
+  z-index: 10;
 `;
