@@ -73,8 +73,6 @@ function CardCarousel({ label, data }) {
     setIsTransition(false);
   }
 
-  console.log(currentIndex);
-
   return (
     <SlideBox>
       <SlideHeader>
