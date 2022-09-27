@@ -28,7 +28,7 @@ function NoticeList() {
             .slice(noticePerPage * (activePage - 1), noticePerPage * (activePage - 1) + noticePerPage)
             .map(notice => (
               <Notice key={notice.id}>
-                <LinkStyled to={'/'}>
+                <LinkStyled to={`/notice/${notice.id}`}>
                   <GridContainer link>
                     <GridItem>{notice.id}</GridItem>
                     <GridItem isTitle={true}>{notice.title}</GridItem>
