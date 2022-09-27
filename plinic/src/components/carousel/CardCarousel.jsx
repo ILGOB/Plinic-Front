@@ -98,6 +98,7 @@ function CardCarousel({ label, data }) {
             return (
               <SlideItem key={slideIndex}>
                 <Thumbnail img={img} />
+                <DimThumbnail />
                 <Label>{genre}</Label>
               </SlideItem>
             );
@@ -168,6 +169,16 @@ const SlideItem = styled.div`
   position: relative;
   ${CENTER_COLUMN}
   cursor: pointer;
+`;
+
+const DimThumbnail = styled.div`
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 222px;
+  height: 222px;
+  border-radius: 10px;
 `;
 
 const Label = styled.div`
