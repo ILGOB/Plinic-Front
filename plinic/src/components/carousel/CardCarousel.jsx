@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Thumbnail from '../thumbnail/Thumbnail';
 
 function CardCarousel({ label, data }) {
@@ -95,9 +96,11 @@ function CardCarousel({ label, data }) {
             const [genre, img] = getSlideItem(itemIndex);
             return (
               <SlideItem key={slideIndex}>
-                <Thumbnail img={img} />
-                <DimThumbnail />
-                <Label>{genre}</Label>
+                <Link to={`/explore/${genre}`}>
+                  <Thumbnail img={img} />
+                  <DimThumbnail />
+                  <Label>{genre}</Label>
+                </Link>
               </SlideItem>
             );
           })}
