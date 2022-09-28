@@ -5,6 +5,7 @@ import {
   Home,
   Login,
   Search,
+  SearchResult,
   PostList,
   SignUp,
   CE,
@@ -37,6 +38,7 @@ function App() {
           <Route path="/" element={<Layout page={<Home />} fullScreen />} />
           <Route path="/login" element={<Layout noMenu page={<Login />} />} />
           <Route path="/search" element={<Layout page={<Search />} />} />
+          <Route path="/searchresult" element={<Layout page={<SearchResult />} />} />
           <Route path="/post-list" element={<Layout page={<PostList />} />} />
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
           <Route path="/CE" element={<Layout page={<CE />} />} />

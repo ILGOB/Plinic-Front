@@ -1,6 +1,6 @@
 import Home from './home/Home';
 import Login from './login/Login';
-import Search from './search/Search';
+import { Search, SearchResult } from './search';
 import PostList from './post/PostList';
 import SignUp from './sign-up/SignUp';
 import {
@@ -30,6 +30,7 @@ export {
   Home,
   Login,
   Search,
+  SearchResult,
   PostList,
   SignUp,
   CE,
