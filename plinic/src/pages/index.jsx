@@ -4,6 +4,8 @@ import { Search, SearchResult } from './search';
 import PostList from './post/PostList';
 import NoticeList from './notice/NoticeList';
 import SignUp from './sign-up/SignUp';
+import MyPage from './my-page/MyPage';
+
 import {
   CE,
   TestGenreBtn,
@@ -35,6 +37,7 @@ export {
   PostList,
   NoticeList,
   SignUp,
+  MyPage,
   CE,
   TestGenreBtn,
   TestTextBtn,

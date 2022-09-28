@@ -9,6 +9,7 @@ import {
   PostList,
   NoticeList,
   SignUp,
+  MyPage,
   CE,
   TestGenreBtn,
   TestTextBtn,
@@ -43,6 +44,7 @@ function App() {
           <Route path="/post-list" element={<Layout page={<PostList />} />} />
           <Route path="/notice" element={<Layout page={<NoticeList />} />} />
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
+          <Route path="/my-page" element={<Layout page={<MyPage />} />} />
           <Route path="/CE" element={<Layout page={<CE />} />} />
           <Route path="/CE/genre-button" element={<Layout page={<TestGenreBtn />} />} />
           <Route path="/CE/text-button" element={<Layout page={<TestTextBtn />} />} />
