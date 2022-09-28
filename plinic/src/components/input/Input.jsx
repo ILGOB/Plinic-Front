@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit }) {
   const placeholder = {
@@ -8,6 +11,7 @@ function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit }) 
     title: '제목',
     content: '내용',
   };
+  const navigate = useNavigate();
 
   const handleInput = e => {
     setUserInput(e.target.value);
@@ -17,9 +21,14 @@ function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit }) 
     e.preventDefault();
   };
 
+  const navigateToResult = () => {
+    navigate('/searchresult', { state: { q: userInput } });
+  };
+
   const handleKeyDown = e => {
     if (e.key === 'Enter' && (usedFor === 'nickname' || usedFor === 'search')) {
       setUserSubmit(e.target.value);
+      navigateToResult();
     }
   };
 
@@ -33,7 +42,11 @@ function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit }) 
           onChange={handleInput}
           onKeyDown={handleKeyDown}
         />
-        {usedFor === 'nickname' ? <span></span> : usedFor === 'search' && <div>🔍</div>}
+        {usedFor === 'nickname' ? (
+          <span></span>
+        ) : (
+          usedFor === 'search' && <FontAwesomeIcon icon={faMagnifyingGlass} onClick={() => navigateToResult()} />
+        )}
       </FormStyled>
     </div>
   );
@@ -57,12 +70,15 @@ const FormStyled = styled.form`
     transform-origin: center;
     transition: all 0.3s;
   }
-  & > div {
-    width: 25px;
-    height: 25px;
+  & > .fa-magnifying-glass {
+    width: 18px;
+    height: 18px;
     position: absolute;
     right: 20px;
-    top: 12.5px;
+    top: 15px;
+    color: ${NAVY};
+    user-select: none;
+    cursor: pointer;
   }
 `;
 
