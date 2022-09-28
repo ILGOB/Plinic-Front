@@ -5,6 +5,7 @@ import {
   Home,
   Login,
   Search,
+  SearchResult,
   PostList,
   NoticeList,
   SignUp,
@@ -38,6 +39,7 @@ function App() {
           <Route path="/" element={<Layout page={<Home />} fullScreen />} />
           <Route path="/login" element={<Layout noMenu page={<Login />} />} />
           <Route path="/search" element={<Layout page={<Search />} />} />
+          <Route path="/searchresult" element={<Layout page={<SearchResult />} />} />
           <Route path="/post-list" element={<Layout page={<PostList />} />} />
           <Route path="/notice" element={<Layout page={<NoticeList />} />} />
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
