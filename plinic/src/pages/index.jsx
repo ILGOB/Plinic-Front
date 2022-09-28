@@ -2,6 +2,7 @@ import Home from './home/Home';
 import Login from './login/Login';
 import Search from './search/Search';
 import PostList from './post/PostList';
+import NoticeList from './notice/NoticeList';
 import SignUp from './sign-up/SignUp';
 import {
   CE,
@@ -31,6 +32,7 @@ export {
   Login,
   Search,
   PostList,
+  NoticeList,
   SignUp,
   CE,
   TestGenreBtn,

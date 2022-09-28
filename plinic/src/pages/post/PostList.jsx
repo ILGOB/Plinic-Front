@@ -29,7 +29,7 @@ function PostList() {
       {latestNotice.map(n => (
         <NoticeContainer key={n.id}>
           <div>
-            <LinkStyled to="/">
+            <LinkStyled to="/notice-list">
               <IconStyled icon={faWarning} />
               [공지]
             </LinkStyled>
