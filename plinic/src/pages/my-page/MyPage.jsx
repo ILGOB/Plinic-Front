@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faGear } from '@fortawesome/free-solid-svg-icons';
+import Switch from '../../components/switch/Switch';
+import CardSwipe from '../../components/swipe/CardSwipe';
 
 function MyPage() {
   const userInfo = (
@@ -22,7 +24,15 @@ function MyPage() {
     </UserInfoWrapper>
   );
 
-  const playList = <PlayListWrapper>{/* <Title>공개 플레이리스트 2개</Title> */}</PlayListWrapper>;
+  const playList = (
+    <PlayListWrapper>
+      <Header>
+        <Title>공개 플레이리스트 2개</Title>
+        <Switch leftLabel={'비공개'} rightLabel={'공개'} />
+      </Header>
+      <CardSwipe />
+    </PlayListWrapper>
+  );
 
   return (
     <Wrapper>
@@ -35,14 +45,18 @@ function MyPage() {
 export default MyPage;
 
 const NAVY = ({ theme }) => theme.color.navy;
-const BOLD = ({ theme }) => theme.font.weight.bold;
 const THICK = ({ theme }) => theme.font.weight.thick;
+const BOLD = ({ theme }) => theme.font.weight.bold;
 const FLEX_CENTER = ({ theme }) => theme.align.flexCenter;
 const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
+  /* background-color: red; */
+  ${FLEX_CENTER}
+  justify-content: space-around;
+  gap: 200px;
 `;
 
 const UserInfoWrapper = styled.div`
@@ -68,25 +82,27 @@ const LinkStyled = styled(Link)`
 `;
 
 const SettingWrapper = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background-color: white;
   position: relative;
-  bottom: 40px;
-  left: 85px;
+  bottom: 30px;
+  left: 95px;
   ${FLEX_CENTER_COLUMN};
   cursor: pointer;
 `;
 
 const SettingIcon = styled(FontAwesomeIcon)`
-  font-size: 24px;
+  font-size: 20px;
 `;
 
 const Nickname = styled.span`
   ${BOLD};
   color: ${NAVY};
   ${({ theme }) => theme.font.size[30]};
+  margin-top: 30px;
+  margin-bottom: 24px;
 `;
 
 const GenreWrapper = styled.div`
@@ -99,10 +115,22 @@ const PostedLink = styled(Link)`
   color: ${NAVY};
   text-decoration: none;
   ${THICK}
+  margin-top: 20px;
 `;
 
 const PlayListWrapper = styled.div`
-  width: 550px;
+  width: fit-content;
   height: fit-content;
-  background-color: #94518b;
+  /* background-color: #94518b; */
+`;
+
+const Header = styled.div`
+  ${FLEX_CENTER};
+  gap: 213px;
+`;
+
+const Title = styled.span`
+  ${BOLD}
+  color: ${NAVY};
+  ${({ theme }) => theme.font.size[20]};
 `;
