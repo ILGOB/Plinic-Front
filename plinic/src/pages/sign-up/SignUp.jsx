@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
+import Input from '../../components/input/Input';
+
 function SignUp() {
   const [nickname, setNickname] = useState('');
   const [genreNum, setGenreNum] = useState(0);
@@ -15,10 +17,6 @@ function SignUp() {
 
   const genreNumDownHandler = () => {
     setGenreNum(genreNum - 1);
-  };
-
-  const nicknameHandler = e => {
-    setNickname(e.target.value);
   };
 
   const signUpHandler = () => {
@@ -37,7 +35,7 @@ function SignUp() {
       <Email>plinic@gmail.com</Email>
       <NicknameWrapper>
         <Text>사용할 닉네임을 입력하세요</Text>
-        <Input onChange={nicknameHandler} />
+        <Input usedFor={'nickname'} userInput={nickname} setUserInput={setNickname} />
         {genreNum > MAX_NUM && <WarningText>중복된 닉네임입니다.</WarningText>}
       </NicknameWrapper>
       <GenreWrapper>
@@ -94,15 +92,6 @@ const NicknameWrapper = styled.div`
 
 const Text = styled(Email)`
   ${({ theme }) => theme.font.weight.normal};
-`;
-
-const Input = styled.input`
-  outline: none;
-  border: none;
-  border-bottom: 2px solid ${NAVY};
-  ${({ theme }) => theme.font.weight.thick};
-  text-align: center;
-  margin-bottom: 12px;
 `;
 
 const WarningText = styled.span`
