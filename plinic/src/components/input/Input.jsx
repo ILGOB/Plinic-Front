@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit }) {
+function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit, maxLength }) {
   const placeholder = {
     nickname: '닉네임',
     search: '검색어',
@@ -39,6 +39,7 @@ function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit }) 
           usedFor={usedFor}
           value={userInput}
           placeholder={`${placeholder[usedFor]}을 입력하세요.`}
+          maxLength={maxLength}
           onChange={handleInput}
           onKeyDown={handleKeyDown}
         />
@@ -103,16 +104,16 @@ const inputStyles = {
   `,
   title: `
   padding: 10px 12px;
-  width: 520px;
+  width: 900px;
   border: 1px solid;
   border-radius: 10px;
   `,
   content: `
   padding: 10px 12px;
-  width: 520px;
+  width: 900px;
   border: 1px solid;
   border-radius: 10px;
-  height: 150px;
+  height: 300px;
   resize: none;
   `,
 };
