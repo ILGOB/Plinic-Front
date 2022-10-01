@@ -3,12 +3,21 @@ import { useParams, Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faChevronRight, faCalendar, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { posts } from '../../components/pagination/posts';
 
 function Notice() {
   const isMounted = useRef(false);
   const { noticeId } = useParams();
   const [isEdited, setIsEdited] = useState(true);
   const [isShowMenu, setIsShowMenu] = useState(false);
+  const [notice] = posts.filter(findById);
+
+  function findById(notice) {
+    if (notice.id === +noticeId) {
+      return true;
+    }
+    return false;
+  }
 
   useEffect(() => {
     isMounted.current = true;
@@ -22,7 +31,7 @@ function Notice() {
           공지사항 <FontAwesomeIcon icon={faChevronRight} />
         </NoticeLink>
         <Title>
-          <TitleText>[공지] {noticeId}번째 공지</TitleText>
+          <TitleText>[공지] {notice.title}</TitleText>
           <Menu>
             <FontAwesomeIcon icon={faEllipsisVertical} onClick={() => setIsShowMenu(current => !current)} />
             <FloatingMenuWrapper>
@@ -184,8 +193,9 @@ const FloatingMenu = styled.div`
   top: -100px;
   right: 10px;
   width: 80px;
-  border-radius: 10px;
-  box-shadow: 0 0 8px 1px ${GRAY};
+  border-radius: 5px;
+  border: 1px solid ${GRAY};
+  /* box-shadow: 0 0 8px 1px ${GRAY}; */
   animation: ${props => props.$isMounted && slideUpDown(props.$isShow)} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   ${FLEX_CENTER_COLUMN};
 
