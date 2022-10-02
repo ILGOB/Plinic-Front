@@ -1,51 +1,40 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import { ThemeProvider } from 'styled-components';
-import { darkTheme, lightTheme } from '../../styles/theme';
-import { GlobalStyle } from '../GlobalStyles';
 
 import Header from './Header';
 import Main from './Main';
 
-function Layout({ children }) {
-  const localTheme = window.localStorage.getItem('theme') || 'light';
-  const [themeMode, setThemeMode] = useState(localTheme);
-  const themeObject = themeMode === 'light' ? lightTheme : darkTheme;
-
-  const toggleThemeMode = () => {
-    if (themeMode === 'light') {
-      setThemeMode('dark');
-      window.localStorage.setItem('theme', 'dark');
-    } else {
-      setThemeMode('light');
-      window.localStorage.setItem('theme', 'light');
-    }
-  };
-
-  return (
-    <Wrapper>
-      <ThemeProvider theme={themeObject}>
-        <GlobalStyle />
-        <Header themeMode={themeMode} toggleDarkMode={toggleThemeMode} />
-        <Main>{children}</Main>
-      </ThemeProvider>
-    </Wrapper>
-  );
+function Layout({ page, fullScreen, noMenu }) {
+  if (fullScreen) {
+    return <FullWrapper>{page}</FullWrapper>;
+  } else {
+    return (
+      <Wrapper>
+        <Header noMenu={noMenu} />
+        <Main>{page}</Main>
+      </Wrapper>
+    );
+  }
 }
 
 export default Layout;
 
+const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
+
+const FullWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  ${FLEX_CENTER_COLUMN}
+`;
+
 const Wrapper = styled.div`
   height: 100vh;
-  /* background-color: ${({ theme }) => theme.color.navy}; */
-  /* color: white; */
-  @media (max-width: 1100px) {
-    width: 1024px;
-    padding: 0 calc((1100px - 1024px) / 2);
+  @media (max-width: 1300px) {
+    width: 1200px;
+    padding: 0 calc((1300px - 1200px) / 2);
   }
-  @media (min-width: 1100px) {
+  @media (min-width: 1300px) {
     width: 100vw;
-    padding: 0 calc((100vw - 1024px) / 2);
+    padding: 0 calc((100vw - 1200px) / 2);
     overflow-x: hidden;
   }
 `;
