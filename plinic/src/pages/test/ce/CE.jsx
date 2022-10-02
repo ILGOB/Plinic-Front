@@ -44,6 +44,7 @@ import styled from 'styled-components';
 function CE() {
   return (
     <Wrapper>
+      <Link to="/ce/resign">Resign Page</Link>
       <Link to="/ce/genre-button">GenreButton Component</Link>
       <Link to="/ce/text-button">TextBtn Component</Link>
       <Link to="/ce/text-icon-button">TextIconBtn Component</Link>
