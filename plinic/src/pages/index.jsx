@@ -2,7 +2,7 @@ import Home from './home/Home';
 import Login from './login/Login';
 import { Search, SearchResult } from './search';
 import PostList from './post/PostList';
-import NoticeList from './notice/NoticeList';
+import { Notice, NoticeList } from './notice';
 import SignUp from './sign-up/SignUp';
 import MyPage from './my-page/MyPage';
 
@@ -35,6 +35,7 @@ export {
   Search,
   SearchResult,
   PostList,
+  Notice,
   NoticeList,
   SignUp,
   MyPage,
