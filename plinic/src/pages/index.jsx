@@ -5,6 +5,7 @@ import PostList from './post/PostList';
 import { Notice, NoticeList } from './notice';
 import SignUp from './sign-up/SignUp';
 import MyPage from './my-page/MyPage';
+import Playlist from './playlist/Playlist';
 
 import {
   CE,
@@ -39,6 +40,7 @@ export {
   NoticeList,
   SignUp,
   MyPage,
+  Playlist,
   CE,
   TestGenreBtn,
   TestTextBtn,
