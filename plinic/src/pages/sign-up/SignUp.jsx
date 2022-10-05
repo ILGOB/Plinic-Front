@@ -60,10 +60,12 @@ const MAX_NUM = 3;
 const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 
 const Wrapper = styled.div`
-  /* background-color: red; */
+  background-color: red;
   width: 100%;
-  margin-top: -50px;
-  ${FLEX_CENTER_COLUMN}
+  height: 100%;
+  padding-top: calc((100vh - 60px - 565px) / 2);
+  ${FLEX_CENTER_COLUMN};
+  justify-content: flex-start;
 `;
 
 const Title = styled.span`
