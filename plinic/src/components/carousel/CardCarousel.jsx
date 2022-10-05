@@ -112,7 +112,7 @@ function CardCarousel({ label, data, loop, detailLink }) {
       handleSwipe(direction);
     } else {
       let index = currentIndex + direction;
-      if (index === itemSize - 3 || index === 0) {
+      if (index === itemSize - 3 || index === 0 || itemSize <= 5) {
         return;
       } else {
         setIsTransition(true);
@@ -141,12 +141,15 @@ function CardCarousel({ label, data, loop, detailLink }) {
           )}
         </div>
         <ButtonContainer>
-          <Button onClick={isTransition ? null : () => handleOnClick(-1)} disabled={!loop && currentIndex === 1}>
+          <Button
+            onClick={isTransition ? null : () => handleOnClick(-1)}
+            disabled={!loop && (currentIndex === 1 || itemSize <= 5)}
+          >
             〈
           </Button>
           <Button
             onClick={isTransition ? null : () => handleOnClick(1)}
-            disabled={!loop && currentIndex === itemSize - 4}
+            disabled={!loop && (currentIndex === itemSize - 4 || itemSize <= 5)}
           >
             〉
           </Button>
