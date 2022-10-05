@@ -13,5 +13,6 @@ const Wrapper = styled.div`
   width: 100%;
   height: calc(100vh - 60px);
   ${FLEX_CENTER_COLUMN};
+  overflow: hidden;
   /* background-color: ${({ theme }) => theme.color.navy}; */
 `;
