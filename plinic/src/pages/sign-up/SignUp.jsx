@@ -60,7 +60,6 @@ const MAX_NUM = 3;
 const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 
 const Wrapper = styled.div`
-  background-color: red;
   width: 100%;
   height: 100%;
   padding-top: calc((100vh - 60px - 565px) / 2);
