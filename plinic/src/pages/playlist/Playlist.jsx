@@ -209,6 +209,7 @@ const PlayList = styled.div`
   height: 264px;
   overflow-y: scroll;
   width: 100%;
+  margin-bottom: 40px;
 `;
 
 const PlayListItem = styled.li`
