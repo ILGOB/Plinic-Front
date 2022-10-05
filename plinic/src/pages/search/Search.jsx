@@ -18,8 +18,8 @@ function Search() {
         setUserSubmit={setSearchSubmit}
       />
       <ExploreWrapper>
-        <CardCarousel label={'장르'} data={data} />
-        <CardCarousel label={'분위기'} data={data} />
+        <CardCarousel label={'장르'} data={data} loop={true} />
+        <CardCarousel label={'분위기'} data={data} loop={true} />
       </ExploreWrapper>
     </Wrapper>
   );
