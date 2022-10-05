@@ -2,12 +2,20 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { useRecoilValue } from 'recoil';
+import loginAtom from '../../recoil/dummy-login/loginAtom';
 
 function Playlist() {
+  const loginState = useRecoilValue(loginAtom);
+  console.log('loginState :>> ', loginState);
+
   const [playing, setPlaying] = useState('');
 
   const handleDelete = () => {
     alert('삭제');
+  };
+  const handleSave = () => {
+    alert('저장');
   };
 
   const playlistData = [
@@ -106,7 +114,7 @@ function Playlist() {
     <Wrapper>
       <Header>
         <HeaderTitle>플레이리스트 제목</HeaderTitle>
-        <Btn onClick={handleDelete}>삭제</Btn>
+        {loginState ? <Btn onClick={handleDelete}>삭제</Btn> : <Btn onClick={handleSave}>보관함에 저장</Btn>}
       </Header>
       <Main>
         <Info>
