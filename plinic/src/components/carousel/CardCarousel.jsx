@@ -112,7 +112,7 @@ function CardCarousel({ label, data, loop, detailLink }) {
       handleSwipe(direction);
     } else {
       let index = currentIndex + direction;
-      if (index > itemSize - 4 || index === 0) {
+      if (index === itemSize - 3 || index === 0) {
         return;
       } else {
         setIsTransition(true);
@@ -141,8 +141,12 @@ function CardCarousel({ label, data, loop, detailLink }) {
           )}
         </div>
         <ButtonContainer>
-          <Button onClick={isTransition ? null : () => handleOnClick(-1)}>〈</Button>
-          <Button onClick={isTransition ? null : () => handleOnClick(1)}>〉</Button>
+          <Button onClick={isTransition ? null : () => handleOnClick(-1)} disabled={currentIndex === 1}>
+            〈
+          </Button>
+          <Button onClick={isTransition ? null : () => handleOnClick(1)} disabled={currentIndex === itemSize - 4}>
+            〉
+          </Button>
         </ButtonContainer>
       </SlideHeader>
       <SlideList>
@@ -171,6 +175,7 @@ function CardCarousel({ label, data, loop, detailLink }) {
 export default CardCarousel;
 
 const NAVY = ({ theme }) => theme.color.navy;
+const DISABLED = ({ theme }) => theme.color.disabled;
 const BOLD = ({ theme }) => theme.font.weight['bold'];
 const MEDIUM_TEXT = ({ theme }) => theme.font.size['16'];
 const BOLD_TEXT = [({ theme }) => theme.font.size['30'], BOLD];
@@ -209,17 +214,17 @@ const SlideHeader = styled.div`
 const Button = styled.button`
   width: 40px;
   height: 40px;
-  margin-left: 20px;
+  margin-left: 10px;
   background: transparent;
-  border: 1px solid ${NAVY};
+  border: 1px solid ${props => (props.disabled ? DISABLED : NAVY)};
   border-radius: 20px;
   text-align: center;
   line-height: 40px;
   text-decoration: none;
-  color: ${NAVY};
+  color: ${props => (props.disabled ? DISABLED : NAVY)};
   ${MEDIUM_TEXT};
   ${BOLD};
-  cursor: pointer;
+  cursor: ${props => props.disabled || 'pointer'};
 `;
 
 const ButtonContainer = styled.div`
