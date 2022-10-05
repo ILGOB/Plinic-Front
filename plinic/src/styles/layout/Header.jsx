@@ -55,6 +55,9 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
+  z-index: 100000;
+  position: relative;
 `;
 
 const Menu = styled.div`
