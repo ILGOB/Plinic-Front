@@ -32,6 +32,7 @@ import {
   TestModal,
   TestCard,
   TestPost,
+  Pages,
 } from './pages';
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
           <Route path="/HL/modal" element={<Layout page={<TestModal />} />} />
           <Route path="/HL/card" element={<Layout page={<TestCard />} />} />
           <Route path="/HL/post" element={<Layout page={<TestPost />} />} />
+          <Route path="/pages" element={<Layout page={<Pages />} />} />
         </Routes>
       </BrowserRouter>
     </Wrapper>

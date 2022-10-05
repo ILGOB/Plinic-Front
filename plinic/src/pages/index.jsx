@@ -28,6 +28,7 @@ import {
   TestModal,
   TestCard,
   TestPost,
+  Pages,
 } from './test';
 
 export {
@@ -61,4 +62,5 @@ export {
   TestModal,
   TestCard,
   TestPost,
+  Pages,
 };
