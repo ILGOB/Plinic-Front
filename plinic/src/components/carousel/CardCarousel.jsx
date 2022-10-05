@@ -141,10 +141,13 @@ function CardCarousel({ label, data, loop, detailLink }) {
           )}
         </div>
         <ButtonContainer>
-          <Button onClick={isTransition ? null : () => handleOnClick(-1)} disabled={currentIndex === 1}>
+          <Button onClick={isTransition ? null : () => handleOnClick(-1)} disabled={!loop && currentIndex === 1}>
             〈
           </Button>
-          <Button onClick={isTransition ? null : () => handleOnClick(1)} disabled={currentIndex === itemSize - 4}>
+          <Button
+            onClick={isTransition ? null : () => handleOnClick(1)}
+            disabled={!loop && currentIndex === itemSize - 4}
+          >
             〉
           </Button>
         </ButtonContainer>
@@ -153,7 +156,7 @@ function CardCarousel({ label, data, loop, detailLink }) {
         <SlideTrack
           onTransitionEnd={handleTransitionEnd}
           style={{
-            transform: `translateX(${-247 * (currentIndex - 1)}px)`,
+            transform: `translateX(${-242 * (currentIndex - 1)}px)`,
             transition: slideTransition,
           }}
         >
@@ -232,14 +235,14 @@ const ButtonContainer = styled.div`
 `;
 
 const SlideList = styled.div`
-  width: calc(222px * 5 + 100px);
+  width: calc(222px * 5 + 85px);
   overflow: hidden;
 `;
 
 const SlideTrack = styled.div`
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 20px;
   width: fit-content;
 `;
 
