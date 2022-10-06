@@ -21,84 +21,72 @@ function Playlist() {
   const playlistData = [
     {
       id: 1,
-      // src: 'https://www.youtube.com/watch?v=K2MfpA_4EEs&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=1',
       src: 'E8gmARGvPlI',
       title: 'Wham! - Last Christmas (Official Video)',
       time: '4:38',
     },
     {
       id: 2,
-      // src: 'https://www.youtube.com/watch?v=2vSFVr5Unig&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=2',
       src: 'fRyhqobl0sk',
       title: 'All I Want for Christmas Is You',
       time: '4:02',
     },
     {
       id: 3,
-      // src: 'https://www.youtube.com/watch?v=Vc5JNvIq22Q&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=3',
       src: 'L1KEJzfsQEY',
       title: 'Ava Max - Christmas Without You [Official Audio]',
       time: '2:50',
     },
     {
       id: 4,
-      // src: 'https://www.youtube.com/watch?v=Vc5JNvIq22Q&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=3',
       src: 'hVzjR6hBArE',
       title: 'Mabel - Loneliest Time Of Year',
       time: '3:27',
     },
     {
       id: 5,
-      // src: 'https://www.youtube.com/watch?v=Vc5JNvIq22Q&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=3',
       src: 'QLrmP9GBd3c',
       title: 'Alessia Cara - Make It To Christmas (Audio)',
       time: '3:32',
     },
     {
       id: 6,
-      // src: 'https://www.youtube.com/watch?v=Vc5JNvIq22Q&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=3',
       src: '_hOL1Cw2Hbg',
       title: 'Pink Sweat$ & Donny Hathaway - This Christmas (Official Audio)',
       time: '3:02',
     },
     {
       id: 7,
-      // src: 'https://www.youtube.com/watch?v=Vc5JNvIq22Q&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=3',
       src: 'hVzjR6hBArE',
       title: 'Mabel - Loneliest Time Of Year',
       time: '3:27',
     },
     {
       id: 8,
-      // src: 'https://www.youtube.com/watch?v=Vc5JNvIq22Q&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=3',
       src: 'QLrmP9GBd3c',
       title: 'Alessia Cara - Make It To Christmas (Audio)',
       time: '3:32',
     },
     {
       id: 9,
-      // src: 'https://www.youtube.com/watch?v=Vc5JNvIq22Q&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=3',
       src: '_hOL1Cw2Hbg',
       title: 'Pink Sweat$ & Donny Hathaway - This Christmas (Official Audio)',
       time: '3:02',
     },
     {
       id: 10,
-      // src: 'https://www.youtube.com/watch?v=Vc5JNvIq22Q&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=3',
       src: 'hVzjR6hBArE',
       title: 'Mabel - Loneliest Time Of Year',
       time: '3:27',
     },
     {
       id: 11,
-      // src: 'https://www.youtube.com/watch?v=Vc5JNvIq22Q&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=3',
       src: 'QLrmP9GBd3c',
       title: 'Alessia Cara - Make It To Christmas (Audio)',
       time: '3:32',
     },
     {
       id: 12,
-      // src: 'https://www.youtube.com/watch?v=Vc5JNvIq22Q&list=TLGGm25RGvc1fywwNjA3MjAyMg&index=3',
       src: '_hOL1Cw2Hbg',
       title: 'Pink Sweat$ & Donny Hathaway - This Christmas (Official Audio)',
       time: '3:02',
@@ -160,14 +148,12 @@ const FLEX_CENTER = ({ theme }) => theme.align.flexCenter;
 const Wrapper = styled.div`
   width: 100%;
   ${FLEX_CENTER_COLUMN};
-  /* position: relative; */
 `;
+
 const Header = styled.div`
   ${FLEX_CENTER}
-  /* justify-content: space-between; */
   gap:675px;
   width: 100%;
-  /* position: absolute; */
   top: 60px;
 `;
 
