@@ -106,8 +106,7 @@ function Playlist() {
   ];
 
   const changeMusic = e => {
-    setPlaying(e.target.id);
-    console.log('playing :>> ', playing);
+    setPlaying(e.currentTarget.id);
   };
 
   return (
@@ -129,8 +128,8 @@ function Playlist() {
               height="360"
               src={
                 playing
-                  ? `https://www.youtube.com/embed/${playing}?autoplay=1&mute=1?videoseries?list=TLGG70_eemmaf0UwNDEwMjAyMg`
-                  : `https://www.youtube.com/embed/${playlistData[0].src}?autoplay=1&mute=1?videoseries?list=TLGG70_eemmaf0UwNDEwMjAyMg`
+                  ? `https://www.youtube.com/embed/${playing}/videoseries?list=TLGG70_eemmaf0UwNDEwMjAyMg`
+                  : `https://www.youtube.com/embed/videoseries?list=TLGG70_eemmaf0UwNDEwMjAyMg`
               }
               title=""
               frameBorder="0"
