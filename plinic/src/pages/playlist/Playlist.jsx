@@ -116,8 +116,8 @@ function Playlist() {
               height="360"
               src={
                 playing
-                  ? `https://www.youtube.com/embed/${playing}/videoseries?list=TLGG70_eemmaf0UwNDEwMjAyMg`
-                  : `https://www.youtube.com/embed/videoseries?list=TLGG70_eemmaf0UwNDEwMjAyMg`
+                  ? `https://www.youtube.com/embed/${playing}/videoseries?list=TLGG70_eemmaf0UwNzEwMjAyMg`
+                  : `https://www.youtube.com/embed/videoseries?list=TLGG70_eemmaf0UwNzEwMjAyMg`
               }
               title=""
               frameBorder="0"
