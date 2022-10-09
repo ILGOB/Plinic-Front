@@ -7,9 +7,8 @@ import 'swiper/swiper-bundle.css';
 import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import Thumbnail from '../thumbnail/Thumbnail';
-import data from '../post/dummyData';
 
-function PlaylistSwipe() {
+function PlaylistSwipe({ data, setPlaylistInput }) {
   const playlists = data;
   const [swiper, setSwiper] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,6 +40,7 @@ function PlaylistSwipe() {
     onSlideChange: e => {
       setCurrentIndex(e.activeIndex);
       setCurrentItem(data[e.activeIndex]);
+      setPlaylistInput(data[e.activeIndex].title);
     },
   };
 
