@@ -6,6 +6,7 @@ import {
   Login,
   Search,
   SearchResult,
+  Post,
   PostList,
   PostCreate,
   Notice,
@@ -45,6 +46,7 @@ function App() {
           <Route path="/login" element={<Layout noMenu page={<Login />} />} />
           <Route path="/search" element={<Layout page={<Search />} />} />
           <Route path="/searchresult" element={<Layout page={<SearchResult />} />} />
+          <Route path="/post/:postId" element={<Layout page={<Post />} />} />
           <Route path="/post-list" element={<Layout page={<PostList />} />} />
           <Route path="/post/new" element={<Layout page={<PostCreate />} />} />
           <Route path="/notice" element={<Layout page={<NoticeList />} />} />
