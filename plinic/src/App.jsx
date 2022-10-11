@@ -13,6 +13,7 @@ import {
   NoticeList,
   SignUp,
   MyPage,
+  ProfileEdit,
   Playlist,
   CE,
   TestGenreBtn,
@@ -53,6 +54,7 @@ function App() {
           <Route path="/notice/:noticeId" element={<Layout page={<Notice />} />} />
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
           <Route path="/my-page" element={<Layout page={<MyPage />} />} />
+          <Route path="/profile/edit" element={<Layout page={<ProfileEdit />} />} />
           <Route path="/playlist" element={<Layout page={<Playlist />} />} />
           <Route path="/CE" element={<Layout page={<CE />} />} />
           <Route path="/CE/genre-button" element={<Layout page={<TestGenreBtn />} />} />
