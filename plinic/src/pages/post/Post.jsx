@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import loginAtom from '../../recoil/dummy-login/loginAtom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faCircle, faHeart, faBookmark } from '@fortawesome/free-solid-svg-icons';
@@ -8,8 +10,15 @@ function Post() {
   const { postId } = useParams();
   const [isEdited, setIsEdited] = useState(false);
 
+  const loginState = useRecoilValue(loginAtom);
+  console.log('loginState :>> ', loginState);
+
   const editHandler = () => {
     setIsEdited(!isEdited);
+  };
+
+  const handleDelete = () => {
+    alert('삭제');
   };
 
   const [playing, setPlaying] = useState('');
@@ -96,7 +105,10 @@ function Post() {
   return (
     <Wrapper>
       <button onClick={editHandler}>edit</button>
-      <Writer>by. 작성자</Writer>
+      <div>
+        <Writer>by. 작성자</Writer>
+        {loginState ? <Btn onClick={handleDelete}>삭제</Btn> : ''}
+      </div>
       <Info>
         <PostTitle>플레이리스트 제목</PostTitle>
         <Genre />
@@ -120,10 +132,14 @@ function Post() {
           <FontAwesomeIcon icon={faHeart} />
           <span>120</span>
         </LikeBtn>
-        <BookmarkBtn>
-          <FontAwesomeIcon icon={faBookmark} />
-          <span>저장하기</span>
-        </BookmarkBtn>
+        {loginState ? (
+          '게시글 수정하기'
+        ) : (
+          <BookmarkBtn>
+            <FontAwesomeIcon icon={faBookmark} />
+            <span>저장하기</span>
+          </BookmarkBtn>
+        )}
       </Buttons>
       <PlaylistWrapper>
         <VideoFrame>
@@ -174,7 +190,15 @@ const Wrapper = styled.div`
 
 const Writer = styled.span`
   color: #555555;
+  margin-right: 10px;
 `;
+
+const Btn = styled.span`
+  ${({ theme }) => theme.font.size[20]}
+  ${({ theme }) => theme.font.weight.thick}
+  cursor: pointer;
+`;
+
 const Info = styled.div`
   ${FLEX_CENTER}
 `;
