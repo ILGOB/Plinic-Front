@@ -8,6 +8,7 @@ import {
   SearchResult,
   Post,
   PostList,
+  PostCreate,
   Notice,
   NoticeList,
   SignUp,
@@ -47,6 +48,7 @@ function App() {
           <Route path="/searchresult" element={<Layout page={<SearchResult />} />} />
           <Route path="/post/:postId" element={<Layout page={<Post />} />} />
           <Route path="/post-list" element={<Layout page={<PostList />} />} />
+          <Route path="/post/new" element={<Layout page={<PostCreate />} />} />
           <Route path="/notice" element={<Layout page={<NoticeList />} />} />
           <Route path="/notice/:noticeId" element={<Layout page={<Notice />} />} />
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
