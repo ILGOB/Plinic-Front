@@ -12,7 +12,7 @@ function MyPage() {
     <UserInfoWrapper>
       <ProfileWrapper>
         <ProfileIcon icon={faCircleUser} />
-        <LinkStyled to={'/search'}>
+        <LinkStyled to={'/profile/edit'}>
           <SettingWrapper>
             <SettingIcon icon={faGear} />
           </SettingWrapper>

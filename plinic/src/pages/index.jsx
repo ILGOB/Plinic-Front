@@ -5,6 +5,7 @@ import { Post, PostList, PostCreate } from './post';
 import { Notice, NoticeList } from './notice';
 import SignUp from './sign-up/SignUp';
 import MyPage from './my-page/MyPage';
+import ProfileEdit from './profile-edit/ProfileEdit';
 import Playlist from './playlist/Playlist';
 
 import {
@@ -43,6 +44,7 @@ export {
   NoticeList,
   SignUp,
   MyPage,
+  ProfileEdit,
   Playlist,
   CE,
   TestGenreBtn,

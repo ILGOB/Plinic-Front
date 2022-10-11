@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit, maxLength }) {
+function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit, maxLength }, ref) {
   const placeholder = {
     nickname: '닉네임',
     search: '검색어',
@@ -36,6 +36,7 @@ function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit, ma
     <div>
       <FormStyled onSubmit={handleSubmit}>
         <InputStyled
+          ref={ref}
           usedFor={usedFor}
           value={userInput}
           placeholder={`${placeholder[usedFor]}을 입력하세요.`}
@@ -53,7 +54,7 @@ function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit, ma
   );
 }
 
-export default Input;
+export default forwardRef(Input);
 
 const NAVY = ({ theme }) => theme.color.navy;
 
