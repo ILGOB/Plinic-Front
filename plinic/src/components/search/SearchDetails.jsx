@@ -6,8 +6,10 @@ import Thumbnail from '../thumbnail/Thumbnail';
 import Pagination from '../pagination/Pagination';
 import SelectBox from '../select/SelectBox';
 
-function SearchDetails({ posts, users, q, setCurrentSortType, activePage, handlePageChange }) {
+function SearchDetails({ posts, users, setSearchParams, q, setCurrentSortType, activePage, handlePageChange }) {
   const label = posts ? '게시글' : '유저';
+  const sortBy = posts ? 'likes' : 'playlists';
+  const type = posts ? 'post' : 'user';
   const dataLength = posts ? posts.length : users ? users.length : 1;
 
   return (
@@ -16,7 +18,13 @@ function SearchDetails({ posts, users, q, setCurrentSortType, activePage, handle
         <Label>
           " {q} " 에 대한 {label} 검색 결과
         </Label>
-        <SelectBox sortBy={'likes'} setCurrentSortType={setCurrentSortType} />
+        <SelectBox
+          sortBy={sortBy}
+          q={q}
+          type={type}
+          setSearchParams={setSearchParams}
+          setCurrentSortType={setCurrentSortType}
+        />
       </Header>
       <Results>
         {posts &&
