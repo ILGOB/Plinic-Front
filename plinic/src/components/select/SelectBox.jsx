@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown as Down } from '@fortawesome/free-solid-svg-icons';
 
-function SelectBox({ sortBy, setCurrentSortType }) {
+function SelectBox({ sortBy, q, type, setSearchParams, setCurrentSortType }) {
   const isMounted = useRef(false);
   const [currentSortTypeLabel, setCurrentSortTypeLabel] = useState('정확도순');
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -19,6 +19,7 @@ function SelectBox({ sortBy, setCurrentSortType }) {
     const selectedOption = sortOptions.find(option => option.name === innerText);
     setCurrentSortTypeLabel(innerText);
     setCurrentSortType(selectedOption.value);
+    setSearchParams({ q: q, type: type, sort: selectedOption.value });
     setToggleMenu(false);
   };
 
