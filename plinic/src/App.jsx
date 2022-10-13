@@ -6,10 +6,15 @@ import {
   Login,
   Search,
   SearchResult,
+  Post,
   PostList,
+  PostCreate,
+  Notice,
   NoticeList,
   SignUp,
   MyPage,
+  ProfileEdit,
+  Playlist,
   CE,
   Resign,
   TestGenreBtn,
@@ -31,6 +36,7 @@ import {
   TestModal,
   TestCard,
   TestPost,
+  Pages,
 } from './pages';
 
 function App() {
@@ -42,10 +48,15 @@ function App() {
           <Route path="/login" element={<Layout noMenu page={<Login />} />} />
           <Route path="/search" element={<Layout page={<Search />} />} />
           <Route path="/searchresult" element={<Layout page={<SearchResult />} />} />
+          <Route path="/post/:postId" element={<Layout page={<Post />} />} />
           <Route path="/post-list" element={<Layout page={<PostList />} />} />
+          <Route path="/post/new" element={<Layout page={<PostCreate />} />} />
           <Route path="/notice" element={<Layout page={<NoticeList />} />} />
+          <Route path="/notice/:noticeId" element={<Layout page={<Notice />} />} />
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
           <Route path="/my-page" element={<Layout page={<MyPage />} />} />
+          <Route path="/profile/edit" element={<Layout page={<ProfileEdit />} />} />
+          <Route path="/playlist" element={<Layout page={<Playlist />} />} />
           <Route path="/CE" element={<Layout page={<CE />} />} />
           <Route path="/CE/genre-button" element={<Layout page={<TestGenreBtn />} />} />
           <Route path="/CE/text-button" element={<Layout page={<TestTextBtn />} />} />
@@ -66,6 +77,7 @@ function App() {
           <Route path="/HL/modal" element={<Layout page={<TestModal />} />} />
           <Route path="/HL/card" element={<Layout page={<TestCard />} />} />
           <Route path="/HL/post" element={<Layout page={<TestPost />} />} />
+          <Route path="/pages" element={<Layout page={<Pages />} />} />
         </Routes>
       </BrowserRouter>
     </Wrapper>

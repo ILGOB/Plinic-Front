@@ -1,10 +1,12 @@
 import Home from './home/Home';
 import Login from './login/Login';
 import { Search, SearchResult } from './search';
-import PostList from './post/PostList';
-import NoticeList from './notice/NoticeList';
+import { Post, PostList, PostCreate } from './post';
+import { Notice, NoticeList } from './notice';
 import SignUp from './sign-up/SignUp';
 import MyPage from './my-page/MyPage';
+import ProfileEdit from './profile-edit/ProfileEdit';
+import Playlist from './playlist/Playlist';
 
 import {
   CE,
@@ -28,6 +30,7 @@ import {
   TestModal,
   TestCard,
   TestPost,
+  Pages,
 } from './test';
 
 export {
@@ -35,10 +38,15 @@ export {
   Login,
   Search,
   SearchResult,
+  Post,
   PostList,
+  PostCreate,
+  Notice,
   NoticeList,
   SignUp,
   MyPage,
+  ProfileEdit,
+  Playlist,
   CE,
   Resign,
   TestGenreBtn,
@@ -60,4 +68,5 @@ export {
   TestModal,
   TestCard,
   TestPost,
+  Pages,
 };

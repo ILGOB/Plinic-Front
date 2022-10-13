@@ -12,6 +12,6 @@ const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 const Wrapper = styled.div`
   width: 100%;
   height: calc(100vh - 60px);
-  ${FLEX_CENTER_COLUMN};
+
   /* background-color: ${({ theme }) => theme.color.navy}; */
 `;

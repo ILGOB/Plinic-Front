@@ -12,7 +12,7 @@ function MyPage() {
     <UserInfoWrapper>
       <ProfileWrapper>
         <ProfileIcon icon={faCircleUser} />
-        <LinkStyled to={'/search'}>
+        <LinkStyled to={'/profile/edit'}>
           <SettingWrapper>
             <SettingIcon icon={faGear} />
           </SettingWrapper>
@@ -36,8 +36,10 @@ function MyPage() {
 
   return (
     <Wrapper>
-      {userInfo}
-      {playList}
+      <FlexContainer>
+        {userInfo}
+        {playList}
+      </FlexContainer>
     </Wrapper>
   );
 }
@@ -54,7 +56,12 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   /* background-color: red; */
-  ${FLEX_CENTER}
+  padding-top: calc((100vh - 60px - 414px) / 2);
+  align-items: flex-start;
+`;
+
+const FlexContainer = styled.div`
+  ${FLEX_CENTER};
   justify-content: space-around;
   gap: 200px;
 `;

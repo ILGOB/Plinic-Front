@@ -19,6 +19,7 @@ import TestSwitch from './hl/TestSwitch';
 import TestModal from './hl/TestModal';
 import TestCard from './hl/TestCard';
 import TestPost from './hl/TestPost';
+import Pages from './pages/Pages';
 
 export {
   CE,
@@ -42,4 +43,5 @@ export {
   TestModal,
   TestCard,
   TestPost,
+  Pages,
 };

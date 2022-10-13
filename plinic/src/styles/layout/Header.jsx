@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import loginAtom from '../../recoil/dummy-login/loginAtom';
+import { useRecoilState } from 'recoil';
 
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,7 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
 function Header({ noMenu }) {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useRecoilState(loginAtom);
+
+  // const [isLogin, setIsLogin] = useState(false);
 
   const loginHandler = () => {
     setIsLogin(!isLogin);
@@ -55,6 +59,9 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
+  z-index: 100000;
+  position: relative;
 `;
 
 const Menu = styled.div`

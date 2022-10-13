@@ -1,18 +1,59 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRightLong, faMusic } from '@fortawesome/free-solid-svg-icons';
 import Thumbnail from '../thumbnail/Thumbnail';
+import Post from '../post/Post';
 
-function CardCarousel({ label, data }) {
+function CardCarousel({ label, data, loop, detailLink }) {
   const items = data;
   const itemSize = items.length;
   const addedItems = 10;
-  let slides = setSlides();
-  const [currentIndex, setCurrentIndex] = useState(10);
+  let slides = loop ? setSlides() : items;
+  const [currentIndex, setCurrentIndex] = useState(loop ? 10 : 1);
   const [slideTransition, setTransition] = useState('');
   const [isTransition, setIsTransition] = useState(false);
   const transitionTime = 300;
   const transitionStyle = `transform ${transitionTime}ms ease 0s`;
+
+  const explore = (genre, img) => {
+    return (
+      <Link to={`/explore/${genre}`}>
+        <Thumbnail img={img} />
+        <DimThumbnail />
+        <Label>{genre}</Label>
+      </Link>
+    );
+  };
+
+  const searchResult = (label, slide) => {
+    let type = label === '유저' ? 'user' : 'post';
+
+    return (
+      <Link to={`/${type}/${slide.id}`}>
+        {type === 'user' ? (
+          <User>
+            <UserProfile image={slide.profile_pic} />
+            <div>
+              <UserNickname>{slide.nickname}</UserNickname>
+              <div>
+                <FontAwesomeIcon icon={faMusic} /> {slide.playlists}
+              </div>
+            </div>
+          </User>
+        ) : (
+          <Post
+            thumbnail={slide.thumbnail}
+            title={slide.title}
+            writer={slide.writer}
+            likes={slide.like}
+            likeState={slide.likeState}
+          />
+        )}
+      </Link>
+    );
+  };
 
   function setSlides() {
     let addedFront = [];
@@ -66,8 +107,19 @@ function CardCarousel({ label, data }) {
   }
 
   function handleOnClick(direction) {
-    setIsTransition(true);
-    handleSwipe(direction);
+    if (loop) {
+      setIsTransition(true);
+      handleSwipe(direction);
+    } else {
+      let index = currentIndex + direction;
+      if (index === itemSize - 3 || index === 0 || itemSize <= 5) {
+        return;
+      } else {
+        setIsTransition(true);
+        setCurrentIndex(index);
+        setTransition(transitionStyle);
+      }
+    }
   }
 
   function handleTransitionEnd() {
@@ -77,17 +129,37 @@ function CardCarousel({ label, data }) {
   return (
     <SlideBox>
       <SlideHeader>
-        <div>{label} 둘러보기</div>
+        <div>
+          <div>
+            {label}
+            {(label === '장르' || label === '분위기') && ' 둘러보기'}
+          </div>
+          {!(label === '장르' || label === '분위기') && (
+            <Link to={detailLink}>
+              더보기 <FontAwesomeIcon icon={faArrowRightLong} />
+            </Link>
+          )}
+        </div>
         <ButtonContainer>
-          <Button onClick={isTransition ? null : () => handleOnClick(-1)}>〈</Button>
-          <Button onClick={isTransition ? null : () => handleOnClick(1)}>〉</Button>
+          <Button
+            onClick={isTransition ? null : () => handleOnClick(-1)}
+            disabled={!loop && (currentIndex === 1 || itemSize <= 5)}
+          >
+            〈
+          </Button>
+          <Button
+            onClick={isTransition ? null : () => handleOnClick(1)}
+            disabled={!loop && (currentIndex === itemSize - 4 || itemSize <= 5)}
+          >
+            〉
+          </Button>
         </ButtonContainer>
       </SlideHeader>
       <SlideList>
         <SlideTrack
           onTransitionEnd={handleTransitionEnd}
           style={{
-            transform: `translateX(${-247 * (currentIndex + 1)}px)`,
+            transform: `translateX(${-242 * (currentIndex - 1)}px)`,
             transition: slideTransition,
           }}
         >
@@ -96,11 +168,7 @@ function CardCarousel({ label, data }) {
             const [genre, img] = getSlideItem(itemIndex);
             return (
               <SlideItem key={slideIndex}>
-                <Link to={`/explore/${genre}`}>
-                  <Thumbnail img={img} />
-                  <DimThumbnail />
-                  <Label>{genre}</Label>
-                </Link>
+                {label === '장르' || label === '분위기' ? explore(genre, img) : searchResult(label, slide)}
               </SlideItem>
             );
           })}
@@ -113,6 +181,7 @@ function CardCarousel({ label, data }) {
 export default CardCarousel;
 
 const NAVY = ({ theme }) => theme.color.navy;
+const DISABLED = ({ theme }) => theme.color.disabled;
 const BOLD = ({ theme }) => theme.font.weight['bold'];
 const MEDIUM_TEXT = ({ theme }) => theme.font.size['16'];
 const BOLD_TEXT = [({ theme }) => theme.font.size['30'], BOLD];
@@ -131,23 +200,37 @@ const SlideHeader = styled.div`
   display: flex;
   justify-content: space-between;
   color: ${NAVY};
-  ${BOLD_TEXT};
+
+  & > div {
+    ${CENTER};
+    justify-content: flex-start;
+    gap: 20px;
+
+    & > div:first-child {
+      ${BOLD_TEXT};
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
 `;
 
 const Button = styled.button`
   width: 40px;
   height: 40px;
-  margin-left: 20px;
+  margin-left: 10px;
   background: transparent;
-  border: 1px solid ${NAVY};
+  border: 1px solid ${props => (props.disabled ? DISABLED : NAVY)};
   border-radius: 20px;
   text-align: center;
   line-height: 40px;
   text-decoration: none;
-  color: ${NAVY};
+  color: ${props => (props.disabled ? DISABLED : NAVY)};
   ${MEDIUM_TEXT};
   ${BOLD};
-  cursor: pointer;
+  cursor: ${props => props.disabled || 'pointer'};
 `;
 
 const ButtonContainer = styled.div`
@@ -155,14 +238,14 @@ const ButtonContainer = styled.div`
 `;
 
 const SlideList = styled.div`
-  width: calc(222px * 5 + 100px);
+  width: calc(222px * 5 + 85px);
   overflow: hidden;
 `;
 
 const SlideTrack = styled.div`
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 20px;
   width: fit-content;
 `;
 
@@ -170,6 +253,11 @@ const SlideItem = styled.div`
   position: relative;
   ${CENTER_COLUMN}
   cursor: pointer;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 const DimThumbnail = styled.div`
@@ -192,4 +280,37 @@ const Label = styled.div`
   ${({ theme }) => theme.font.size['20']};
   color: ${({ theme }) => theme.color.white};
   z-index: 10;
+`;
+
+const User = styled.div`
+  width: 222px;
+  height: fit-content;
+  ${CENTER_COLUMN};
+  gap: 20px;
+
+  & > div:last-child {
+    ${CENTER_COLUMN};
+    gap: 10px;
+
+    & > div:last-child {
+      ${CENTER};
+      align-items: flex-start;
+      ${({ theme }) => theme.font.size['16']};
+      line-height: 18px;
+      color: #555;
+      gap: 8px;
+    }
+  }
+`;
+
+const UserProfile = styled.div`
+  background-color: gray;
+  /* background: url(${props => props.image}) no-repeat center/cover; */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+`;
+
+const UserNickname = styled.div`
+  ${({ theme }) => theme.font.size['20']};
 `;
