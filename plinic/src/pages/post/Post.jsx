@@ -5,6 +5,9 @@ import loginAtom from '../../recoil/dummy-login/loginAtom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faCircle, faHeart, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import Genre from '../../components/button/genre/Genre';
+import dummyData from './dummyData';
+import TextIconBtn from '../../components/button/textIcon/TextIconBtn';
 
 function Post() {
   const { postId } = useParams();
@@ -102,36 +105,36 @@ function Post() {
     setPlaying(e.currentTarget.id);
   };
 
+  console.log('dummyData :>> ', dummyData);
+  console.log("dummyData[0].playlist['genre_name'] :>> ", dummyData[0].playlist['genre_name']);
+
   return (
     <Wrapper>
       <button onClick={editHandler}>edit</button>
       <div>
-        <Writer>by. 작성자</Writer>
+        <Writer>by. {dummyData[0].author}</Writer>
         {loginState ? <Btn onClick={handleDelete}>삭제</Btn> : ''}
       </div>
       <Info>
-        <PostTitle>플레이리스트 제목</PostTitle>
-        <Genre />
+        <PostTitle>{dummyData[0].playlist.title}</PostTitle>
+        <Genre key={dummyData[0].playlist.id} name={dummyData[0].playlist['genre_name']} usedFor={'post'} />
       </Info>
       <DateWrapper>
         <CreateDate>
           <FontAwesomeIcon icon={faCalendar} />
-          <span>2022.09.15</span>
+          <span>{dummyData[0].created_at}</span>
         </CreateDate>
         {isEdited && (
           <EditDate>
             <FontAwesomeIcon icon={faCircle} />
-            <span>edited 2022.09.28</span>
+            <span>edited {dummyData[0]['updated_at']}</span>
           </EditDate>
         )}
       </DateWrapper>
-      <Content>이 노래 들으면 귀 호강함</Content>
+      <Content>{dummyData[0].content}</Content>
       <Tag>#띵곡 #센치한느낌 #갬성터질때 #눈물샘폭발 #태그쓰다보니태근하고싶다</Tag>
       <Buttons>
-        <LikeBtn>
-          <FontAwesomeIcon icon={faHeart} />
-          <span>120</span>
-        </LikeBtn>
+        <TextIconBtn />
         {loginState ? (
           '게시글 수정하기'
         ) : (
@@ -180,12 +183,9 @@ const FLEX_CENTER = ({ theme }) => theme.align.flexCenter;
 
 const Wrapper = styled.div`
   width: 100%;
-  /* height: calc(100vh - 60px); */
   padding-top: 32px;
   ${FLEX_CENTER_COLUMN}
-  /* justify-content: flex-start; */
   align-items: flex-start;
-  /* background-color: red; */
 `;
 
 const Writer = styled.span`
@@ -206,12 +206,7 @@ const PostTitle = styled.h1`
   ${({ theme }) => theme.font.size[30]};
   margin: 12px 16px 12px 0;
 `;
-const Genre = styled.div`
-  width: 55px;
-  height: 20px;
-  border: 2px solid navy;
-  border-radius: 15px;
-`;
+
 const DateWrapper = styled.div`
   ${FLEX_CENTER}
 `;
@@ -281,8 +276,6 @@ const Buttons = styled.div`
 `;
 const LikeBtn = styled.div`
   padding: 10px 20px;
-  /* width: 100px; */
-  /* height: 40px; */
   border-radius: 30px;
   border: 2px solid navy;
   ${FLEX_CENTER};
