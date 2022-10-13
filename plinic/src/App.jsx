@@ -16,6 +16,7 @@ import {
   ProfileEdit,
   Playlist,
   CE,
+  Resign,
   TestGenreBtn,
   TestTextBtn,
   TestTextIconBtn,

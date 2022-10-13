@@ -1,4 +1,5 @@
 import CE from './ce/CE';
+import Resign from './ce/Resign';
 import TestGenreBtn from './ce/TestGenreBtn';
 import TestTextBtn from './ce/TestTextBtn';
 import TestTextIconBtn from './ce/TestTextIconBtn';
@@ -22,6 +23,7 @@ import Pages from './pages/Pages';
 
 export {
   CE,
+  Resign,
   TestGenreBtn,
   TestTextBtn,
   TestTextIconBtn,

@@ -22,8 +22,9 @@ export default TextBtn;
 const WHITE = ({ theme }) => theme.color.white;
 const NAVY = ({ theme }) => theme.color.navy;
 const LIGHTGREEN = ({ theme }) => theme.color.lightGreen;
+const DISABLED = ({ theme }) => theme.color.disabled;
 
-const colorList = { white: WHITE, navy: NAVY, lightGreen: LIGHTGREEN };
+const colorList = { white: WHITE, navy: NAVY, lightGreen: LIGHTGREEN, disabled: DISABLED };
 
 const BOLD = ({ theme }) => theme.font.weight.bold;
 

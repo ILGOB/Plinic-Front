@@ -10,6 +10,7 @@ import Playlist from './playlist/Playlist';
 
 import {
   CE,
+  Resign,
   TestGenreBtn,
   TestTextBtn,
   TestTextIconBtn,
@@ -47,6 +48,7 @@ export {
   ProfileEdit,
   Playlist,
   CE,
+  Resign,
   TestGenreBtn,
   TestTextBtn,
   TestTextIconBtn,

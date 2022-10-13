@@ -1,51 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { genreFirstLine, genreSecondLine, genreThirdLine, genreFourthLine } from './genreData';
 
-function Genre() {
-  const [isClicked, setIsClicked] = useState([]);
-
-  const onClickGenreBtn = e => {
-    isClicked.includes(e.target.id)
-      ? setIsClicked(isClicked.filter(el => el !== e.target.id))
-      : isClicked.length < 3 && setIsClicked(prev => [...prev, e.target.id]);
-  };
-
+function Genre(props) {
   useEffect(() => {
-    console.log(isClicked);
-  }, [isClicked]);
+    console.log('isClicked: ', props.isClicked);
+  }, [props.isClicked]);
+
+  console.log('props.usedFor', props.usedFor);
 
   return (
-    <>
-      <Container>
-        {genreFirstLine.map(genre => (
-          <GenreButton key={genre.id} onClick={onClickGenreBtn} isClicked={isClicked} id={genre.name}>
-            {genre.name}
-          </GenreButton>
-        ))}
-      </Container>
-      <Container>
-        {genreSecondLine.map(genre => (
-          <GenreButton key={genre.id} onClick={onClickGenreBtn} isClicked={isClicked} id={genre.name}>
-            {genre.name}
-          </GenreButton>
-        ))}
-      </Container>
-      <Container>
-        {genreThirdLine.map(genre => (
-          <GenreButton key={genre.id} onClick={onClickGenreBtn} isClicked={isClicked} id={genre.name}>
-            {genre.name}
-          </GenreButton>
-        ))}
-      </Container>
-      <Container>
-        {genreFourthLine.map(genre => (
-          <GenreButton key={genre.id} onClick={onClickGenreBtn} isClicked={isClicked} id={genre.name}>
-            {genre.name}
-          </GenreButton>
-        ))}
-      </Container>
-    </>
+    <Container>
+      <GenreButton id={props.name} usedFor={props.usedFor} onClick={props.onClick} isClicked={props.isClicked}>
+        {props.name}
+      </GenreButton>
+    </Container>
   );
 }
 
@@ -53,32 +21,72 @@ export default Genre;
 
 const NAVY = ({ theme }) => theme.color.navy;
 const WHITE = ({ theme }) => theme.color.white;
+const MINT = ({ theme }) => theme.color.mint;
+
+const USED_FOR = {
+  post: `
+    padding: 0px 10px;
+    height: 20px;
+    border:solid 1.5px #38a3a5;
+    width: fit-content;
+    background-color: #ffffff;
+    color: #38a3a5;
+    border-radius: 15px;   
+    font-size: 12px;
+    font-weight: thick;
+    cursor: pointer;
+    &:not(:last-of-type) {
+      margin-right: 5px;
+    }
+`,
+
+  myPage: `
+    border:solid 2px #22577a;`,
+};
+
+const DEFAULT_BORDER_STYLE = `border: solid 2px #22577a;`;
+
+const ISCLICKED = ({ isClicked, id }) => {
+  console.log(typeof isClicked);
+  if (typeof isClicked === 'object') {
+    return isClicked.includes(id) ? NAVY : WHITE;
+  } else {
+    return isClicked === id ? NAVY : WHITE;
+  }
+};
+
+const SICLICKED = ({ isClicked, id }) => {
+  if (typeof isClicked === 'object') {
+    return isClicked.includes(id) ? WHITE : NAVY;
+  } else {
+    return isClicked === id ? WHITE : NAVY;
+  }
+};
+
+// const ISCLICKED = ({ isClicked, id }) => (isClicked.includes(id) ? NAVY : WHITE);
+// const ISCLICKED = ({ isClicked, id }) => (isClicked === id ? NAVY : WHITE);
+// const SICLICKED = ({ isClicked, id }) => (isClicked.includes(id) ? WHITE : NAVY);
+// const SICLICKED = ({ isClicked, id }) => (isClicked === id ? WHITE : NAVY);
 
 const Container = styled.div`
-  width: 100vw;
-  height: fit-content;
-  ${({ theme }) => theme.align.flexCenter}
-  &:not(:last-of-type) {
-    margin-bottom: 5px;
-  }
-  &:nth-child(2n + 1) {
-    margin-left: 25px;
-  }
+  /* width: 100vw; */
 `;
 
 const GenreButton = styled.button`
   width: 70px;
   height: 30px;
-  border: solid 2px ${NAVY};
+  ${({ usedFor }) => (usedFor ? USED_FOR[usedFor] : DEFAULT_BORDER_STYLE)};
+  /* border: solid 2px ${NAVY}; */
   border-radius: 15px;
-  background-color: ${({ isClicked, id }) => (isClicked.includes(id) ? NAVY : WHITE)};
+  background-color: ${({ isClicked }) => (isClicked ? ISCLICKED : WHITE)};
   ${({ theme }) => theme.align.flexCenter};
-  color: ${({ isClicked, id }) => (isClicked.includes(id) ? WHITE : NAVY)};
+  color: ${({ isClicked, usedFor }) => (isClicked ? SICLICKED : NAVY)};
   ${({ theme }) => theme.font.weight.thick};
   ${({ theme }) => theme.font.size[10]};
-  cursor: pointer;
+  cursor: ${({ onClick }) => (onClick ? 'pointer' : 'auto')};
 
   &:not(:last-of-type) {
     margin-right: 5px;
   }
+  margin-left: 5px;
 `;
