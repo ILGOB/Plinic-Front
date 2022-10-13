@@ -22,7 +22,7 @@ function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit, ma
   };
 
   const navigateToResult = () => {
-    navigate('/searchresult', { state: { q: userInput } });
+    navigate(`/search?q=${userInput}`);
   };
 
   const handleKeyDown = e => {
