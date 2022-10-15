@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useRecoilValue } from 'recoil';
 import loginAtom from '../../recoil/dummy-login/loginAtom';
+import data from '../../components/card/dummyData';
 
 function Playlist() {
   const loginState = useRecoilValue(loginAtom);
   console.log('loginState :>> ', loginState);
+  const { playlistId } = useParams();
+  const currentPlaylistTitle = data[playlistId].title;
 
   const [playing, setPlaying] = useState('');
 
@@ -100,7 +104,7 @@ function Playlist() {
   return (
     <Wrapper>
       <Header>
-        <HeaderTitle>플레이리스트 제목</HeaderTitle>
+        <HeaderTitle>{currentPlaylistTitle}</HeaderTitle>
         {loginState ? <Btn onClick={handleDelete}>삭제</Btn> : <Btn onClick={handleSave}>보관함에 저장</Btn>}
       </Header>
       <Main>

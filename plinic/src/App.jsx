@@ -56,7 +56,7 @@ function App() {
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
           <Route path="/my-page" element={<Layout page={<MyPage />} />} />
           <Route path="/profile/edit" element={<Layout page={<ProfileEdit />} />} />
-          <Route path="/playlist" element={<Layout page={<Playlist />} />} />
+          <Route path="/playlist/:playlistId" element={<Layout page={<Playlist />} />} />
           <Route path="/CE" element={<Layout page={<CE />} />} />
           <Route path="/CE/genre-button" element={<Layout page={<TestGenreBtn />} />} />
           <Route path="/CE/text-button" element={<Layout page={<TestTextBtn />} />} />
