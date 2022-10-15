@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faGear } from '@fortawesome/free-solid-svg-icons';
 import Switch from '../../components/switch/Switch';
 import CardSwipe from '../../components/swipe/CardSwipe';
+import Genre from '../../components/button/genre/Genre';
+
+import dummyData from './dummyData';
 
 function MyPage() {
   const userInfo = (
@@ -18,8 +21,12 @@ function MyPage() {
           </SettingWrapper>
         </LinkStyled>
       </ProfileWrapper>
-      <Nickname>Lami</Nickname>
-      <GenreWrapper />
+      <Nickname>{dummyData.nickname}</Nickname>
+      <GenreWrapper>
+        {dummyData.genre.map((el, idx) => {
+          return <Genre key={idx} name={el} usedFor={'myPage'} />;
+        })}
+      </GenreWrapper>
       <PostedLink to={'/post-list'}>내가 작성한 게시글</PostedLink>
     </UserInfoWrapper>
   );
@@ -113,9 +120,8 @@ const Nickname = styled.span`
 `;
 
 const GenreWrapper = styled.div`
-  width: 222px;
-  height: 30px;
-  background-color: ${NAVY};
+  ${FLEX_CENTER};
+  gap: 24px;
 `;
 
 const PostedLink = styled(Link)`
