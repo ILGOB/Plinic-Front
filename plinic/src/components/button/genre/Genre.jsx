@@ -41,7 +41,11 @@ const USED_FOR = {
 `,
 
   myPage: `
-    border:solid 2px #22577a;`,
+  width: 58px;
+  height: 29px;
+  padding: 8px;
+  border:solid 2px #22577a;
+  border-radius: 10px;`,
 };
 
 const DEFAULT_BORDER_STYLE = `border: solid 2px #22577a;`;
@@ -75,9 +79,8 @@ const Container = styled.div`
 const GenreButton = styled.button`
   width: 70px;
   height: 30px;
-  ${({ usedFor }) => (usedFor ? USED_FOR[usedFor] : DEFAULT_BORDER_STYLE)};
-  /* border: solid 2px ${NAVY}; */
   border-radius: 15px;
+  ${({ usedFor }) => (usedFor ? USED_FOR[usedFor] : DEFAULT_BORDER_STYLE)};
   background-color: ${({ isClicked }) => (isClicked ? ISCLICKED : WHITE)};
   ${({ theme }) => theme.align.flexCenter};
   color: ${({ isClicked, usedFor }) => (isClicked ? SICLICKED : NAVY)};
