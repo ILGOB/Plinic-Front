@@ -4,27 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
 import Input from '../input/Input';
+import GenreList from '../button/genre/GenreList';
 
 function RegisterUserInfo({ isEdit, originData }) {
   const [nickname, setNickname] = useState('');
   const [genreNum, setGenreNum] = useState(0);
+  const [chooseGenre, setChooseGenre] = useState([]);
+
   const nicknameInput = useRef(null);
   const maxNum = <MaxNum>{MAX_NUM}</MaxNum>;
 
-  const genreNumUpHandler = () => {
-    setGenreNum(genreNum + 1);
-  };
-
-  const genreNumDownHandler = () => {
-    setGenreNum(genreNum - 1);
-  };
-
   const editHandler = () => {
-    alert(`닉네임: ${nickname}\n선택한 장르 개수: ${genreNum}으로 수정`);
+    alert(`닉네임: ${nickname}\n선택한 장르 개수: ${genreNum}\n선택한 장르: ${chooseGenre}으로 수정`);
   };
 
   const signUpHandler = () => {
-    alert(`닉네임: ${nickname}\n선택한 장르 개수: ${genreNum}`);
+    alert(`닉네임: ${nickname}\n선택한 장르 개수: ${genreNum}\n선택한 장르: ${chooseGenre}`);
   };
 
   const onClickNicknameInput = e => {
@@ -33,6 +28,17 @@ function RegisterUserInfo({ isEdit, originData }) {
       e.target.value = '';
     }
   };
+
+  const onClickGenreBtn = e => {
+    chooseGenre.includes(e.target.id)
+      ? setChooseGenre(chooseGenre.filter(el => el !== e.target.id))
+      : chooseGenre.length < 3 && setChooseGenre(prev => [...prev, e.target.id]);
+  };
+
+  useEffect(() => {
+    console.log('chooseGenre', chooseGenre);
+    setGenreNum(chooseGenre.length);
+  }, [chooseGenre]);
 
   useEffect(() => {
     console.log('nickname :>> ', nickname);
@@ -60,15 +66,13 @@ function RegisterUserInfo({ isEdit, originData }) {
           userInput={nickname}
           setUserInput={setNickname}
         />
-        {genreNum > MAX_NUM && <WarningText>중복된 닉네임입니다.</WarningText>}
+        {true && <WarningText>중복된 닉네임입니다.</WarningText>}
       </NicknameWrapper>
       <GenreWrapper>
         <Text>
-          선호하는 장르를 선택하세요 <GenreNum genreNum={genreNum}>{genreNum}</GenreNum> / {maxNum}{' '}
-          <button onClick={genreNumUpHandler}>up</button>
-          <button onClick={genreNumDownHandler}>down</button>
+          선호하는 장르를 선택하세요 <GenreNum genreNum={genreNum}>{genreNum}</GenreNum> / {maxNum}
         </Text>
-        <Genre />
+        <GenreList onClick={onClickGenreBtn} isClicked={chooseGenre} />
       </GenreWrapper>
       <HorizontalLine />
       {isEdit ? <Btn onClick={editHandler}>수정하기</Btn> : <Btn onClick={signUpHandler}>가입하기</Btn>}
@@ -133,12 +137,6 @@ const GenreWrapper = styled(NicknameWrapper)``;
 
 const MaxNum = styled.span`
   color: ${GREEN};
-`;
-
-const Genre = styled.div`
-  width: 500px;
-  height: 140px;
-  background-color: ${NAVY};
 `;
 
 const HorizontalLine = styled.div`
