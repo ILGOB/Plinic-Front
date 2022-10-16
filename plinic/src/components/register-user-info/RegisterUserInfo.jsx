@@ -29,6 +29,7 @@ function RegisterUserInfo({ isEdit, originData }) {
 
   const signUpHandler = () => {
     alert(`닉네임: ${nickname}\n선택한 장르 개수: ${genreNum}\n선택한 장르: ${chooseGenre}`);
+    navigate('/', { replace: true });
   };
 
   const onClickNicknameInput = e => {
