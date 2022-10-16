@@ -1,18 +1,25 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
 import Input from '../input/Input';
 import GenreList from '../button/genre/GenreList';
+import TextBtn from '../button/text/TextBtn';
+import Modal from '../modal/Modal';
+import ModalPortal from '../modal/ModalPortal';
 
 function RegisterUserInfo({ isEdit, originData }) {
   const [nickname, setNickname] = useState(originData ? originData.nickname : '');
   const [genreNum, setGenreNum] = useState(originData ? originData.genre.length : 0);
   const [chooseGenre, setChooseGenre] = useState(originData ? originData.genre : []);
+  const [isMembershipWithdrawalModal, setIsMembershipWithdrawalModal] = useState(false);
 
   const nicknameInput = useRef(null);
   const maxNum = <MaxNum>{MAX_NUM}</MaxNum>;
+
+  const navigate = useNavigate();
 
   const editHandler = () => {
     alert(
@@ -54,6 +61,25 @@ function RegisterUserInfo({ isEdit, originData }) {
     }
   }, [originData]);
 
+  const handleMembershipWithdrawalModal = () => {
+    setIsMembershipWithdrawalModal(!isMembershipWithdrawalModal);
+  };
+
+  const clickedYesButton = () => {
+    handleMembershipWithdrawalModal();
+    alert('탈퇴되었습니다.');
+    navigate('/', { replace: true });
+  };
+
+  const clickedNoButton = () => {
+    handleMembershipWithdrawalModal();
+    alert('탈퇴 취소');
+  };
+
+  useEffect(() => {
+    console.log('MembershipWithdrawal modal State:', isMembershipWithdrawalModal);
+  }, [isMembershipWithdrawalModal]);
+
   return (
     <Wrapper>
       <Title>{isEdit ? '프로필 수정' : '회원가입'}</Title>
@@ -77,7 +103,23 @@ function RegisterUserInfo({ isEdit, originData }) {
         <GenreList onClick={onClickGenreBtn} isClicked={chooseGenre} />
       </GenreWrapper>
       <HorizontalLine />
-      {isEdit ? <Btn onClick={editHandler}>수정하기</Btn> : <Btn onClick={signUpHandler}>가입하기</Btn>}
+      {isEdit ? (
+        <>
+          <BtnWrapper isEdit={isEdit}>
+            <TextBtn btnName={'탈퇴하기'} color={'disabled'} onClick={handleMembershipWithdrawalModal} />
+            <TextBtn btnName={'수정하기'} color={'lightGreen'} onClick={editHandler} />
+          </BtnWrapper>
+          <ModalPortal>
+            {isMembershipWithdrawalModal && (
+              <Modal leftOnClick={clickedYesButton} rightOnClick={clickedNoButton} usedFor={'membershipWithdrawal'} />
+            )}
+          </ModalPortal>
+        </>
+      ) : (
+        <BtnWrapper isEdit={isEdit}>
+          <TextBtn btnName={'가입하기'} color={'lightGreen'} onClick={signUpHandler} />
+        </BtnWrapper>
+      )}
     </Wrapper>
   );
 }
@@ -148,11 +190,17 @@ const HorizontalLine = styled.div`
   margin-top: 54px;
 `;
 
-const Btn = styled.span`
-  cursor: pointer;
-  color: ${GREEN};
-  ${({ theme }) => theme.font.weight.bold};
-  position: relative;
-  top: 20px;
-  left: calc((100% - 100px) / 2 - 30px);
+const BtnWrapper = styled.div`
+  width: calc(100% - 100px);
+  padding-top: 20px;
+  ${({ isEdit }) =>
+    isEdit
+      ? `
+  display: flex;
+  justify-content: space-between;
+    
+  `
+      : `
+    text-align: right;
+  `}
 `;
