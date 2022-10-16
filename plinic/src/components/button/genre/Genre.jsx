@@ -2,12 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 function Genre(props) {
-  useEffect(() => {
-    console.log('isClicked: ', props.isClicked);
-  }, [props.isClicked]);
-
-  console.log('props.usedFor', props.usedFor);
-
   return (
     <Container>
       <GenreButton id={props.name} usedFor={props.usedFor} onClick={props.onClick} isClicked={props.isClicked}>
@@ -47,7 +41,6 @@ const USED_FOR = {
 const DEFAULT_BORDER_STYLE = `border: solid 2px #22577a;`;
 
 const ISCLICKED = ({ isClicked, id }) => {
-  console.log(typeof isClicked);
   if (typeof isClicked === 'object') {
     return isClicked.includes(id) ? NAVY : WHITE;
   } else {
@@ -63,20 +56,12 @@ const SICLICKED = ({ isClicked, id }) => {
   }
 };
 
-// const ISCLICKED = ({ isClicked, id }) => (isClicked.includes(id) ? NAVY : WHITE);
-// const ISCLICKED = ({ isClicked, id }) => (isClicked === id ? NAVY : WHITE);
-// const SICLICKED = ({ isClicked, id }) => (isClicked.includes(id) ? WHITE : NAVY);
-// const SICLICKED = ({ isClicked, id }) => (isClicked === id ? WHITE : NAVY);
-
-const Container = styled.div`
-  /* width: 100vw; */
-`;
+const Container = styled.div``;
 
 const GenreButton = styled.button`
   width: 70px;
   height: 30px;
   ${({ usedFor }) => (usedFor ? USED_FOR[usedFor] : DEFAULT_BORDER_STYLE)};
-  /* border: solid 2px ${NAVY}; */
   border-radius: 15px;
   background-color: ${({ isClicked }) => (isClicked ? ISCLICKED : WHITE)};
   ${({ theme }) => theme.align.flexCenter};
