@@ -7,15 +7,17 @@ import Input from '../input/Input';
 import GenreList from '../button/genre/GenreList';
 
 function RegisterUserInfo({ isEdit, originData }) {
-  const [nickname, setNickname] = useState('');
-  const [genreNum, setGenreNum] = useState(0);
-  const [chooseGenre, setChooseGenre] = useState([]);
+  const [nickname, setNickname] = useState(originData ? originData.nickname : '');
+  const [genreNum, setGenreNum] = useState(originData ? originData.genre.length : 0);
+  const [chooseGenre, setChooseGenre] = useState(originData ? originData.genre : []);
 
   const nicknameInput = useRef(null);
   const maxNum = <MaxNum>{MAX_NUM}</MaxNum>;
 
   const editHandler = () => {
-    alert(`닉네임: ${nickname}\n선택한 장르 개수: ${genreNum}\n선택한 장르: ${chooseGenre}으로 수정`);
+    alert(
+      `닉네임: ${originData.nickname} => ${nickname}\n선택한 장르 개수: ${originData.genre.length} => ${genreNum}\n선택한 장르: ${originData.genre} => ${chooseGenre}으로 수정`
+    );
   };
 
   const signUpHandler = () => {
