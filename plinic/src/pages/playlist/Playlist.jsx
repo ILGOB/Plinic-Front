@@ -7,6 +7,8 @@ import { useRecoilValue } from 'recoil';
 import loginAtom from '../../recoil/dummy-login/loginAtom';
 import data from '../../components/card/dummyData';
 import Genre from '../../components/button/genre/Genre';
+import PlaylistComponent from '../../components/playlist/Playlist';
+import playlistDummyData from '../../components/playlist/dummyData';
 
 function Playlist() {
   const loginState = useRecoilValue(loginAtom);
@@ -14,92 +16,11 @@ function Playlist() {
   const { playlistId } = useParams();
   const currentPlaylistTitle = data[playlistId].title;
 
-  const [playing, setPlaying] = useState('');
-
   const handleDelete = () => {
     alert('삭제');
   };
   const handleSave = () => {
     alert('저장');
-  };
-
-  const playlistData = [
-    {
-      id: 1,
-      src: 'E8gmARGvPlI',
-      title: 'Wham! - Last Christmas (Official Video)',
-      time: '4:38',
-    },
-    {
-      id: 2,
-      src: 'fRyhqobl0sk',
-      title: 'All I Want for Christmas Is You',
-      time: '4:02',
-    },
-    {
-      id: 3,
-      src: 'L1KEJzfsQEY',
-      title: 'Ava Max - Christmas Without You [Official Audio]',
-      time: '2:50',
-    },
-    {
-      id: 4,
-      src: 'hVzjR6hBArE',
-      title: 'Mabel - Loneliest Time Of Year',
-      time: '3:27',
-    },
-    {
-      id: 5,
-      src: 'QLrmP9GBd3c',
-      title: 'Alessia Cara - Make It To Christmas (Audio)',
-      time: '3:32',
-    },
-    {
-      id: 6,
-      src: '_hOL1Cw2Hbg',
-      title: 'Pink Sweat$ & Donny Hathaway - This Christmas (Official Audio)',
-      time: '3:02',
-    },
-    {
-      id: 7,
-      src: 'hVzjR6hBArE',
-      title: 'Mabel - Loneliest Time Of Year',
-      time: '3:27',
-    },
-    {
-      id: 8,
-      src: 'QLrmP9GBd3c',
-      title: 'Alessia Cara - Make It To Christmas (Audio)',
-      time: '3:32',
-    },
-    {
-      id: 9,
-      src: '_hOL1Cw2Hbg',
-      title: 'Pink Sweat$ & Donny Hathaway - This Christmas (Official Audio)',
-      time: '3:02',
-    },
-    {
-      id: 10,
-      src: 'hVzjR6hBArE',
-      title: 'Mabel - Loneliest Time Of Year',
-      time: '3:27',
-    },
-    {
-      id: 11,
-      src: 'QLrmP9GBd3c',
-      title: 'Alessia Cara - Make It To Christmas (Audio)',
-      time: '3:32',
-    },
-    {
-      id: 12,
-      src: '_hOL1Cw2Hbg',
-      title: 'Pink Sweat$ & Donny Hathaway - This Christmas (Official Audio)',
-      time: '3:02',
-    },
-  ];
-
-  const changeMusic = e => {
-    setPlaying(e.currentTarget.id);
   };
 
   return (
@@ -111,34 +32,9 @@ function Playlist() {
       <Main>
         <Info>
           <Genre name={data[playlistId].genre} usedFor={'post'} />
-          <Total>{playlistData.length}곡</Total>
+          <Total>{playlistDummyData.length}곡</Total>
         </Info>
-        <Container>
-          <VideoFrame>
-            <iframe
-              width="600"
-              height="360"
-              src={
-                playing
-                  ? `https://www.youtube.com/embed/${playing}/videoseries?list=TLGG70_eemmaf0UwNzEwMjAyMg`
-                  : `https://www.youtube.com/embed/videoseries?list=TLGG70_eemmaf0UwNzEwMjAyMg`
-              }
-              title=""
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </VideoFrame>
-          <PlayList>
-            {playlistData.map(item => (
-              <PlayListItem key={item.id} onClick={changeMusic} id={item.src}>
-                <Num>{item.id}</Num>
-                <Title>{item.title}</Title>
-                <Time>{item.time}</Time>
-              </PlayListItem>
-            ))}
-          </PlayList>
-        </Container>
+        <PlaylistComponent data={playlistDummyData} usedFor={'playlist'} />
       </Main>
     </Wrapper>
   );
@@ -181,44 +77,3 @@ const Info = styled.div`
 `;
 
 const Total = styled.span``;
-
-const Container = styled.div`
-  ${FLEX_CENTER_COLUMN};
-  width: 600px;
-  flex-direction: column;
-  justify-content: space-around;
-`;
-
-const VideoFrame = styled.div`
-  width: 600px;
-  height: 360px;
-  border-radius: 20px;
-  overflow: hidden;
-`;
-
-const PlayList = styled.div`
-  margin-top: 40px;
-  height: 264px;
-  overflow-y: scroll;
-  width: 100%;
-  margin-bottom: 40px;
-`;
-
-const PlayListItem = styled.li`
-  ${({ theme }) => theme.font.size[14]}
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style: none;
-  padding: 10px;
-  cursor: pointer;
-  &:hover {
-    background-color: #38a3a5;
-  }
-`;
-
-const Num = styled.span`
-  margin-right: 10px;
-`;
-const Title = styled.span``;
-const Time = styled.span``;
