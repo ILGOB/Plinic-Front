@@ -6,6 +6,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useRecoilValue } from 'recoil';
 import loginAtom from '../../recoil/dummy-login/loginAtom';
 import data from '../../components/card/dummyData';
+import Genre from '../../components/button/genre/Genre';
 
 function Playlist() {
   const loginState = useRecoilValue(loginAtom);
@@ -109,9 +110,8 @@ function Playlist() {
       </Header>
       <Main>
         <Info>
-          <Genre />
-          {/* 장르 컴포 */}
-          <Total>ㅇㅇ곡</Total>
+          <Genre name={data[playlistId].genre} usedFor={'post'} />
+          <Total>{playlistData.length}곡</Total>
         </Info>
         <Container>
           <VideoFrame>
@@ -179,12 +179,7 @@ const Info = styled.div`
   justify-content: space-between;
   margin-bottom: 15px;
 `;
-const Genre = styled.div`
-  width: 55px;
-  height: 20px;
-  border-radius: 15px;
-  background-color: ${({ theme }) => theme.color.mint};
-`;
+
 const Total = styled.span``;
 
 const Container = styled.div`
