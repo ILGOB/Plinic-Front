@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Pagination from '../../components/pagination/Pagination';
-import { posts as notices } from '../../components/pagination/posts';
 
 function NoticeList() {
   const [activePage, setActivePage] = useState(1);
+  const [notices, setNotices] = useState([]);
   const noticePerPage = 8;
 
   const handlePageChange = pageNumber => {
     setActivePage(pageNumber);
   };
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/notices/`).then(res => {
+      setNotices(res.data.results);
+    });
+  }, []);
 
   return (
     <Wrapper>
@@ -32,8 +39,8 @@ function NoticeList() {
                   <GridContainer link>
                     <GridItem>{notice.id}</GridItem>
                     <GridItem isTitle={true}>{notice.title}</GridItem>
-                    <GridItem>{notice.nickname}</GridItem>
-                    <GridItem>2022.09.28</GridItem>
+                    <GridItem>{notice.author}</GridItem>
+                    <GridItem>{notice.created_at}</GridItem>
                   </GridContainer>
                 </LinkStyled>
                 <Line />
