@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import axios from 'axios';
 
 function Home() {
+  const [video, setVideo] = useState('');
+
   const handleLogin = () => {
     window.location.href = 'http://172.19.109.57:8000/api/v1/accounts/kakao-authentication/login';
   };
 
+  const getVideo = () => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/random-background/`).then(res => {
+      setVideo(res.data.background_url);
+    });
+  };
+
+  useEffect(() => {
+    getVideo();
+  }, []);
+
   return (
     <Wrapper>
       <Video autoPlay loop muted>
-        {/* <source src="video/video1.mp4" type="video/mp4" /> */}
-        {/* <source src="video/video2.mp4" type="video/mp4" /> */}
-        {/* <source src="video/video3.mp4" type="video/mp4" /> */}
-        <source src="video/video4.mp4" type="video/mp4" />
+        <source key={video} src={video} type="video/mp4" />
       </Video>
       <PlinicLogo src="plinic_logo.png" />
       <BtnWrapper onClick={handleLogin}>
