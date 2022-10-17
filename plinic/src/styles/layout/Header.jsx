@@ -38,7 +38,7 @@ function Header({ noMenu }) {
           <LinkStyle to="/search">
             <SearchIcon icon={faMagnifyingGlass} />
           </LinkStyle>
-          <LinkStyle to="/post-list">게시판</LinkStyle>
+          <LinkStyle to="/posts">게시판</LinkStyle>
           <DivideLine />
           {isLogin ? loginHeader : logoutHeader}
         </Menu>
