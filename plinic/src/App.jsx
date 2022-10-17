@@ -48,11 +48,11 @@ function App() {
           <Route path="/login" element={<Layout noMenu page={<Login />} />} />
           <Route path="/search" element={<Layout page={<Search />} />} />
           <Route path="/searchresult" element={<Layout page={<SearchResult />} />} />
-          <Route path="/post/:postId" element={<Layout page={<Post />} />} />
-          <Route path="/post-list" element={<Layout page={<PostList />} />} />
+          <Route path="/posts/:postId" element={<Layout page={<Post />} />} />
+          <Route path="/posts" element={<Layout page={<PostList />} />} />
           <Route path="/post/new" element={<Layout page={<PostCreate />} />} />
-          <Route path="/notice" element={<Layout page={<NoticeList />} />} />
-          <Route path="/notice/:noticeId" element={<Layout page={<Notice />} />} />
+          <Route path="/notices" element={<Layout page={<NoticeList />} />} />
+          <Route path="/notices/:noticeId" element={<Layout page={<Notice />} />} />
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
           <Route path="/my-page" element={<Layout page={<MyPage />} />} />
           <Route path="/profile/edit" element={<Layout page={<ProfileEdit />} />} />

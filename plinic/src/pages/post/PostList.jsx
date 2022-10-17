@@ -29,7 +29,7 @@ function PostList() {
       {latestNotice.map(n => (
         <NoticeContainer key={n.id}>
           <div>
-            <LinkStyled to="/notice-list">
+            <LinkStyled to="/notices">
               <IconStyled icon={faWarning} />
               [공지]
             </LinkStyled>
@@ -44,17 +44,19 @@ function PostList() {
         {data &&
           data.slice(8 * (activePage - 1), 8 * (activePage - 1) + 8).map(d => (
             <PostBox key={d.id}>
-              <Thumbnail
-                post
-                img={'http://jolleyonmovies.files.wordpress.com/2014/01/frozen-elsa.jpg'}
-                likes={d.likes}
-                likeState={d.likeState}
-                size={250}
-              />
-              <TextBox>
-                <div>{d.title}</div>
-                <div>{d.nickname}</div>
-              </TextBox>
+              <LinkStyled to={`/posts/${d.id}`}>
+                <Thumbnail
+                  post
+                  img={'http://jolleyonmovies.files.wordpress.com/2014/01/frozen-elsa.jpg'}
+                  likes={d.likes}
+                  likeState={d.likeState}
+                  size={250}
+                />
+                <TextBox>
+                  <div>{d.title}</div>
+                  <div>{d.nickname}</div>
+                </TextBox>
+              </LinkStyled>
             </PostBox>
           ))}
       </Posts>
@@ -76,6 +78,12 @@ const Wrapper = styled.div`
   ${FLEX_CENTER_COLUMN}
   justify-content: flex-start;
   gap: 32px;
+`;
+
+const LinkStyled = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+  ${BOLDTEXT}
 `;
 
 const NoticeContainer = styled.div`
@@ -106,17 +114,14 @@ const NoticeContainer = styled.div`
       text-align: right;
     }
   }
+
+  ${LinkStyled} {
+    padding-right: 10px;
+  }
 `;
 
 const IconStyled = styled(FontAwesomeIcon)`
   padding-right: 10px;
-`;
-
-const LinkStyled = styled(Link)`
-  padding-right: 10px;
-  color: inherit;
-  text-decoration: none;
-  ${BOLDTEXT}
 `;
 
 const Posts = styled.div`
@@ -124,13 +129,16 @@ const Posts = styled.div`
   display: flex;
   flex-wrap: wrap;
   row-gap: 24px;
+
+  ${LinkStyled} {
+    ${FLEX_CENTER_COLUMN}
+    width: 250px;
+    gap: 12px;
+  }
 `;
 
 const PostBox = styled.div`
   flex-basis: 25%;
-  ${FLEX_CENTER_COLUMN}
-  width: 250px;
-  gap: 12px;
   cursor: pointer;
   user-select: none;
 `;
