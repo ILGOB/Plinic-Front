@@ -1,28 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as noLike } from '@fortawesome/free-regular-svg-icons';
-import { faHeart as Like } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as noLike, faBookmark as noBookmark } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as Like, faBookmark as Bookmark } from '@fortawesome/free-solid-svg-icons';
 
-function TextIconBtn() {
-  const [likedCount, setLikedCount] = useState(0);
-  const [likedBtnActive, setLikedBtnActive] = useState(false);
+function TextIconBtn({ data, name }) {
+  const [likedState, setLikedState] = useState({
+    state: false,
+    count: 0,
+  });
+  const [scrapedState, setScrapedState] = useState({
+    state: false,
+    count: 0,
+  });
 
-  const onClickLikedBtn = () => {
-    setLikedBtnActive(!likedBtnActive);
-    likedBtnActive ? setLikedCount(likedCount - 1) : setLikedCount(likedCount + 1);
+  const LikedButton = (data, name) => {
+    const onClickLikedBtn = e => {
+      console.log('e.target.name :>> ', e.target.name);
+      console.log('e.target :>> ', e.target);
+      setLikedState({
+        ...likedState,
+        state: !likedState.state,
+        count: likedState.state === true ? likedState.count - 1 : likedState.count + 1,
+      });
+    };
+
+    return (
+      <Wrapper onClick={onClickLikedBtn} name={name} value={likedState.count}>
+        <Icon icon={likedState.state ? Like : noLike} />
+        {likedState.count}
+      </Wrapper>
+    );
+  };
+
+  const ScrapedButton = (data, name) => {
+    const onClickScrapedBtn = e => {
+      console.log('e.target.name :>> ', e.target.name);
+      console.log('e.target :>> ', e.target);
+      setScrapedState({
+        ...scrapedState,
+        state: !scrapedState.state,
+        count: scrapedState.state === true ? scrapedState.count - 1 : scrapedState.count + 1,
+      });
+    };
+
+    return (
+      <Wrapper onClick={onClickScrapedBtn} name={name} value={scrapedState.count}>
+        <Icon icon={scrapedState.state ? Bookmark : noBookmark} />
+        {scrapedState.count}
+      </Wrapper>
+    );
   };
 
   useEffect(() => {
-    console.log(likedCount, likedBtnActive);
-  }, [likedBtnActive]);
+    console.log('likedState :>> ', likedState);
+  });
 
-  return (
-    <LikedBtn onClick={onClickLikedBtn}>
-      <HeartIcon icon={likedBtnActive ? Like : noLike} />
-      {likedCount}
-    </LikedBtn>
-  );
+  {
+    return name === 'like' ? LikedButton(data, name) : ScrapedButton(data, name);
+  }
 }
 
 export default TextIconBtn;
@@ -30,7 +66,7 @@ export default TextIconBtn;
 const NAVY = ({ theme }) => theme.color.navy;
 const WHITE = ({ theme }) => theme.color.white;
 
-const LikedBtn = styled.button`
+const Wrapper = styled.button`
   width: 70px;
   height: 30px;
   border: solid 1.5px ${NAVY};
@@ -43,7 +79,7 @@ const LikedBtn = styled.button`
   cursor: pointer;
 `;
 
-const HeartIcon = styled(FontAwesomeIcon)`
+const Icon = styled(FontAwesomeIcon)`
   font-size: 14px;
   margin-right: 7px;
 `;
