@@ -67,12 +67,13 @@ function PostList() {
 
 export default PostList;
 
+const FLEX_CENTER = ({ theme }) => theme.align.flexCenter;
 const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 const BOLDTEXT = ({ theme }) => theme.font.weight['bold'];
 const DANGER = ({ theme }) => theme.color.warning;
 
 const Wrapper = styled.div`
-  width: 1200px;
+  width: 100%;
   height: calc(100vh - 60px);
   margin-top: 32px;
   ${FLEX_CENTER_COLUMN}
@@ -131,13 +132,14 @@ const Posts = styled.div`
   row-gap: 24px;
 
   ${LinkStyled} {
-    ${FLEX_CENTER_COLUMN}
+    ${FLEX_CENTER_COLUMN};
     width: 250px;
     gap: 12px;
   }
 `;
 
 const PostBox = styled.div`
+  ${FLEX_CENTER_COLUMN};
   flex-basis: 25%;
   cursor: pointer;
   user-select: none;
