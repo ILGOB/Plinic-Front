@@ -4,14 +4,14 @@ import MuiSlider from '@mui/material/Slider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-function Slider() {
+function Slider({ setPlaylistNum }) {
   const [sliderValue, setSliderValue] = useState(0);
   const handleChange = (event, newValue) => {
     setSliderValue(newValue);
   };
 
   useEffect(() => {
-    console.log(sliderValue);
+    setPlaylistNum(sliderValue);
   }, [sliderValue]);
 
   const marks = [

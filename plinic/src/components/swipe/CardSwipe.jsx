@@ -17,6 +17,7 @@ function CardSwipe() {
   const [swiper, setSwiper] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaylistModal, setIsPlaylistModal] = useState(false);
+  const [playlistData, setPlaylistData] = useState({});
 
   SwiperCore.use([EffectCoverflow, Scrollbar]);
 
@@ -46,17 +47,29 @@ function CardSwipe() {
 
   const clickedCloseButton = () => {
     handlePlaylistModal();
+    console.log('clicked close button');
   };
 
   const clickedCreateButton = () => {
-    handlePlaylistModal();
+    if (playlistData.choice === '' || playlistData.playlistNum === 0) {
+      alert('모든 항목을 선택해주세요');
+    } else {
+      console.log('clicked create button');
+      console.log('playlistData :>> ', playlistData);
+      handlePlaylistModal();
+    }
   };
 
   return (
     <Box>
       <ModalPortal>
         {isPlaylistModal && (
-          <Modal leftOnClick={clickedCloseButton} rightOnClick={clickedCreateButton} usedFor={'playlist'} />
+          <Modal
+            leftOnClick={clickedCloseButton}
+            rightOnClick={clickedCreateButton}
+            usedFor={'playlist'}
+            setPlaylistData={setPlaylistData}
+          />
         )}
       </ModalPortal>
       <Swiper {...swiperParams} ref={setSwiper}>
