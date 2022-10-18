@@ -6,6 +6,7 @@ import ModalPortal from '../../../components/modal/ModalPortal';
 function TestModal() {
   const [isPlaylistModal, setIsPlaylistModal] = useState(false);
   const [isMembershipWithdrawalModal, setIsMembershipWithdrawalModal] = useState(false);
+  const [playlistData, setPlaylistData] = useState({});
 
   // 플레이리스트 모달
   const handlePlaylistModal = () => {
@@ -18,8 +19,13 @@ function TestModal() {
   };
 
   const clickedCreateButton = () => {
-    handlePlaylistModal();
-    console.log('clicked create button');
+    if (playlistData.choice === '' || playlistData.playlistNum === 0) {
+      alert('모든 항목을 선택해주세요');
+    } else {
+      console.log('clicked create button');
+      console.log('playlistData :>> ', playlistData);
+      handlePlaylistModal();
+    }
   };
 
   // 회원탈퇴 모달
@@ -47,7 +53,12 @@ function TestModal() {
       <Button onClick={handlePlaylistModal}>플레이리스트 모달 버튼</Button>
       <ModalPortal>
         {isPlaylistModal && (
-          <Modal leftOnClick={clickedCloseButton} rightOnClick={clickedCreateButton} usedFor={'playlist'} />
+          <Modal
+            leftOnClick={clickedCloseButton}
+            rightOnClick={clickedCreateButton}
+            usedFor={'playlist'}
+            setPlaylistData={setPlaylistData}
+          />
         )}
       </ModalPortal>
 
