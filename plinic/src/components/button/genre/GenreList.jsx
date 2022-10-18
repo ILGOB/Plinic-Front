@@ -9,6 +9,18 @@ function GenreList(props) {
   const genre3 = genreData.slice(12, 18);
   const genre4 = genreData.slice(18, 24);
 
+  const key = [];
+
+  for (const genre of genreData) {
+    key.push(genre.name);
+  }
+
+  if (key.includes(props.isClicked)) {
+    props.setIsHere(true);
+  } else {
+    props.setIsHere(false);
+  }
+
   return (
     <>
       <Wrapper>
