@@ -13,56 +13,51 @@ import PlaylistComponent from '../../components/playlist/Playlist';
 
 function Post() {
   const { postId } = useParams();
-  const [isEdited, setIsEdited] = useState(false);
 
   const loginState = useRecoilValue(loginAtom);
   console.log('loginState :>> ', loginState);
-
-  const editHandler = () => {
-    setIsEdited(!isEdited);
-  };
 
   const handleDelete = () => {
     alert('삭제');
   };
 
   console.log('dummyData :>> ', dummyData);
-  console.log("dummyData[0].playlist['genre_name'] :>> ", dummyData[0].playlist['genre_name']);
+  console.log("dummyData.playlist['genre_name'] :>> ", dummyData.playlist['genre_name']);
 
   return (
     <Wrapper>
-      <button onClick={editHandler}>edit</button>
       <div>
-        <Writer>by. {dummyData[0].author}</Writer>
+        <Writer>by. {dummyData.author}</Writer>
         {loginState ? <Btn onClick={handleDelete}>삭제</Btn> : ''}
       </div>
       <Info>
-        <PostTitle>{dummyData[0].playlist.title}</PostTitle>
-        <Genre key={dummyData[0].playlist.id} name={dummyData[0].playlist['genre_name']} usedFor={'post'} />
+        <PostTitle>{dummyData.playlist.title}</PostTitle>
+        <Genre key={dummyData.playlist.id} name={dummyData.playlist['genre_name']} usedFor={'post'} />
       </Info>
       <DateWrapper>
         <CreateDate>
           <FontAwesomeIcon icon={faCalendar} />
-          <span>{dummyData[0].created_at}</span>
+          <span>{dummyData.created_at}</span>
         </CreateDate>
-        {isEdited && (
+        {dummyData['is_updated'] && (
           <EditDate>
             <FontAwesomeIcon icon={faCircle} />
-            <span>edited {dummyData[0]['updated_at']}</span>
+            <span>edited {dummyData['updated_at']}</span>
           </EditDate>
         )}
       </DateWrapper>
-      <Content>{dummyData[0].content}</Content>
+      <Content>{dummyData.content}</Content>
       <Tag>#띵곡 #센치한느낌 #갬성터질때 #눈물샘폭발 #태그쓰다보니태근하고싶다</Tag>
       <Buttons>
-        <TextIconBtn />
+        <TextIconBtn name={'like'} state={dummyData.is_like} count={dummyData.liker_count} />
         {loginState ? (
           '게시글 수정하기'
         ) : (
-          <BookmarkBtn>
-            <FontAwesomeIcon icon={faBookmark} />
-            <span>저장하기</span>
-          </BookmarkBtn>
+          <TextIconBtn
+            name={'bookmark'}
+            state={dummyData.playlist.is_scrapped}
+            count={dummyData.playlist.scrapper_count}
+          />
         )}
       </Buttons>
       <PlaylistComponent data={playlistDummyData} usedFor={'post'} />

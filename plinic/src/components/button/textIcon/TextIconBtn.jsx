@@ -4,17 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as noLike, faBookmark as noBookmark } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as Like, faBookmark as Bookmark } from '@fortawesome/free-solid-svg-icons';
 
-function TextIconBtn({ data, name }) {
+function TextIconBtn({ state, count, name }) {
+  console.log('state, count, name :>> ', state, count, name);
+  console.log('typeof state, typeof count :>> ', typeof state, typeof count);
   const [likedState, setLikedState] = useState({
-    state: false,
-    count: 0,
+    state: state,
+    count: count,
   });
   const [scrapedState, setScrapedState] = useState({
-    state: false,
-    count: 0,
+    state: state,
+    count: count,
   });
 
-  const LikedButton = (data, name) => {
+  const LikedButton = (state, count, name) => {
     const onClickLikedBtn = e => {
       console.log('e.target.name :>> ', e.target.name);
       console.log('e.target :>> ', e.target);
@@ -33,7 +35,7 @@ function TextIconBtn({ data, name }) {
     );
   };
 
-  const ScrapedButton = (data, name) => {
+  const ScrapedButton = (state, count, name) => {
     const onClickScrapedBtn = e => {
       console.log('e.target.name :>> ', e.target.name);
       console.log('e.target :>> ', e.target);
@@ -57,7 +59,7 @@ function TextIconBtn({ data, name }) {
   });
 
   {
-    return name === 'like' ? LikedButton(data, name) : ScrapedButton(data, name);
+    return name === 'like' ? LikedButton(state, count, name) : ScrapedButton(state, count, name);
   }
 }
 
