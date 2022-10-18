@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+import MoodList from '../button/genre/MoodList';
+import GenreList from '../button/genre/GenreList';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 
-function Toggle({ onClick, text, state }) {
+function Toggle({ onClick, text, state, choice, setChoice }) {
   const [toggleIsShow, setToggleIsShow] = useState(state);
+  const [isHere, setIsHere] = useState(false);
+
+  const clickedMoodBtn = e => {
+    setChoice(e.target.id);
+  };
 
   useEffect(() => {
     if (state) {
@@ -24,9 +31,15 @@ function Toggle({ onClick, text, state }) {
       <ToggleMenu onClick={onClick}>
         <span>{text}</span>
         <FontAwesomeIcon icon={state ? faCaretUp : faCaretDown} />
+        {isHere && choice}
       </ToggleMenu>
       <ContentsWrapper className={`${state ? 'slide-fade-in-dropdown' : 'slide-fade-out-dropdown'}`}>
-        {toggleIsShow && <Contents> {text} 토글 열림</Contents>}
+        {toggleIsShow &&
+          (text === '장르' ? (
+            <GenreList onClick={clickedMoodBtn} isClicked={choice} isHere={isHere} setIsHere={setIsHere} />
+          ) : (
+            <MoodList onClick={clickedMoodBtn} isClicked={choice} isHere={isHere} setIsHere={setIsHere} />
+          ))}
       </ContentsWrapper>
     </Wrapper>
   );

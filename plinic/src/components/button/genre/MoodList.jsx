@@ -6,6 +6,19 @@ import styled from 'styled-components';
 function MoodList(props) {
   const mood1 = moodData.slice(0, 6);
   const mood2 = moodData.slice(6, 12);
+
+  const key = [];
+
+  for (const mood of moodData) {
+    key.push(mood.name);
+  }
+
+  if (key.includes(props.isClicked)) {
+    props.setIsHere(true);
+  } else {
+    props.setIsHere(false);
+  }
+
   return (
     <div>
       <Wrapper>

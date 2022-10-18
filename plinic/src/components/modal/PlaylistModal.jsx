@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Thumbnail from './Thumbnail';
 import Toggle from './Toggle';
@@ -7,9 +7,11 @@ import Slider from '../slider/Slider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 
-function PlaylistModal() {
+function PlaylistModal({ setPlaylistData }) {
   const [isGenreToggle, setIsGenreToggle] = useState(false);
   const [isMoodToggle, setIsMoodToggle] = useState(false);
+  const [choice, setChoice] = useState('');
+  const [playlistNum, setPlaylistNum] = useState(0);
 
   const genreToggleHandler = () => {
     setIsGenreToggle(!isGenreToggle);
@@ -19,19 +21,26 @@ function PlaylistModal() {
     setIsMoodToggle(!isMoodToggle);
   };
 
+  useEffect(() => {
+    setPlaylistData({
+      choice: choice,
+      playlistNum: playlistNum,
+    });
+  }, [choice, playlistNum]);
+
   return (
     <Wrapper>
       {/* 썸네일 설정 */}
       <Thumbnail />
 
       {/* 장르 토글 메뉴 */}
-      <Toggle onClick={genreToggleHandler} text={'장르'} state={isGenreToggle} />
+      <Toggle onClick={genreToggleHandler} text={'장르'} state={isGenreToggle} choice={choice} setChoice={setChoice} />
 
       {/* 분위기 토글 메뉴 */}
-      <Toggle onClick={moodToggleHandler} text={'분위기'} state={isMoodToggle} />
+      <Toggle onClick={moodToggleHandler} text={'분위기'} state={isMoodToggle} choice={choice} setChoice={setChoice} />
 
       {/* 곡 개수 슬라이더 */}
-      <Slider />
+      <Slider setPlaylistNum={setPlaylistNum} />
     </Wrapper>
   );
 }

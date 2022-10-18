@@ -4,11 +4,13 @@ import Footer from './Footer';
 import PlaylistModal from './PlaylistModal';
 import MembershipWithdrawal from './MembershipWithdrawal';
 
-const Modal = ({ usedFor, leftOnClick, rightOnClick }) => {
+const Modal = ({ usedFor, leftOnClick, rightOnClick, setPlaylistData }) => {
   return (
     <Wrapper>
       <Container>
-        <Main>{usedFor === 'playlist' ? <PlaylistModal /> : <MembershipWithdrawal />}</Main>
+        <Main>
+          {usedFor === 'playlist' ? <PlaylistModal setPlaylistData={setPlaylistData} /> : <MembershipWithdrawal />}
+        </Main>
         <Footer usedFor={usedFor} leftOnClick={leftOnClick} rightOnClick={rightOnClick} />
       </Container>
     </Wrapper>
