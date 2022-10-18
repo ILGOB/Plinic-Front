@@ -5,8 +5,6 @@ import { faHeart as noLike, faBookmark as noBookmark } from '@fortawesome/free-r
 import { faHeart as Like, faBookmark as Bookmark } from '@fortawesome/free-solid-svg-icons';
 
 function TextIconBtn({ state, count, name }) {
-  console.log('state, count, name :>> ', state, count, name);
-  console.log('typeof state, typeof count :>> ', typeof state, typeof count);
   const [likedState, setLikedState] = useState({
     state: state,
     count: count,
@@ -16,10 +14,10 @@ function TextIconBtn({ state, count, name }) {
     count: count,
   });
 
+  const [isMouseEnter, setIsMouseEnter] = useState(false);
+
   const LikedButton = (state, count, name) => {
     const onClickLikedBtn = e => {
-      console.log('e.target.name :>> ', e.target.name);
-      console.log('e.target :>> ', e.target);
       setLikedState({
         ...likedState,
         state: !likedState.state,
@@ -37,8 +35,6 @@ function TextIconBtn({ state, count, name }) {
 
   const ScrapedButton = (state, count, name) => {
     const onClickScrapedBtn = e => {
-      console.log('e.target.name :>> ', e.target.name);
-      console.log('e.target :>> ', e.target);
       setScrapedState({
         ...scrapedState,
         state: !scrapedState.state,
@@ -46,17 +42,29 @@ function TextIconBtn({ state, count, name }) {
       });
     };
 
+    const onMouseEnter = () => {
+      setIsMouseEnter(true);
+    };
+
+    const onMouseLeave = () => {
+      setIsMouseEnter(false);
+    };
+
     return (
-      <Wrapper onClick={onClickScrapedBtn} name={name} value={scrapedState.count}>
+      <Wrapper
+        onClick={onClickScrapedBtn}
+        name={name}
+        value={scrapedState.count}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        isMouseEnter={isMouseEnter}
+      >
+        {isMouseEnter && <Tooltip>내 보관함에 플레이리스트 담기</Tooltip>}
         <Icon icon={scrapedState.state ? Bookmark : noBookmark} />
         {scrapedState.count}
       </Wrapper>
     );
   };
-
-  useEffect(() => {
-    console.log('likedState :>> ', likedState);
-  });
 
   {
     return name === 'like' ? LikedButton(state, count, name) : ScrapedButton(state, count, name);
@@ -67,6 +75,7 @@ export default TextIconBtn;
 
 const NAVY = ({ theme }) => theme.color.navy;
 const WHITE = ({ theme }) => theme.color.white;
+const MINT = ({ theme }) => theme.color.mint;
 
 const Wrapper = styled.button`
   width: 70px;
@@ -79,6 +88,33 @@ const Wrapper = styled.button`
   ${({ theme }) => theme.font.weight.thick};
   ${({ theme }) => theme.font.size[14]};
   cursor: pointer;
+  ${({ isMouseEnter }) =>
+    isMouseEnter &&
+    `
+    position: relative;
+    `}
+`;
+
+const Tooltip = styled.div`
+  width: 204px;
+  height: 40px;
+  border-radius: 10px;
+  position: absolute;
+  top: -60px;
+  background-color: ${MINT};
+  ${({ theme }) => theme.align.flexCenterColumn};
+  color: ${WHITE};
+  ${({ theme }) => theme.font.size[14]};
+  &:after {
+    border-top: 0px solid transparent;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid ${MINT};
+    content: '';
+    position: absolute;
+    top: 38px;
+    transform: rotate(180deg);
+  }
 `;
 
 const Icon = styled(FontAwesomeIcon)`
