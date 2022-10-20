@@ -44,8 +44,13 @@ function Input({ usedFor, userInput, setUserInput, userSubmit, setUserSubmit, ma
           onChange={handleInput}
           onKeyDown={handleKeyDown}
         />
+        {maxLength && (
+          <LengthLabel isLong={userInput.length === maxLength} usedFor={usedFor}>
+            ({userInput.length}/{maxLength})
+          </LengthLabel>
+        )}
         {usedFor === 'nickname' ? (
-          <span></span>
+          <Line></Line>
         ) : (
           usedFor === 'search' && <FontAwesomeIcon icon={faMagnifyingGlass} onClick={() => navigateToResult()} />
         )}
@@ -61,17 +66,6 @@ const NAVY = ({ theme }) => theme.color.navy;
 const FormStyled = styled.form`
   position: relative;
   width: fit-content;
-  & > span {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: ${NAVY};
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: all 0.3s;
-  }
   & > .fa-magnifying-glass {
     width: 18px;
     height: 18px;
@@ -82,6 +76,18 @@ const FormStyled = styled.form`
     user-select: none;
     cursor: pointer;
   }
+`;
+
+const Line = styled.span`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: ${NAVY};
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: all 0.3s;
 `;
 
 const inputStyles = {
@@ -131,4 +137,16 @@ const InputStyled = styled.input.attrs(props => ({
   &:focus {
     outline: none;
   }
+`;
+
+const LengthLabel = styled.span`
+  position: absolute;
+  right: 12px;
+  ${props =>
+    props.usedFor === 'title' &&
+    `top: 50%;
+    transform: translateY(-50%);`};
+  ${props => props.usedFor === 'content' && `bottom: 15px;`};
+  ${({ theme }) => theme.font.size['16']};
+  color: ${props => (props.isLong ? ({ theme }) => theme.color.warning : ({ theme }) => theme.color.darkGray)};
 `;
