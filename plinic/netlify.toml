@@ -1,6 +1,6 @@
 [build]
   command = "CI= npm run build"
-  publish = "plinic/build"
+  publish = "build"
 
 [context.production.environment]
   TOML_ENV_VAR = "From netlify.toml"
