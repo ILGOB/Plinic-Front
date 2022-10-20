@@ -6,6 +6,7 @@ import axios from 'axios';
 // dotenv.config();
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+console.log(BASE_URL);
 
 function Home() {
   const [video, setVideo] = useState('');
