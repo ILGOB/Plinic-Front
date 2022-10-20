@@ -1,4 +1,3 @@
-// netlify.toml
 [build]
   command = "CI= npm run build"
   publish = "plinic/build"
