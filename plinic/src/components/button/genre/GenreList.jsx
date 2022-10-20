@@ -15,10 +15,12 @@ function GenreList(props) {
     key.push(genre.name);
   }
 
-  if (key.includes(props.isClicked)) {
-    props.setIsHere(true);
-  } else {
-    props.setIsHere(false);
+  if (props.setIsHere) {
+    if (key.includes(props.isClicked)) {
+      props.setIsHere(true);
+    } else {
+      props.setIsHere(false);
+    }
   }
 
   return (
