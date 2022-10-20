@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import axios from 'axios';
 
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 function Home() {
   const [video, setVideo] = useState('');
 
@@ -10,7 +15,7 @@ function Home() {
   };
 
   const getVideo = () => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/random-background/`).then(res => {
+    axios.get(`${BASE_URL}/random-background/`).then(res => {
       setVideo(res.data.background_url);
     });
   };
