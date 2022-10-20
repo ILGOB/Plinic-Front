@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import PostEditor from '../../components/posteditor/PostEditor';
+import Editor from '../../components/editor/Editor';
 import TextBtn from '../../components/button/text/TextBtn';
 import data from '../../components/post/dummyData';
 
@@ -40,7 +40,8 @@ function PostCreate() {
 
   return (
     <Wrapper>
-      <PostEditor
+      <Editor
+        type={'post'}
         titleInput={titleInput}
         setTitleInput={setTitleInput}
         contentInput={contentInput}
