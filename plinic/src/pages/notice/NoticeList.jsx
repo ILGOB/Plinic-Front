@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import loginAtom from '../../recoil/dummy-login/loginAtom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Pagination from '../../components/pagination/Pagination';
 
 function NoticeList() {
+  const [isLogin, setIsLogin] = useRecoilState(loginAtom);
   const [activePage, setActivePage] = useState(1);
   const [notices, setNotices] = useState([]);
   const noticePerPage = 8;
@@ -21,7 +24,15 @@ function NoticeList() {
 
   return (
     <Wrapper>
-      <HeaderLabel>공지사항</HeaderLabel>
+      <HeaderLabel>
+        <div>공지사항</div>
+        {isLogin && (
+          <NewNoticeButton>
+            <LinkStyled to="/post/edit?state=new">새로운 공지 작성하기 〉</LinkStyled>
+          </NewNoticeButton>
+        )}
+      </HeaderLabel>
+
       <NoticeContainer>
         <GridContainer header>
           <GridItem>번호</GridItem>
@@ -47,7 +58,10 @@ function NoticeList() {
               </Notice>
             ))}
       </NoticeContainer>
-      <Pagination activePage={activePage} totalItemsCount={notices.length - 1} handlePageChange={handlePageChange} />
+
+      <PaginationContainer>
+        <Pagination activePage={activePage} totalItemsCount={notices.length - 1} handlePageChange={handlePageChange} />
+      </PaginationContainer>
     </Wrapper>
   );
 }
@@ -62,17 +76,32 @@ const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 const Wrapper = styled.div`
   ${FLEX_CENTER_COLUMN};
   width: 100%;
+  padding-top: calc((100vh - 795px) / 2);
   display: flex;
-  gap: 40px;
+  gap: 30px;
 `;
 
 const HeaderLabel = styled.div`
   width: 100%;
   color: ${NAVY};
-  ${BOLD_TEXT}
+
+  div {
+    ${BOLD_TEXT};
+  }
+`;
+
+const NewNoticeButton = styled.span`
+  color: ${NAVY};
+  font-weight: 500;
+  ${({ theme }) => theme.font.size['16']}
+
+  :hover {
+    ${({ theme }) => theme.font.weight['bold']};
+  }
 `;
 
 const NoticeContainer = styled.div`
+  position: relative;
   width: 100%;
   ${FLEX_CENTER_COLUMN}
 `;
@@ -111,4 +140,9 @@ const GridContainer = styled.div`
 
 const GridItem = styled.div`
   text-align: ${props => (props.isTitle ? 'left' : 'center')};
+`;
+
+const PaginationContainer = styled.div`
+  position: relative;
+  width: 100%;
 `;
