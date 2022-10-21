@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faChevronRight, faCalendar, faCircle } from '@fortawesome/free-solid-svg-icons';
 
 function Notice() {
+  const navigate = useNavigate();
   const { noticeId } = useParams();
   const [isMounted, setIsMounted] = useState(false);
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -16,6 +17,14 @@ function Notice() {
       setNotice(res.data);
     });
   }, [noticeId]);
+
+  const handleUpdate = () => {
+    navigate(`/notice/edit?state=update&id=${noticeId}`, { state: { title: notice.title, content: notice.content } });
+  };
+
+  const handleDelete = () => {
+    alert('게시물을 삭제합니다.');
+  };
 
   return (
     <Wrapper>
@@ -35,8 +44,8 @@ function Notice() {
             />
             <FloatingMenuWrapper>
               <FloatingMenu $isMounted={isMounted} $isShow={isShowMenu}>
-                <LinkStyled to={`/notice/edit?state=update&id=${noticeId}`}>수정하기</LinkStyled>
-                <LinkStyled to={'/'}>삭제하기</LinkStyled>
+                <div onClick={() => handleUpdate()}>수정하기</div>
+                <div onClick={() => handleDelete()}>삭제하기</div>
               </FloatingMenu>
             </FloatingMenuWrapper>
           </Menu>
@@ -169,7 +178,7 @@ const FloatingMenu = styled.div`
   animation: ${props => props.$isMounted && slideUpDown(props.$isShow)} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   ${FLEX_CENTER_COLUMN};
 
-  & > a {
+  & > div {
     width: 100%;
     padding: 5px;
     text-align: center;
