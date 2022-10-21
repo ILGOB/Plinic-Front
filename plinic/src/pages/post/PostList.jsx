@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,16 +10,20 @@ import { posts } from '../../components/pagination/posts';
 
 function PostList() {
   const [data, setData] = useState([]);
+  const [latestNotice, setLatestNotice] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const latestNotice = data.filter(notice => {
-    if (notice.id === 1) {
-      return notice;
-    }
-  });
 
   const handlePageChange = pageNumber => {
     setActivePage(pageNumber);
   };
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/notices/?recent=true`).then(res => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/notices/${res.data['0'].id}/`).then(res => {
+        setLatestNotice(res.data);
+      });
+    });
+  }, []);
 
   useEffect(() => {
     setData(posts);
@@ -26,19 +31,17 @@ function PostList() {
 
   return (
     <Wrapper>
-      {latestNotice.map(n => (
-        <NoticeContainer key={n.id}>
-          <div>
-            <LinkStyled to="/notices">
-              <IconStyled icon={faWarning} />
-              [공지]
-            </LinkStyled>
-            {n.title}
-          </div>
-          <div>{n.nickname}</div>
-          <div>2022.09.15</div>
-        </NoticeContainer>
-      ))}
+      <NoticeContainer key={latestNotice.id}>
+        <div>
+          <LinkStyled to="/notices">
+            <IconStyled icon={faWarning} />
+            [공지]
+          </LinkStyled>
+          <LinkStyled to={`/notices/${latestNotice.id}`}>{latestNotice.title}</LinkStyled>
+        </div>
+        <div>{latestNotice.author}</div>
+        <div>{latestNotice.created_at}</div>
+      </NoticeContainer>
 
       <Posts>
         {data &&
@@ -82,9 +85,9 @@ const Wrapper = styled.div`
 `;
 
 const LinkStyled = styled(Link)`
+  width: 100%;
   color: inherit;
   text-decoration: none;
-  ${BOLDTEXT}
 `;
 
 const NoticeContainer = styled.div`
@@ -114,10 +117,13 @@ const NoticeContainer = styled.div`
     &:last-child {
       text-align: right;
     }
-  }
 
-  ${LinkStyled} {
-    padding-right: 10px;
+    ${LinkStyled} {
+      &:first-child {
+        padding-right: 10px;
+        ${BOLDTEXT}
+      }
+    }
   }
 `;
 
@@ -133,6 +139,7 @@ const Posts = styled.div`
 
   ${LinkStyled} {
     ${FLEX_CENTER_COLUMN};
+    ${BOLDTEXT}
     width: 250px;
     gap: 12px;
   }
