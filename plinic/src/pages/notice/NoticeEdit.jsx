@@ -26,8 +26,10 @@ function NoticeEdit() {
     };
 
     if (titleInput !== '' && contentInput !== '') {
-      axios.put(`${process.env.REACT_APP_BASE_URL}/notices/${editorOptions.id}/`, notice);
-      navigate(`/notices/${editorOptions.id}`);
+      if (editorOptions.state === 'update') {
+        axios.put(`${process.env.REACT_APP_BASE_URL}/notices/${editorOptions.id}/`, notice);
+        navigate(`/notices/${editorOptions.id}`);
+      }
     } else {
       alert('내용을 입력해주세요.');
     }
