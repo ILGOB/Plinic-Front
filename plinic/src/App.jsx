@@ -11,6 +11,7 @@ import {
   PostCreate,
   Notice,
   NoticeList,
+  NoticeEdit,
   SignUp,
   MyPage,
   ProfileEdit,
@@ -53,6 +54,7 @@ function App() {
           <Route path="/post/new" element={<Layout page={<PostCreate />} />} />
           <Route path="/notices" element={<Layout page={<NoticeList />} />} />
           <Route path="/notices/:noticeId" element={<Layout page={<Notice />} />} />
+          <Route path="/notice/edit" element={<Layout page={<NoticeEdit />} />} />
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
           <Route path="/my-page" element={<Layout page={<MyPage />} />} />
           <Route path="/profile/edit" element={<Layout page={<ProfileEdit />} />} />

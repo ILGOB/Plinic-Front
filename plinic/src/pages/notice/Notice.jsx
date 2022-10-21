@@ -35,7 +35,7 @@ function Notice() {
             />
             <FloatingMenuWrapper>
               <FloatingMenu $isMounted={isMounted} $isShow={isShowMenu}>
-                <LinkStyled to={'/'}>수정하기</LinkStyled>
+                <LinkStyled to={`/notice/edit?state=update&id=${noticeId}`}>수정하기</LinkStyled>
                 <LinkStyled to={'/'}>삭제하기</LinkStyled>
               </FloatingMenu>
             </FloatingMenuWrapper>
