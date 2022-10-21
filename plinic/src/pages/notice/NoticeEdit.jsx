@@ -1,34 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Input from '../../components/input/Input';
 import TextBtn from '../../components/button/text/TextBtn';
+import Editor from '../../components/editor/Editor';
 
 function NoticeEdit() {
-  const [titleInput, setTitleInput] = useState('');
-  const [contentInput, setContentInput] = useState('');
-  const [isWarning, setIsWarning] = useState(false);
-
-  const handleUpload = () => {
-    alert(`제목: ${titleInput}\n내용: ${contentInput}`);
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const { title, content } = state || '';
+  const [editorParams] = useSearchParams();
+  const editorOptions = {
+    state: editorParams.get('state') || '',
+    id: editorParams.get('id') || '',
   };
 
-  useEffect(() => {
-    if (titleInput.length >= 50) {
-      setIsWarning(true);
+  const [titleInput, setTitleInput] = useState(title ? title : '');
+  const [contentInput, setContentInput] = useState(content ? content : '');
+  const label = editorOptions.state === 'new' ? '작성' : '수정';
+
+  const handleUpload = () => {
+    const notice = {
+      title: titleInput,
+      content: contentInput,
+    };
+
+    if (titleInput !== '' && contentInput !== '') {
+      axios.put(`${process.env.REACT_APP_BASE_URL}/notices/${editorOptions.id}/`, notice);
+      navigate(`/notices/${editorOptions.id}`);
     } else {
-      setIsWarning(false);
+      alert('내용을 입력해주세요.');
     }
-  }, [titleInput]);
+  };
 
   return (
     <Wrapper>
-      <Title>공지글 작성하기</Title>
-      <Input usedFor={'title'} userInput={titleInput} setUserInput={setTitleInput} maxLength={50} />
-      {isWarning && <Warning>제목은 최대 50자까지 입력 가능합니다.</Warning>}
-      <Input usedFor={'content'} userInput={contentInput} setUserInput={setContentInput} />
+      <Title>공지글 {label}하기</Title>
+      <Editor
+        type="notice"
+        titleInput={titleInput}
+        setTitleInput={setTitleInput}
+        contentInput={contentInput}
+        setContentInput={setContentInput}
+      />
       <FlexRow>
-        <TextBtn location={'/'} color={'lightGreen'} btnName={'취소하기'} />
-        <TextBtn location={'/'} color={'navy'} btnName={'올리기'} onClick={handleUpload} />
+        <TextBtn location={'/'} btnName={'취소하기'} />
+        <TextBtn color={'lightGreen'} btnName={`${label}하기`} onClick={handleUpload} />
       </FlexRow>
     </Wrapper>
   );
@@ -39,7 +56,7 @@ export default NoticeEdit;
 const NAVY = ({ theme }) => theme.color.navy;
 
 const Wrapper = styled.div`
-  width: 80%;
+  width: 100%;
   height: 100%;
   ${({ theme }) => theme.align.flexCenterColumn}
   gap: 25px;
@@ -57,8 +74,8 @@ const FlexRow = styled.div`
   ${({ theme }) => theme.align.flexCenter}
   justify-content: flex-end;
   gap: 25px;
-`;
 
-const Warning = styled.div`
-  color: ${({ theme }) => theme.color.warning};
+  div:first-child {
+    color: ${({ theme }) => theme.color.gray};
+  }
 `;
