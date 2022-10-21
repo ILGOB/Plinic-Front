@@ -73,7 +73,6 @@ function PostList() {
 
 export default PostList;
 
-const FLEX_CENTER = ({ theme }) => theme.align.flexCenter;
 const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 const BOLDTEXT = ({ theme }) => theme.font.weight['bold'];
 const DANGER = ({ theme }) => theme.color.warning;
