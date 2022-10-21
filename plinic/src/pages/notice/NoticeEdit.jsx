@@ -46,7 +46,7 @@ function NoticeEdit() {
         setContentInput={setContentInput}
       />
       <FlexRow>
-        <TextBtn location={'/'} btnName={'취소하기'} />
+        <TextBtn btnName={'취소하기'} onClick={() => navigate(-1)} />
         <TextBtn color={'lightGreen'} btnName={`${label}하기`} onClick={handleUpload} />
       </FlexRow>
     </Wrapper>
