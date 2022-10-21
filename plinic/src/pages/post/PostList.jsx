@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import loginAtom from '../../recoil/dummy-login/loginAtom';
 import { useRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
@@ -7,42 +8,47 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWarning, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import Thumbnail from '../../components/thumbnail/Thumbnail';
 import Pagination from '../../components/pagination/Pagination';
-import { posts } from '../../components/pagination/posts';
 
 function PostList() {
   const [isLogin, setIsLogin] = useRecoilState(loginAtom);
   const [data, setData] = useState([]);
+  const [dataCount, setDataCount] = useState(0);
+  const [latestNotice, setLatestNotice] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const latestNotice = data.filter(notice => {
-    if (notice.id === 1) {
-      return notice;
-    }
-  });
 
   const handlePageChange = pageNumber => {
     setActivePage(pageNumber);
   };
 
   useEffect(() => {
-    setData(posts);
+    axios.get(`${process.env.REACT_APP_BASE_URL}/notices/?recent=true`).then(res => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/notices/${res.data['0'].id}/`).then(res => {
+        setLatestNotice(res.data);
+      });
+    });
   }, []);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/posts/?page=${activePage}`).then(res => {
+      setData(res.data.results);
+      setDataCount(res.data.count);
+    });
+  }, [activePage]);
 
   return (
     <Wrapper>
       <HeaderContainer>
-        {latestNotice.map(n => (
-          <NoticeContainer key={n.id} isLogin={isLogin}>
-            <div>
-              <LinkStyled to="/notices">
-                <IconStyled icon={faWarning} />
-                [공지]
-              </LinkStyled>
-              {n.title}
-            </div>
-            <div>{n.nickname}</div>
-            <div>2022.09.15</div>
-          </NoticeContainer>
-        ))}
+        <NoticeContainer>
+          <div>
+            <LinkStyled to="/notices">
+              <IconStyled icon={faWarning} />
+              [공지]
+            </LinkStyled>
+            <LinkStyled to={`/notices/${latestNotice.id}`}>{latestNotice.title}</LinkStyled>
+          </div>
+          <div>{latestNotice.author}</div>
+          <div>{latestNotice.created_at}</div>
+        </NoticeContainer>
 
         {isLogin && (
           <>
@@ -58,25 +64,25 @@ function PostList() {
 
       <Posts>
         {data &&
-          data.slice(8 * (activePage - 1), 8 * (activePage - 1) + 8).map(d => (
+          data.map(d => (
             <PostBox key={d.id}>
               <LinkStyled to={`/posts/${d.id}`}>
                 <Thumbnail
                   post
-                  img={'http://jolleyonmovies.files.wordpress.com/2014/01/frozen-elsa.jpg'}
-                  likes={d.likes}
-                  likeState={d.likeState}
+                  img={d.playlist_info.thumbnail_img_url || `https://source.unsplash.com/random/${d.id}`}
+                  likes={d.liker_count}
+                  likeState={d.is_like}
                   size={250}
                 />
                 <TextBox>
                   <div>{d.title}</div>
-                  <div>{d.nickname}</div>
+                  <div>{d.author.nickname}</div>
                 </TextBox>
               </LinkStyled>
             </PostBox>
           ))}
       </Posts>
-      <Pagination activePage={activePage} totalItemsCount={data.length - 1} handlePageChange={handlePageChange} />
+      <Pagination activePage={activePage} totalItemsCount={dataCount} handlePageChange={handlePageChange} />
     </Wrapper>
   );
 }
@@ -97,9 +103,9 @@ const Wrapper = styled.div`
 `;
 
 const LinkStyled = styled(Link)`
+  width: 100%;
   color: inherit;
   text-decoration: none;
-  ${BOLDTEXT}
 `;
 
 const HeaderContainer = styled.div`
@@ -111,13 +117,12 @@ const HeaderContainer = styled.div`
 `;
 
 const NoticeContainer = styled.div`
-  width: ${props => (props.isLogin ? '85%' : '100%')};
+  width: ${props => (props.isLogin ? 'calc(100% - 216px)' : '100%')};
   height: 100%;
   padding: 0 32px;
 
   display: grid;
-  grid-template-columns: 9fr 1fr 1fr;
-  column-gap: 24px;
+  grid-template-columns: 4fr 1fr 1fr;
   align-items: stretch;
 
   background: #ffe2e2;
@@ -137,10 +142,13 @@ const NoticeContainer = styled.div`
     &:last-child {
       text-align: right;
     }
-  }
 
-  ${LinkStyled} {
-    padding-right: 10px;
+    ${LinkStyled} {
+      &:first-child {
+        padding-right: 10px;
+        ${BOLDTEXT}
+      }
+    }
   }
 `;
 
@@ -152,7 +160,9 @@ const DivideLine = styled.div`
 
 const PostButton = styled.div`
   ${FLEX_CENTER_COLUMN};
+  width: 150px;
   height: 44px;
+  text-align: center;
   color: ${({ theme }) => theme.color.green};
   padding: 0 16px;
   border: 1px solid ${({ theme }) => theme.color.green};
@@ -177,6 +187,7 @@ const Posts = styled.div`
 
   ${LinkStyled} {
     ${FLEX_CENTER_COLUMN};
+    ${BOLDTEXT}
     width: 250px;
     gap: 12px;
   }
