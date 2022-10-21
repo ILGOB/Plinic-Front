@@ -6,7 +6,7 @@ function Pagination({ activePage, totalItemsCount, handlePageChange }) {
     <PaginationBox>
       <PaginationLib
         activePage={activePage}
-        itemsCountPerPage={10}
+        itemsCountPerPage={8}
         totalItemsCount={totalItemsCount}
         pageRangeDisplayed={5}
         onChange={handlePageChange}
