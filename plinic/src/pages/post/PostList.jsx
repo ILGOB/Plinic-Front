@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import Thumbnail from '../../components/thumbnail/Thumbnail';
 import Pagination from '../../components/pagination/Pagination';
-import { posts } from '../../components/pagination/posts';
 
 function PostList() {
   const [data, setData] = useState([]);
+  const [dataCount, setDataCount] = useState(0);
   const [latestNotice, setLatestNotice] = useState([]);
   const [activePage, setActivePage] = useState(1);
 
@@ -26,8 +26,11 @@ function PostList() {
   }, []);
 
   useEffect(() => {
-    setData(posts);
-  }, []);
+    axios.get(`${process.env.REACT_APP_BASE_URL}/posts/?page=${activePage}`).then(res => {
+      setData(res.data.results);
+      setDataCount(res.data.count);
+    });
+  }, [activePage]);
 
   return (
     <Wrapper>
@@ -45,25 +48,25 @@ function PostList() {
 
       <Posts>
         {data &&
-          data.slice(8 * (activePage - 1), 8 * (activePage - 1) + 8).map(d => (
+          data.map(d => (
             <PostBox key={d.id}>
               <LinkStyled to={`/posts/${d.id}`}>
                 <Thumbnail
                   post
-                  img={'http://jolleyonmovies.files.wordpress.com/2014/01/frozen-elsa.jpg'}
-                  likes={d.likes}
-                  likeState={d.likeState}
+                  img={d.playlist_info.thumbnail_img_url || `https://source.unsplash.com/random/${d.id}`}
+                  likes={d.liker_count}
+                  likeState={d.is_like}
                   size={250}
                 />
                 <TextBox>
                   <div>{d.title}</div>
-                  <div>{d.nickname}</div>
+                  <div>{d.author.nickname}</div>
                 </TextBox>
               </LinkStyled>
             </PostBox>
           ))}
       </Posts>
-      <Pagination activePage={activePage} totalItemsCount={data.length - 1} handlePageChange={handlePageChange} />
+      <Pagination activePage={activePage} totalItemsCount={dataCount} handlePageChange={handlePageChange} />
     </Wrapper>
   );
 }
