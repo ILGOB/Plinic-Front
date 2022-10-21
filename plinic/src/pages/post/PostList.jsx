@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import loginAtom from '../../recoil/dummy-login/loginAtom';
+import { useRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faWarning, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import Thumbnail from '../../components/thumbnail/Thumbnail';
 import Pagination from '../../components/pagination/Pagination';
 
 function PostList() {
+  const [isLogin, setIsLogin] = useRecoilState(loginAtom);
   const [data, setData] = useState([]);
   const [dataCount, setDataCount] = useState(0);
   const [latestNotice, setLatestNotice] = useState([]);
@@ -34,17 +37,30 @@ function PostList() {
 
   return (
     <Wrapper>
-      <NoticeContainer key={latestNotice.id}>
-        <div>
-          <LinkStyled to="/notices">
-            <IconStyled icon={faWarning} />
-            [공지]
-          </LinkStyled>
-          <LinkStyled to={`/notices/${latestNotice.id}`}>{latestNotice.title}</LinkStyled>
-        </div>
-        <div>{latestNotice.author}</div>
-        <div>{latestNotice.created_at}</div>
-      </NoticeContainer>
+      <HeaderContainer>
+        <NoticeContainer>
+          <div>
+            <LinkStyled to="/notices">
+              <IconStyled icon={faWarning} />
+              [공지]
+            </LinkStyled>
+            <LinkStyled to={`/notices/${latestNotice.id}`}>{latestNotice.title}</LinkStyled>
+          </div>
+          <div>{latestNotice.author}</div>
+          <div>{latestNotice.created_at}</div>
+        </NoticeContainer>
+
+        {isLogin && (
+          <>
+            <DivideLine />
+            <PostButton>
+              <LinkStyled to="/post/new">
+                <FontAwesomeIcon icon={faPenToSquare} /> 글 작성하기
+              </LinkStyled>
+            </PostButton>
+          </>
+        )}
+      </HeaderContainer>
 
       <Posts>
         {data &&
@@ -73,6 +89,7 @@ function PostList() {
 
 export default PostList;
 
+const FLEX_CENTER = ({ theme }) => theme.align.flexCenter;
 const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
 const BOLDTEXT = ({ theme }) => theme.font.weight['bold'];
 const DANGER = ({ theme }) => theme.color.warning;
@@ -80,10 +97,9 @@ const DANGER = ({ theme }) => theme.color.warning;
 const Wrapper = styled.div`
   width: 100%;
   height: calc(100vh - 60px);
-  margin-top: 32px;
   ${FLEX_CENTER_COLUMN}
   justify-content: flex-start;
-  gap: 32px;
+  gap: 20px;
 `;
 
 const LinkStyled = styled(Link)`
@@ -92,14 +108,21 @@ const LinkStyled = styled(Link)`
   text-decoration: none;
 `;
 
-const NoticeContainer = styled.div`
+const HeaderContainer = styled.div`
   width: 100%;
   height: 44px;
+  ${FLEX_CENTER};
+  justify-content: space-between;
+  gap: 24px;
+`;
+
+const NoticeContainer = styled.div`
+  width: ${props => (props.isLogin ? 'calc(100% - 216px)' : '100%')};
+  height: 100%;
   padding: 0 32px;
 
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
-  column-gap: 24px;
   align-items: stretch;
 
   background: #ffe2e2;
@@ -126,6 +149,29 @@ const NoticeContainer = styled.div`
         ${BOLDTEXT}
       }
     }
+  }
+`;
+
+const DivideLine = styled.div`
+  width: 2px;
+  height: 35px;
+  background-color: #d9d9d9;
+`;
+
+const PostButton = styled.div`
+  ${FLEX_CENTER_COLUMN};
+  width: 150px;
+  height: 44px;
+  text-align: center;
+  color: ${({ theme }) => theme.color.green};
+  padding: 0 16px;
+  border: 1px solid ${({ theme }) => theme.color.green};
+  border-radius: 10px;
+  transition: all 0.2s ease;
+
+  :hover {
+    background-color: ${({ theme }) => theme.color.green};
+    color: ${({ theme }) => theme.color.white};
   }
 `;
 
