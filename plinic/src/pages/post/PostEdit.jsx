@@ -19,8 +19,15 @@ function PostEdit() {
   const newPostId = data.length + 1;
   const tagRegEx = /(#[a-zA-Z가-힣][^\s#][a-zA-Z가-힣0-9]{0,28})/g;
 
+  /**
+   * 태그 리스트를 반환합니다.
+   *
+   * @param {string} content 태그를 식별할 문자열
+   * @returns {array} 식별된 태그 리스트 (tags: # 포함, realtags: # 포함 X)
+   */
   const makeTagList = content => {
     const tags = content.match(tagRegEx);
+    const realtags = tags.map(tag => tag.substring(1));
     return tags;
   };
 
