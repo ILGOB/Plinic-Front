@@ -8,7 +8,7 @@ function Editor({ type, data, titleInput, setTitleInput, contentInput, setConten
   return (
     <Wrapper>
       <Input usedFor={'title'} userInput={titleInput} setUserInput={setTitleInput} maxLength={30} />
-      <Input maxLength={type === 'post' && 300} {...contentInputProps} />
+      <Input maxLength={type === 'post' ? 300 : undefined} {...contentInputProps} />
       {type === 'post' && <PlaylistSwipe data={data} setPlaylistInput={setPlaylistInput} />}
     </Wrapper>
   );
