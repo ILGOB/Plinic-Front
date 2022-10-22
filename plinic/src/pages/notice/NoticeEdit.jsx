@@ -29,6 +29,10 @@ function NoticeEdit() {
       if (editorOptions.state === 'update') {
         axios.put(`${process.env.REACT_APP_BASE_URL}/notices/${editorOptions.id}/`, notice);
         navigate(`/notices/${editorOptions.id}`);
+      } else if (editorOptions.state === 'new') {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/notices/`, notice).then(res => {
+          console.log(res);
+        });
       }
     } else {
       alert('내용을 입력해주세요.');
