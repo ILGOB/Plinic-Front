@@ -1,5 +1,5 @@
 import Post from './Post';
-import PostCreate from './PostCreate';
+import PostEdit from './PostEdit';
 import PostList from './PostList';
 
-export { Post,PostCreate, PostList };
+export { Post, PostEdit, PostList };
