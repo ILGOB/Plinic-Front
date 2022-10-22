@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Editor from '../../components/editor/Editor';
 import TextBtn from '../../components/button/text/TextBtn';
 import data from '../../components/post/dummyData';
 
-function PostCreate() {
+function PostEdit() {
   const navigate = useNavigate();
+  const [editorParams] = useSearchParams();
+  const editorOptions = {
+    state: editorParams.get('state') || '',
+    id: editorParams.get('id') || '',
+  };
+
   const [titleInput, setTitleInput] = useState('');
   const [contentInput, setContentInput] = useState('');
   const [playlistInput, setPlaylistInput] = useState(data[0].title);
@@ -20,22 +26,21 @@ function PostCreate() {
 
   const handleUpload = () => {
     const post = {
-      id: newPostId,
       title: titleInput,
       content: contentInput,
-      tagList: makeTagList(contentInput),
-      playlist: playlistInput,
+      playlist_id: playlistInput,
+      tag_set: makeTagList(contentInput),
     };
 
-    if (titleInput === '') {
-      return alert('제목을 입력해주세요.');
-    } else if (contentInput === '') {
-      return alert('내용을 입력해주세요.');
+    if (titleInput !== '' && contentInput !== '') {
+      if (editorOptions.state === 'update') {
+        alert(`기존 게시물을 수정합니다.\n${JSON.stringify(post)}}`);
+      } else if (editorOptions.state === 'new') {
+        alert(`새로운 게시물을 생성합니다.\n${JSON.stringify(post)}`);
+      }
+    } else {
+      alert('내용을 입력하세요.');
     }
-
-    alert(
-      `Id: ${post.id}\n제목: ${post.title}\n내용: ${post.content}\n태그: ${post.tagList}\n플레이리스트: ${post.playlist}`
-    );
   };
 
   return (
@@ -53,7 +58,7 @@ function PostCreate() {
         <TextBtn btnName={'취소하기'} onClick={() => navigate(-1)} />
         <TextBtn
           btnName={'작성하기'}
-          location={titleInput && contentInput && `/post/${newPostId}`}
+          location={titleInput && contentInput && `/posts/${newPostId}`}
           color={'lightGreen'}
           onClick={handleUpload}
         />
@@ -62,7 +67,7 @@ function PostCreate() {
   );
 }
 
-export default PostCreate;
+export default PostEdit;
 
 const FLEX_CENTER = ({ theme }) => theme.align.flexCenter;
 const FLEX_CENTER_COLUMN = ({ theme }) => theme.align.flexCenterColumn;
