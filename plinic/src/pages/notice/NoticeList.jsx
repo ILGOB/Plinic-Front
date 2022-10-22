@@ -28,7 +28,7 @@ function NoticeList() {
         <div>공지사항</div>
         {isLogin && (
           <NewNoticeButton>
-            <LinkStyled to="/post/edit?state=new">새로운 공지 작성하기 〉</LinkStyled>
+            <LinkStyled to="/notice/edit?state=new">새로운 공지 작성하기 〉</LinkStyled>
           </NewNoticeButton>
         )}
       </HeaderLabel>
