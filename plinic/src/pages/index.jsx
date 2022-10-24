@@ -1,7 +1,7 @@
 import Home from './home/Home';
 import Login from './login/Login';
 import { Search, SearchResult } from './search';
-import { Post, PostList, PostCreate } from './post';
+import { Post, PostList, PostEdit } from './post';
 import { Notice, NoticeList, NoticeEdit } from './notice';
 import SignUp from './sign-up/SignUp';
 import MyPage from './my-page/MyPage';
@@ -40,7 +40,7 @@ export {
   SearchResult,
   Post,
   PostList,
-  PostCreate,
+  PostEdit,
   Notice,
   NoticeList,
   NoticeEdit,

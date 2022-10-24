@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import loginAtom from '../../recoil/dummy-login/loginAtom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faCircle, faHeart, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faCircle, faHeart, faBookmark, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import Genre from '../../components/button/genre/Genre';
 import dummyData from './dummyData';
 import playlistDummyData from '../../components/playlist/dummyData';
@@ -16,6 +16,9 @@ function Post() {
 
   const loginState = useRecoilValue(loginAtom);
   console.log('loginState :>> ', loginState);
+
+  const [isMounted, setIsMounted] = useState(false);
+  const [isShowMenu, setIsShowMenu] = useState(false);
 
   const handleDelete = () => {
     alert('삭제');
@@ -30,10 +33,31 @@ function Post() {
         <Writer>by. {dummyData.author}</Writer>
         {loginState ? <Btn onClick={handleDelete}>삭제</Btn> : ''}
       </div>
-      <Info>
-        <PostTitle>{dummyData.playlist.title}</PostTitle>
-        <Genre key={dummyData.playlist.id} name={dummyData.playlist['genre_name']} usedFor={'post'} />
-      </Info>
+      <InfoWrapper>
+        <Info>
+          <PostTitle>{dummyData.playlist.title}</PostTitle>
+          <Genre key={dummyData.playlist.id} name={dummyData.playlist['genre_name']} usedFor={'post'} />
+        </Info>
+        {loginState ? (
+          <Menu>
+            <FontAwesomeIcon
+              icon={faEllipsisVertical}
+              onClick={() => {
+                setIsShowMenu(current => !current);
+                setIsMounted(true);
+              }}
+            />
+            <FloatingMenuWrapper>
+              <FloatingMenu $isMounted={isMounted} $isShow={isShowMenu}>
+                <LinkStyled to={`/post/edit?state=update&id=${dummyData.id}`}>수정하기</LinkStyled>
+                <div>삭제하기</div>
+              </FloatingMenu>
+            </FloatingMenuWrapper>
+          </Menu>
+        ) : (
+          ''
+        )}
+      </InfoWrapper>
       <DateWrapper>
         <CreateDate>
           <FontAwesomeIcon icon={faCalendar} />
@@ -86,6 +110,12 @@ const Btn = styled.span`
   ${({ theme }) => theme.font.size[20]}
   ${({ theme }) => theme.font.weight.thick}
   cursor: pointer;
+`;
+
+const InfoWrapper = styled.div`
+  width: 100%;
+  ${FLEX_CENTER};
+  justify-content: space-between;
 `;
 
 const Info = styled.div`
@@ -175,3 +205,71 @@ const LikeBtn = styled.div`
 `;
 
 const BookmarkBtn = styled(LikeBtn)``;
+
+/* =============================================================
+수정/삭제 메뉴 관련
+============================================================= */
+
+const slideUpDown = isShow => keyframes`
+  from {
+    -webkit-transform: translateY(${isShow ? 0 : 110}px);
+            transform: translateY(${isShow ? 0 : 110}px);
+  }
+  to {
+    -webkit-transform: translateY(${isShow ? 110 : 0}px);
+            transform: translateY(${isShow ? 110 : 0}px);
+  }
+`;
+
+const LinkStyled = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+`;
+
+const Menu = styled.div`
+  width: 25px;
+  height: 25px;
+  position: relative;
+
+  & > .fa-ellipsis-vertical {
+    width: 100%;
+    ${({ theme }) => theme.font.size['20']};
+    ${({ theme }) => theme.font.weight['bold']};
+    color: ${({ theme }) => theme.color.disabled};
+    cursor: pointer;
+  }
+`;
+
+const FloatingMenuWrapper = styled.div`
+  position: absolute;
+  right: 0px;
+  top: 25px;
+  width: 120px;
+  height: 100px;
+  overflow: hidden;
+`;
+
+const FloatingMenu = styled.div`
+  background: ${({ theme }) => theme.color.white};
+  padding: 5px 0;
+  position: absolute;
+  top: -100px;
+  right: 10px;
+  width: 80px;
+  border-radius: 5px;
+  border: 1px solid ${({ theme }) => theme.color.disabled};
+  animation: ${props => props.$isMounted && slideUpDown(props.$isShow)} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  ${FLEX_CENTER_COLUMN};
+
+  & > a,
+  & > div {
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+
+    :hover {
+      color: ${({ theme }) => theme.color.navy};
+    }
+  }
+`;
