@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -11,6 +11,10 @@ import Genre from '../../components/button/genre/Genre';
 import dummyData from './dummyData';
 
 function MyPage() {
+  const [switchState, setSwitchState] = useState(true);
+
+  console.log('myPage switch :>> ', switchState);
+
   const userInfo = (
     <UserInfoWrapper>
       <ProfileWrapper>
@@ -35,7 +39,7 @@ function MyPage() {
     <PlayListWrapper>
       <Header>
         <Title>공개 플레이리스트 2개</Title>
-        <Switch leftLabel={'비공개'} rightLabel={'공개'} />
+        <Switch leftLabel={'비공개'} rightLabel={'공개'} switchState={switchState} setSwitchState={setSwitchState} />
       </Header>
       <CardSwipe />
     </PlayListWrapper>
