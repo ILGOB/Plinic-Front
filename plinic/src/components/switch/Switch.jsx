@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-function Switch({ leftLabel, rightLabel }) {
-  const [toggleState, setToggleState] = useState(true);
-
+function Switch({ leftLabel, rightLabel, switchState, setSwitchState, choiceSwitchLabel, setChoiceSwitchLabel }) {
   const clickedLeftLabel = () => {
     console.log(leftLabel);
-    setToggleState(false);
+    setSwitchState(false);
+    setChoiceSwitchLabel(leftLabel);
   };
 
   const clickedRightLabel = () => {
     console.log(rightLabel);
-    setToggleState(true);
+    setSwitchState(true);
+    setChoiceSwitchLabel(rightLabel);
   };
 
   const clickedToggleButton = () => {
-    setToggleState(!toggleState);
+    setSwitchState(!switchState);
+    switchState ? setChoiceSwitchLabel(leftLabel) : setChoiceSwitchLabel(rightLabel);
   };
 
   useEffect(() => {
-    console.log(toggleState);
-  }, [toggleState]);
+    console.log(switchState);
+  }, [switchState]);
 
   return (
     <Wrapper>
       <Label onClick={clickedLeftLabel}>{leftLabel}</Label>
-      <ToggleWrapper state={toggleState} onClick={clickedToggleButton}>
-        <ToggleButton state={toggleState} onClick={clickedToggleButton} />
+      <ToggleWrapper state={switchState} onClick={clickedToggleButton}>
+        <ToggleButton state={switchState} onClick={clickedToggleButton} />
       </ToggleWrapper>
       <Label onClick={clickedRightLabel}>{rightLabel}</Label>
     </Wrapper>

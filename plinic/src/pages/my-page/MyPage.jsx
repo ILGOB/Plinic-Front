@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { useRecoilValue } from 'recoil';
+import loginAtom from '../../recoil/dummy-login/loginAtom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faGear } from '@fortawesome/free-solid-svg-icons';
 import Switch from '../../components/switch/Switch';
@@ -11,15 +12,24 @@ import Genre from '../../components/button/genre/Genre';
 import dummyData from './dummyData';
 
 function MyPage() {
+  const [switchState, setSwitchState] = useState(true);
+  const [choiceSwitchLabel, setChoiceSwitchLabel] = useState('공개');
+  const loginState = useRecoilValue(loginAtom);
+  console.log('loginState :>> ', loginState);
+
+  console.log('myPage switch :>> ', switchState);
+
   const userInfo = (
     <UserInfoWrapper>
       <ProfileWrapper>
         <ProfileIcon icon={faCircleUser} />
-        <LinkStyled to={'/profile/edit'}>
-          <SettingWrapper>
-            <SettingIcon icon={faGear} />
-          </SettingWrapper>
-        </LinkStyled>
+        {loginState && (
+          <LinkStyled to={'/profile/edit'}>
+            <SettingWrapper>
+              <SettingIcon icon={faGear} />
+            </SettingWrapper>
+          </LinkStyled>
+        )}
       </ProfileWrapper>
       <Nickname>{dummyData.nickname}</Nickname>
       <GenreWrapper>
@@ -27,15 +37,44 @@ function MyPage() {
           return <Genre key={idx} name={el} usedFor={'myPage'} />;
         })}
       </GenreWrapper>
-      <PostedLink to={'/post-list'}>내가 작성한 게시글</PostedLink>
+      {loginState ? (
+        <PostedLink to={'/post-list'}>내가 작성한 게시글</PostedLink>
+      ) : (
+        <PostedLink to={'/post-list'}>Lami 님이 작성한 게시글</PostedLink>
+      )}
     </UserInfoWrapper>
   );
 
   const playList = (
     <PlayListWrapper>
       <Header>
-        <Title>공개 플레이리스트 2개</Title>
-        <Switch leftLabel={'비공개'} rightLabel={'공개'} />
+        {loginState ? (
+          // 내 마이페이지
+          <>
+            <Title>{choiceSwitchLabel} 플레이리스트 2개</Title>
+            <Switch
+              leftLabel={'비공개'}
+              rightLabel={'공개'}
+              switchState={switchState}
+              setSwitchState={setSwitchState}
+              choiceSwitchLabel={choiceSwitchLabel}
+              setChoiceSwitchLabel={setChoiceSwitchLabel}
+            />
+          </>
+        ) : (
+          // 다른사람 마이페이지
+          <>
+            <Title>{choiceSwitchLabel} 플레이리스트 2개</Title>
+            <Switch
+              leftLabel={'스크랩'}
+              rightLabel={'공개'}
+              switchState={switchState}
+              setSwitchState={setSwitchState}
+              choiceSwitchLabel={choiceSwitchLabel}
+              setChoiceSwitchLabel={setChoiceSwitchLabel}
+            />
+          </>
+        )}
       </Header>
       <CardSwipe />
     </PlayListWrapper>
