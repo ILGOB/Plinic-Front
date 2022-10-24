@@ -7,17 +7,18 @@ import Pagination from '../../components/pagination/Pagination';
 function NoticeList() {
   const [activePage, setActivePage] = useState(1);
   const [notices, setNotices] = useState([]);
-  const noticePerPage = 8;
+  const [noticeCount, setNoticeCount] = useState(0);
 
   const handlePageChange = pageNumber => {
     setActivePage(pageNumber);
   };
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/notices/`).then(res => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/notices/?page=${activePage}`).then(res => {
       setNotices(res.data.results);
+      setNoticeCount(res.data.count);
     });
-  }, []);
+  }, [activePage]);
 
   return (
     <Wrapper>
@@ -31,23 +32,21 @@ function NoticeList() {
         </GridContainer>
         <Line navy />
         {notices &&
-          notices
-            .slice(noticePerPage * (activePage - 1), noticePerPage * (activePage - 1) + noticePerPage)
-            .map(notice => (
-              <Notice key={notice.id}>
-                <LinkStyled to={`/notices/${notice.id}`}>
-                  <GridContainer link>
-                    <GridItem>{notice.id}</GridItem>
-                    <GridItem isTitle={true}>{notice.title}</GridItem>
-                    <GridItem>{notice.author}</GridItem>
-                    <GridItem>{notice.created_at}</GridItem>
-                  </GridContainer>
-                </LinkStyled>
-                <Line />
-              </Notice>
-            ))}
+          notices.map(notice => (
+            <Notice key={notice.id}>
+              <LinkStyled to={`/notices/${notice.id}`}>
+                <GridContainer link>
+                  <GridItem>{notice.id}</GridItem>
+                  <GridItem isTitle={true}>{notice.title}</GridItem>
+                  <GridItem>{notice.author}</GridItem>
+                  <GridItem>{notice.created_at}</GridItem>
+                </GridContainer>
+              </LinkStyled>
+              <Line />
+            </Notice>
+          ))}
       </NoticeContainer>
-      <Pagination activePage={activePage} totalItemsCount={notices.length - 1} handlePageChange={handlePageChange} />
+      <Pagination activePage={activePage} totalItemsCount={noticeCount} handlePageChange={handlePageChange} />
     </Wrapper>
   );
 }

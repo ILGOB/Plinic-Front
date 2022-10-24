@@ -2,7 +2,7 @@ import Home from './home/Home';
 import Login from './login/Login';
 import { Search, SearchResult } from './search';
 import { Post, PostList, PostEdit } from './post';
-import { Notice, NoticeList } from './notice';
+import { Notice, NoticeList, NoticeEdit } from './notice';
 import SignUp from './sign-up/SignUp';
 import MyPage from './my-page/MyPage';
 import ProfileEdit from './profile-edit/ProfileEdit';
@@ -43,6 +43,7 @@ export {
   PostEdit,
   Notice,
   NoticeList,
+  NoticeEdit,
   SignUp,
   MyPage,
   ProfileEdit,
