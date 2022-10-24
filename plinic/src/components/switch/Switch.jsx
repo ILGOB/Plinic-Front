@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-function Switch({ leftLabel, rightLabel, switchState, setSwitchState }) {
+function Switch({ leftLabel, rightLabel, switchState, setSwitchState, choiceSwitchLabel, setChoiceSwitchLabel }) {
   const clickedLeftLabel = () => {
     console.log(leftLabel);
     setSwitchState(false);
+    setChoiceSwitchLabel(leftLabel);
   };
 
   const clickedRightLabel = () => {
     console.log(rightLabel);
     setSwitchState(true);
+    setChoiceSwitchLabel(rightLabel);
   };
 
   const clickedToggleButton = () => {
     setSwitchState(!switchState);
+    switchState ? setChoiceSwitchLabel(leftLabel) : setChoiceSwitchLabel(rightLabel);
   };
 
   useEffect(() => {
