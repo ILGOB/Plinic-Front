@@ -56,7 +56,7 @@ function App() {
           <Route path="/notices/:noticeId" element={<Layout page={<Notice />} />} />
           <Route path="/notice/edit" element={<Layout page={<NoticeEdit />} />} />
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
-          <Route path="/mypage" element={<Layout page={<MyPage />} />} />
+          <Route path="/beta" element={<Layout page={<MyPage />} />} />
           <Route path="/profile/edit" element={<Layout page={<ProfileEdit />} />} />
           <Route path="/playlist/:playlistId" element={<Layout page={<Playlist />} />} />
         </Routes>

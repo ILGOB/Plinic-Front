@@ -20,7 +20,7 @@ function Home() {
   }, []);
 
   return (
-    <LinkStyled to={'/mypage'}>
+    <LinkStyled to={'/beta'}>
       <Wrapper>
         <Video autoPlay loop muted>
           <source key={video} src={video} type="video/mp4" />
