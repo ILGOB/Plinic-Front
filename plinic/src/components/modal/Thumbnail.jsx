@@ -10,18 +10,14 @@ function Thumbnail() {
 
   const getRandomImg = () => {
     axios
-      .get('https://api.unsplash.com/photos/random', {
-        params: {
-          client_id: '2GsZ5WLwLDfys_DkVrPUmcn335xVm20Pk40yzMU2Eso',
-        },
-      })
+      .get(`${process.env.REACT_APP_BASE_URL}/random-thumbnail/`)
       .then(res => {
-        setRandomUrl(res.data.links.download);
-        console.log(res.data.links.download);
+        console.log(res.data['img_url']);
+        setRandomUrl(res.data['img_url']);
       })
       .catch(error => {
         console.log(error);
-        // getRandomImg();
+        getRandomImg();
       });
   };
 
