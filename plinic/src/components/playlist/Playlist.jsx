@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function Playlist({ data, usedFor }) {
+function Playlist({ data, usedFor, playTime }) {
   console.log('data :>> ', data);
+  console.log('playTime :>> ', playTime);
   const [playing, setPlaying] = useState('');
 
   const changeMusic = e => {
@@ -33,7 +34,7 @@ function Playlist({ data, usedFor }) {
               <Num>{item.id}</Num>
               <Title>{item.title}</Title>
             </div>
-            <Time>{item.time}</Time>
+            <Time>{item.playTime}</Time>
           </PlayListItem>
         ))}
       </PlayList>

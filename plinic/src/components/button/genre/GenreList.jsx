@@ -4,10 +4,28 @@ import { genreData } from './genreData';
 import styled from 'styled-components';
 
 function GenreList(props) {
-  const genre1 = genreData.slice(0, 6);
-  const genre2 = genreData.slice(6, 12);
-  const genre3 = genreData.slice(12, 18);
-  const genre4 = genreData.slice(18, 24);
+  const genre1 = [
+    {
+      id: 1,
+      name: 'pop',
+    },
+    {
+      id: 2,
+      name: 'k-pop',
+    },
+    {
+      id: 3,
+      name: 'jazz',
+    },
+    {
+      id: 4,
+      name: 'hip-hop',
+    },
+    {
+      id: 5,
+      name: 'disney',
+    },
+  ];
 
   const key = [];
 
@@ -27,21 +45,6 @@ function GenreList(props) {
     <>
       <Wrapper>
         {genre1.map(genre => {
-          return <Genre key={genre.id} name={genre.name} onClick={props.onClick} isClicked={props.isClicked} />;
-        })}
-      </Wrapper>
-      <Wrapper>
-        {genre2.map(genre => {
-          return <Genre key={genre.id} name={genre.name} onClick={props.onClick} isClicked={props.isClicked} />;
-        })}
-      </Wrapper>
-      <Wrapper>
-        {genre3.map(genre => {
-          return <Genre key={genre.id} name={genre.name} onClick={props.onClick} isClicked={props.isClicked} />;
-        })}
-      </Wrapper>
-      <Wrapper>
-        {genre4.map(genre => {
           return <Genre key={genre.id} name={genre.name} onClick={props.onClick} isClicked={props.isClicked} />;
         })}
       </Wrapper>
