@@ -101,7 +101,7 @@ function CardSwipe() {
       <Swiper {...swiperParams} ref={setSwiper}>
         {data &&
           data.map((cardData, index) => (
-            <SwiperSlide key={cardData.id} onClick={() => linkTo(`/playlist/${index}`)}>
+            <SwiperSlide key={cardData.id} onClick={() => linkTo(`/beta/playlist/${index}`)}>
               <Card thumbnail={cardData.thumbnail} title={cardData.title} playlistNum={cardData.playlistNum} />
             </SwiperSlide>
           ))}

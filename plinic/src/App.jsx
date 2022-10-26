@@ -58,7 +58,7 @@ function App() {
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
           <Route path="/beta" element={<Layout page={<MyPage />} />} />
           <Route path="/profile/edit" element={<Layout page={<ProfileEdit />} />} />
-          <Route path="/playlist/:playlistId" element={<Layout page={<Playlist />} />} />
+          <Route path="/beta/playlist/:playlistId" element={<Layout page={<Playlist />} />} />
         </Routes>
       </BrowserRouter>
     </Wrapper>
