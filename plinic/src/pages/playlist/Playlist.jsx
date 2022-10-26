@@ -27,14 +27,13 @@ function Playlist() {
     <Wrapper>
       <Header>
         <HeaderTitle>{currentPlaylistTitle}</HeaderTitle>
-        {loginState ? <Btn onClick={handleDelete}>삭제</Btn> : <Btn onClick={handleSave}>보관함에 저장</Btn>}
       </Header>
       <Main>
         <Info>
           <Genre name={data[playlistId].genre} usedFor={'post'} />
-          <Total>{playlistDummyData.length}곡</Total>
+          <Total>{data[playlistId].playlist.length}곡</Total>
         </Info>
-        <PlaylistComponent data={playlistDummyData} usedFor={'playlist'} />
+        <PlaylistComponent data={data[playlistId].playlist} usedFor={'playlist'} />
       </Main>
     </Wrapper>
   );
@@ -51,10 +50,11 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.div`
-  ${FLEX_CENTER}
-  gap:675px;
+  ${FLEX_CENTER};
+  gap: 675px;
   width: 100%;
   top: 60px;
+  margin-right: 430px;
 `;
 
 const HeaderTitle = styled.h1`
