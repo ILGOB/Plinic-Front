@@ -32,6 +32,11 @@ function MyPage() {
         )}
       </ProfileWrapper>
       <Nickname>ILGOB</Nickname>
+      <GenreWrapper>
+        {dummyData.genre.map((el, idx) => {
+          return <Genre key={idx} name={el} usedFor={'myPage'} />;
+        })}
+      </GenreWrapper>
     </UserInfoWrapper>
   );
 
