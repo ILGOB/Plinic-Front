@@ -53,7 +53,7 @@ function App() {
           <Route path="/posts" element={<Layout page={<PostList />} />} />
           <Route path="/post/edit" element={<Layout page={<PostEdit />} />} />
           <Route path="/notices" element={<Layout page={<NoticeList />} appView />} />
-          <Route path="/notices/:noticeId" element={<Layout page={<Notice />} />} />
+          <Route path="/notices/:noticeId" element={<Layout page={<Notice />} appView />} />
           <Route path="/notice/edit" element={<Layout page={<NoticeEdit />} />} />
           <Route path="/sign-up" element={<Layout noMenu page={<SignUp />} />} />
           <Route path="/my-page" element={<Layout page={<MyPage />} />} />
