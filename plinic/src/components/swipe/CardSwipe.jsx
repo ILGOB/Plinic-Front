@@ -60,9 +60,9 @@ function CardSwipe() {
   console.log('playlistData :>> ', playlistData);
 
   const getPlaylist = () => {
-    console.log('videosData :>> ', videosData);
-    console.log('videosData[choicePlaylistData.choice] :>> ', videosData[choicePlaylistData.choice]);
-    console.log('choicePlaylistData.playlistNum :>> ', choicePlaylistData.playlistNum);
+    // console.log('videosData :>> ', videosData);
+    // console.log('videosData[choicePlaylistData.choice] :>> ', videosData[choicePlaylistData.choice]);
+    // console.log('choicePlaylistData.playlistNum :>> ', choicePlaylistData.playlistNum);
 
     const playlist = new Set();
 
@@ -81,11 +81,23 @@ function CardSwipe() {
     console.log('resultPlaylist :>> ', resultPlaylist);
     console.log('choicePlaylistData :>> ', choicePlaylistData);
 
-    setPlaylistData({ ...playlistData }, resultPlaylist);
+    const newItem = {
+      id: playlistData.length,
+      title: '새로운 플레이리스트',
+      playlistNum: choicePlaylistData.playlistNum,
+      genre: choicePlaylistData.choice,
+      playlist: resultPlaylist,
+      thumbnail: `https://source.unsplash.com/random/${choicePlaylistData.playlistNum}`,
+    };
+
+    setPlaylistData(current => [...current, newItem]);
+
+    return [newItem.id, [...playlistData, newItem]];
   };
 
   useEffect(() => {
     console.log('playlistData :>> ', playlistData);
+    console.log('playlist length :>> ', playlistData.length);
   }, [playlistData]);
 
   const handlePlaylistModal = () => {
@@ -106,15 +118,16 @@ function CardSwipe() {
       alert('모든 항목을 선택해주세요');
     } else {
       console.log('clicked create button');
-      console.log('playlistData :>> ', playlistData);
-      getPlaylist();
+      // console.log('playlistData :>> ', playlistData);
+      const [id, playlist] = getPlaylist();
       handlePlaylistModal();
+      navigate(`/beta/playlist/${id}`, { state: { data: playlist } });
     }
   };
 
   const linkTo = link => {
     if (isClicked) {
-      navigate(link);
+      navigate(link, { state: { data: playlistData } });
     } else {
       isClicked = true;
     }
@@ -133,8 +146,8 @@ function CardSwipe() {
         )}
       </ModalPortal>
       <Swiper {...swiperParams} ref={setSwiper}>
-        {data &&
-          data.map((cardData, index) => (
+        {playlistData &&
+          playlistData.map((cardData, index) => (
             <SwiperSlide key={cardData.id} onClick={() => linkTo(`/beta/playlist/${index}`)}>
               <Card thumbnail={cardData.thumbnail} title={cardData.title} playlistNum={cardData.playlistNum} />
             </SwiperSlide>
