@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 function Playlist({ data, usedFor, playTime }) {
   console.log('data :>> ', data);
   console.log('playTime :>> ', playTime);
   const [playing, setPlaying] = useState('');
+  const [playlistID, setPlaylistID] = useState('');
 
   const changeMusic = e => {
     setPlaying(e.currentTarget.id);
   };
+
+  useEffect(() => {
+    let videoIds = [];
+    data.map(el => videoIds.push(el.videoId));
+    videoIds = videoIds.join();
+
+    axios.get(`https://plinic-api-server.ml/api/v1/plinic/playlist-examples/?ids=${videoIds}`).then(res => {
+      setPlaylistID(res.data['total_url'].split(/list=/)[1]);
+    });
+  }, []);
 
   return (
     <PlaylistWrapper usedFor={usedFor}>
@@ -18,8 +30,8 @@ function Playlist({ data, usedFor, playTime }) {
           height="360"
           src={
             playing
-              ? `https://www.youtube.com/embed/${playing}/videoseries?list=TLGG70_eemmaf0UxNjEwMjAyMg`
-              : `https://www.youtube.com/embed/videoseries?list=TLGG70_eemmaf0UxNjEwMjAyMg`
+              ? `https://www.youtube.com/embed/${playing}/videoseries?list=${playlistID}`
+              : `https://www.youtube.com/embed/videoseries?list=${playlistID}`
           }
           title=""
           frameBorder="0"
@@ -29,7 +41,7 @@ function Playlist({ data, usedFor, playTime }) {
       </VideoFrame>
       <PlayList usedFor={usedFor}>
         {data.map(item => (
-          <PlayListItem key={item.id} onClick={changeMusic} id={item.src}>
+          <PlayListItem key={item.id} onClick={changeMusic} id={item.videoId}>
             <div>
               <Num>{item.id}</Num>
               <Title>{item.title}</Title>
