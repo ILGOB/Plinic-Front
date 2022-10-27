@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +12,7 @@ import Card from '../card/Card';
 import ModalPortal from '../modal/ModalPortal';
 import Modal from '../modal/Modal';
 import data from '../card/dummyData';
+import videosData from '../../videosDummyData';
 
 function CardSwipe() {
   const navigate = useNavigate();
@@ -20,7 +21,8 @@ function CardSwipe() {
   const [swiper, setSwiper] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaylistModal, setIsPlaylistModal] = useState(false);
-  const [playlistData, setPlaylistData] = useState({});
+  const [playlistData, setPlaylistData] = useState(data);
+  const [choicePlaylistData, setChoicePlaylistData] = useState({});
 
   SwiperCore.use([EffectCoverflow, Scrollbar]);
 
@@ -55,6 +57,37 @@ function CardSwipe() {
     },
   };
 
+  console.log('playlistData :>> ', playlistData);
+
+  const getPlaylist = () => {
+    console.log('videosData :>> ', videosData);
+    console.log('videosData[choicePlaylistData.choice] :>> ', videosData[choicePlaylistData.choice]);
+    console.log('choicePlaylistData.playlistNum :>> ', choicePlaylistData.playlistNum);
+
+    const playlist = new Set();
+
+    while (playlist.size !== choicePlaylistData.playlistNum) {
+      const index = Math.floor(Math.random() * videosData[choicePlaylistData.choice].length) + 1;
+      playlist.add(index);
+    }
+
+    // console.log('playlist :>> ', playlist);
+    // console.log('videosData[3] :>> ', videosData[choicePlaylistData.choice][3]);
+
+    const resultPlaylist = [];
+
+    playlist.forEach(el => resultPlaylist.push(videosData[choicePlaylistData.choice][el - 1]));
+
+    console.log('resultPlaylist :>> ', resultPlaylist);
+    console.log('choicePlaylistData :>> ', choicePlaylistData);
+
+    setPlaylistData({ ...playlistData }, resultPlaylist);
+  };
+
+  useEffect(() => {
+    console.log('playlistData :>> ', playlistData);
+  }, [playlistData]);
+
   const handlePlaylistModal = () => {
     if (isClicked) {
       setIsPlaylistModal(!isPlaylistModal);
@@ -74,6 +107,7 @@ function CardSwipe() {
     } else {
       console.log('clicked create button');
       console.log('playlistData :>> ', playlistData);
+      getPlaylist();
       handlePlaylistModal();
     }
   };
@@ -94,7 +128,7 @@ function CardSwipe() {
             leftOnClick={clickedCloseButton}
             rightOnClick={clickedCreateButton}
             usedFor={'playlist'}
-            setPlaylistData={setPlaylistData}
+            setPlaylistData={setChoicePlaylistData}
           />
         )}
       </ModalPortal>
