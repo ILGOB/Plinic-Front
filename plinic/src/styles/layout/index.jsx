@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import Header from './Header';
 import Main from './Main';
 
-function Layout({ page, fullScreen, noMenu }) {
+function Layout({ page, fullScreen, appView, noMenu }) {
   if (fullScreen) {
     return <FullWrapper>{page}</FullWrapper>;
   } else {
     return (
-      <Wrapper>
+      <Wrapper app={appView}>
         <Header noMenu={noMenu} />
         <Main>{page}</Main>
       </Wrapper>
@@ -37,4 +37,17 @@ const Wrapper = styled.div`
     padding: 0 calc((100vw - 1200px) / 2);
     overflow-x: hidden;
   }
+
+  ${props =>
+    props.app &&
+    `
+    @media (max-width: 767px) {
+    width: 100%;
+    padding: 0 1em;
+  }
+  @media (min-width: 768px) and (max-width: 1300px) {
+    width: 1200px;
+    padding: 0 calc((1300px - 1200px) / 2);
+  }
+  `};
 `;
