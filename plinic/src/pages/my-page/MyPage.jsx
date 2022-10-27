@@ -43,7 +43,7 @@ function MyPage() {
   const playList = (
     <PlayListWrapper>
       <Header>
-        <Title> 플레이리스트 2개</Title>
+        <Title> 플레이리스트 3개</Title>
       </Header>
       <CardSwipe />
     </PlayListWrapper>
