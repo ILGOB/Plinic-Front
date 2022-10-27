@@ -69,7 +69,7 @@ const data = [
   {
     id: 3,
     title: '최강 디즈니',
-    playlistNum: '3',
+    playlistNum: 3,
     genre: 'disney',
     thumbnail: 'https://source.unsplash.com/random/3',
     playlist: [
