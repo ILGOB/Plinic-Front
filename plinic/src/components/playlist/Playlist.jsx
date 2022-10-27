@@ -40,10 +40,10 @@ function Playlist({ data, usedFor, playTime }) {
         ></iframe>
       </VideoFrame>
       <PlayList usedFor={usedFor}>
-        {data.map(item => (
+        {data.map((item, idx) => (
           <PlayListItem key={item.id} onClick={changeMusic} id={item.videoId}>
             <div>
-              <Num>{item.id}</Num>
+              <Num>{idx + 1}</Num>
               <Title>{item.title}</Title>
             </div>
             <Time>{item.playTime}</Time>
