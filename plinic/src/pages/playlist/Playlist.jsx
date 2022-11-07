@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +15,8 @@ function Playlist() {
   console.log('loginState :>> ', loginState);
   const { playlistId } = useParams();
   const currentPlaylistTitle = data[playlistId].title;
+  const location = useLocation();
+  const { choice, playlistNum } = location.state.playlistData;
 
   const handleDelete = () => {
     alert('삭제');
@@ -26,7 +28,9 @@ function Playlist() {
   return (
     <Wrapper>
       <Header>
-        <HeaderTitle>{currentPlaylistTitle}</HeaderTitle>
+        <HeaderTitle>
+          {currentPlaylistTitle} : {choice} 장르 {playlistNum} 곡
+        </HeaderTitle>
         {loginState ? <Btn onClick={handleDelete}>삭제</Btn> : <Btn onClick={handleSave}>보관함에 저장</Btn>}
       </Header>
       <Main>

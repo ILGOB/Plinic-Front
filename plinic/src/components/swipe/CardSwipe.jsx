@@ -75,6 +75,7 @@ function CardSwipe() {
       console.log('clicked create button');
       console.log('playlistData :>> ', playlistData);
       handlePlaylistModal();
+      navigate(`/playlist/${1}`, { state: { playlistData: playlistData } });
     }
   };
 
