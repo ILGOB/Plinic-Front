@@ -1,18 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import PlaylistSkeleton from '../skeleton/PlaylistSkeleton';
 
 function Playlist({ data, usedFor }) {
   console.log('data :>> ', data);
+  const iframeRef = useRef();
+  const iframeCurrent = iframeRef.current;
   const [playing, setPlaying] = useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const changeMusic = e => {
     setPlaying(e.currentTarget.id);
   };
 
+  useEffect(() => {
+    iframeCurrent?.addEventListener('load', () => setIsLoaded(true));
+
+    return () => {
+      iframeCurrent?.addEventListener('load', () => setIsLoaded(true));
+    };
+  }, [iframeCurrent]);
+
   return (
     <PlaylistWrapper usedFor={usedFor}>
       <VideoFrame>
+        {!isLoaded && <PlaylistSkeleton />}
         <iframe
+          ref={iframeRef}
           width="600"
           height="360"
           src={
