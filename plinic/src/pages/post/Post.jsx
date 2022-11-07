@@ -24,6 +24,24 @@ function Post() {
     alert('삭제');
   };
 
+  const highlightTags = () => {
+    const content =
+      // eslint-disable-next-line no-multi-str
+      '안녕하세요. 이건 #테스트 게시물 입니다.<br> \
+    서로 붙어 있지만 태그인 것 #붙어#있는#태그<br> \
+    떨어져 있는 태그 #떨어져 #있는 #태그<br> \
+    태그 제한 글자 수(30자)를 넘어간 경우 #가나다라마바사아자차카타파하끝가나다라마바사아자차카타파하끝가나다라마바사아자차카타파하끝가나다라마바사아자차카타파하끝<br> \
+    태그 첫 글자가 특수 문자이거나 숫자인 경우 #1일 ##*** #^,가<br> \
+    태그가 특수 문자로 끝나는 경우 #고구마,감자,';
+    const splitByTags = content.split(/(#[a-zA-Z가-힣][^\s#][a-zA-Z가-힣0-9]{0,28})/g);
+    const highlightedContent = splitByTags
+      .map(s =>
+        s.match(/(#[a-zA-Z가-힣][^\s#][a-zA-Z가-힣0-9]{0,28})/g) ? `<span style="color:#38a3a5">${s}</span>` : s
+      )
+      .join('');
+    return highlightedContent;
+  };
+
   console.log('dummyData :>> ', dummyData);
   console.log("dummyData.playlist['genre_name'] :>> ", dummyData.playlist['genre_name']);
 
@@ -70,7 +88,7 @@ function Post() {
           </EditDate>
         )}
       </DateWrapper>
-      <Content>{dummyData.content}</Content>
+      <Content dangerouslySetInnerHTML={{ __html: highlightTags() }}></Content>
       <Tag>#띵곡 #센치한느낌 #갬성터질때 #눈물샘폭발 #태그쓰다보니태근하고싶다</Tag>
       <Buttons>
         <TextIconBtn name={'like'} state={dummyData.is_like} count={dummyData.liker_count} />
