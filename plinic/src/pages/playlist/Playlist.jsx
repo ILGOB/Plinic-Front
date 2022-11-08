@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -11,10 +11,12 @@ import PlaylistComponent from '../../components/playlist/Playlist';
 import playlistDummyData from '../../components/playlist/dummyData';
 
 function Playlist() {
+  const { state } = useLocation();
+  const { data } = state || [];
   const loginState = useRecoilValue(loginAtom);
   console.log('loginState :>> ', loginState);
   const { playlistId } = useParams();
-  const currentPlaylistTitle = data[playlistId].title;
+  const currentPlaylist = data[+playlistId];
 
   const handleDelete = () => {
     alert('삭제');
@@ -26,15 +28,14 @@ function Playlist() {
   return (
     <Wrapper>
       <Header>
-        <HeaderTitle>{currentPlaylistTitle}</HeaderTitle>
-        {loginState ? <Btn onClick={handleDelete}>삭제</Btn> : <Btn onClick={handleSave}>보관함에 저장</Btn>}
+        <HeaderTitle>{currentPlaylist.title}</HeaderTitle>
       </Header>
       <Main>
         <Info>
-          <Genre name={data[playlistId].genre} usedFor={'post'} />
-          <Total>{playlistDummyData.length}곡</Total>
+          <Genre name={currentPlaylist.genre} usedFor={'post'} />
+          <Total>{currentPlaylist.playlist.length}곡</Total>
         </Info>
-        <PlaylistComponent data={playlistDummyData} usedFor={'playlist'} />
+        <PlaylistComponent data={currentPlaylist.playlist} usedFor={'playlist'} />
       </Main>
     </Wrapper>
   );
@@ -51,10 +52,11 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.div`
-  ${FLEX_CENTER}
-  gap:675px;
+  ${FLEX_CENTER};
+  gap: 675px;
   width: 100%;
   top: 60px;
+  margin-right: 430px;
 `;
 
 const HeaderTitle = styled.h1`

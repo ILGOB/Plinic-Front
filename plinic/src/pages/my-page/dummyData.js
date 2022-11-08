@@ -1,7 +1,6 @@
 const dummyData = {
-  nickname: 'Lami',
-  // genre: ['acoustic', 'disney', 'pop'],
-  genre: ['blues', 'pop'],
+  nickname: 'ILGOB',
+  genre: ['acoustic', 'disney', 'pop'],
 };
 
 export default dummyData;

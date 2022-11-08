@@ -31,50 +31,19 @@ function MyPage() {
           </LinkStyled>
         )}
       </ProfileWrapper>
-      <Nickname>{dummyData.nickname}</Nickname>
+      <Nickname>ILGOB</Nickname>
       <GenreWrapper>
         {dummyData.genre.map((el, idx) => {
           return <Genre key={idx} name={el} usedFor={'myPage'} />;
         })}
       </GenreWrapper>
-      {loginState ? (
-        <PostedLink to={'/post-list'}>내가 작성한 게시글</PostedLink>
-      ) : (
-        <PostedLink to={'/post-list'}>Lami 님이 작성한 게시글</PostedLink>
-      )}
     </UserInfoWrapper>
   );
 
   const playList = (
     <PlayListWrapper>
       <Header>
-        {loginState ? (
-          // 내 마이페이지
-          <>
-            <Title>{choiceSwitchLabel} 플레이리스트 2개</Title>
-            <Switch
-              leftLabel={'비공개'}
-              rightLabel={'공개'}
-              switchState={switchState}
-              setSwitchState={setSwitchState}
-              choiceSwitchLabel={choiceSwitchLabel}
-              setChoiceSwitchLabel={setChoiceSwitchLabel}
-            />
-          </>
-        ) : (
-          // 다른사람 마이페이지
-          <>
-            <Title>{choiceSwitchLabel} 플레이리스트 2개</Title>
-            <Switch
-              leftLabel={'스크랩'}
-              rightLabel={'공개'}
-              switchState={switchState}
-              setSwitchState={setSwitchState}
-              choiceSwitchLabel={choiceSwitchLabel}
-              setChoiceSwitchLabel={setChoiceSwitchLabel}
-            />
-          </>
-        )}
+        <Title> 플레이리스트 3개</Title>
       </Header>
       <CardSwipe />
     </PlayListWrapper>
@@ -127,6 +96,7 @@ const ProfileWrapper = styled.div`
 
 const ProfileIcon = styled(FontAwesomeIcon)`
   font-size: 125px;
+  color: ${NAVY};
 `;
 
 const LinkStyled = styled(Link)`
@@ -176,10 +146,7 @@ const PlayListWrapper = styled.div`
   /* background-color: #94518b; */
 `;
 
-const Header = styled.div`
-  ${FLEX_CENTER};
-  gap: 213px;
-`;
+const Header = styled.div``;
 
 const Title = styled.span`
   ${BOLD}

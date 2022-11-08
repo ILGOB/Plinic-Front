@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import PlaylistSkeleton from '../skeleton/PlaylistSkeleton';
 
-function Playlist({ data, usedFor }) {
+function Playlist({ data, usedFor, playTime }) {
   console.log('data :>> ', data);
+  console.log('playTime :>> ', playTime);
   const iframeRef = useRef();
   const iframeCurrent = iframeRef.current;
-  const [playing, setPlaying] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [playing, setPlaying] = useState('');
+  const [playlistID, setPlaylistID] = useState('');
 
   const changeMusic = e => {
     setPlaying(e.currentTarget.id);
@@ -20,6 +23,16 @@ function Playlist({ data, usedFor }) {
       iframeCurrent?.addEventListener('load', () => setIsLoaded(true));
     };
   }, [iframeCurrent]);
+  
+  useEffect(() => {
+    let videoIds = [];
+    data.map(el => videoIds.push(el.videoId));
+    videoIds = videoIds.join();
+
+    axios.get(`https://plinic-api-server.ml/api/v1/plinic/playlist-examples/?ids=${videoIds}`).then(res => {
+      setPlaylistID(res.data['total_url'].split(/list=/)[1]);
+    });
+  }, []);
 
   return (
     <PlaylistWrapper usedFor={usedFor}>
@@ -31,8 +44,8 @@ function Playlist({ data, usedFor }) {
           height="360"
           src={
             playing
-              ? `https://www.youtube.com/embed/${playing}/videoseries?list=TLGG70_eemmaf0UxNjEwMjAyMg`
-              : `https://www.youtube.com/embed/videoseries?list=TLGG70_eemmaf0UxNjEwMjAyMg`
+              ? `https://www.youtube.com/embed/${playing}/videoseries?list=${playlistID}`
+              : `https://www.youtube.com/embed/videoseries?list=${playlistID}`
           }
           title=""
           frameBorder="0"
@@ -41,13 +54,13 @@ function Playlist({ data, usedFor }) {
         ></iframe>
       </VideoFrame>
       <PlayList usedFor={usedFor}>
-        {data.map(item => (
-          <PlayListItem key={item.id} onClick={changeMusic} id={item.src}>
+        {data.map((item, idx) => (
+          <PlayListItem key={item.id} onClick={changeMusic} id={item.videoId}>
             <div>
-              <Num>{item.id}</Num>
+              <Num>{idx + 1}</Num>
               <Title>{item.title}</Title>
             </div>
-            <Time>{item.time}</Time>
+            <Time>{item.playTime}</Time>
           </PlayListItem>
         ))}
       </PlayList>

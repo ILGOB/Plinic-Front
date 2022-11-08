@@ -36,9 +36,6 @@ function PlaylistModal({ setPlaylistData }) {
       {/* 장르 토글 메뉴 */}
       <Toggle onClick={genreToggleHandler} text={'장르'} state={isGenreToggle} choice={choice} setChoice={setChoice} />
 
-      {/* 분위기 토글 메뉴 */}
-      <Toggle onClick={moodToggleHandler} text={'분위기'} state={isMoodToggle} choice={choice} setChoice={setChoice} />
-
       {/* 곡 개수 슬라이더 */}
       <Slider setPlaylistNum={setPlaylistNum} />
     </Wrapper>

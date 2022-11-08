@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +12,7 @@ import Card from '../card/Card';
 import ModalPortal from '../modal/ModalPortal';
 import Modal from '../modal/Modal';
 import data from '../card/dummyData';
+import videosData from '../../videosDummyData';
 
 function CardSwipe() {
   const navigate = useNavigate();
@@ -20,7 +21,8 @@ function CardSwipe() {
   const [swiper, setSwiper] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaylistModal, setIsPlaylistModal] = useState(false);
-  const [playlistData, setPlaylistData] = useState({});
+  const [playlistData, setPlaylistData] = useState(data);
+  const [choicePlaylistData, setChoicePlaylistData] = useState({});
 
   SwiperCore.use([EffectCoverflow, Scrollbar]);
 
@@ -55,6 +57,49 @@ function CardSwipe() {
     },
   };
 
+  console.log('playlistData :>> ', playlistData);
+
+  const getPlaylist = () => {
+    // console.log('videosData :>> ', videosData);
+    // console.log('videosData[choicePlaylistData.choice] :>> ', videosData[choicePlaylistData.choice]);
+    // console.log('choicePlaylistData.playlistNum :>> ', choicePlaylistData.playlistNum);
+
+    const playlist = new Set();
+
+    while (playlist.size !== choicePlaylistData.playlistNum) {
+      const index = Math.floor(Math.random() * videosData[choicePlaylistData.choice].length) + 1;
+      playlist.add(index);
+    }
+
+    // console.log('playlist :>> ', playlist);
+    // console.log('videosData[3] :>> ', videosData[choicePlaylistData.choice][3]);
+
+    const resultPlaylist = [];
+
+    playlist.forEach(el => resultPlaylist.push(videosData[choicePlaylistData.choice][el - 1]));
+
+    console.log('resultPlaylist :>> ', resultPlaylist);
+    console.log('choicePlaylistData :>> ', choicePlaylistData);
+
+    const newItem = {
+      id: playlistData.length,
+      title: '새로운 플레이리스트',
+      playlistNum: choicePlaylistData.playlistNum,
+      genre: choicePlaylistData.choice,
+      playlist: resultPlaylist,
+      thumbnail: `https://source.unsplash.com/random/${choicePlaylistData.playlistNum}`,
+    };
+
+    setPlaylistData(current => [...current, newItem]);
+
+    return [newItem.id, [...playlistData, newItem]];
+  };
+
+  useEffect(() => {
+    console.log('playlistData :>> ', playlistData);
+    console.log('playlist length :>> ', playlistData.length);
+  }, [playlistData]);
+
   const handlePlaylistModal = () => {
     if (isClicked) {
       setIsPlaylistModal(!isPlaylistModal);
@@ -73,14 +118,16 @@ function CardSwipe() {
       alert('모든 항목을 선택해주세요');
     } else {
       console.log('clicked create button');
-      console.log('playlistData :>> ', playlistData);
+      // console.log('playlistData :>> ', playlistData);
+      const [id, playlist] = getPlaylist();
       handlePlaylistModal();
+      navigate(`/beta/playlist/${id}`, { state: { data: playlist } });
     }
   };
 
   const linkTo = link => {
     if (isClicked) {
-      navigate(link);
+      navigate(link, { state: { data: playlistData } });
     } else {
       isClicked = true;
     }
@@ -94,14 +141,14 @@ function CardSwipe() {
             leftOnClick={clickedCloseButton}
             rightOnClick={clickedCreateButton}
             usedFor={'playlist'}
-            setPlaylistData={setPlaylistData}
+            setPlaylistData={setChoicePlaylistData}
           />
         )}
       </ModalPortal>
       <Swiper {...swiperParams} ref={setSwiper}>
-        {data &&
-          data.map((cardData, index) => (
-            <SwiperSlide key={cardData.id} onClick={() => linkTo(`/playlist/${index}`)}>
+        {playlistData &&
+          playlistData.map((cardData, index) => (
+            <SwiperSlide key={cardData.id} onClick={() => linkTo(`/beta/playlist/${index}`)}>
               <Card thumbnail={cardData.thumbnail} title={cardData.title} playlistNum={cardData.playlistNum} />
             </SwiperSlide>
           ))}
