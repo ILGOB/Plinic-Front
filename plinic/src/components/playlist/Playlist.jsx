@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import PlaylistSkeleton from '../skeleton/PlaylistSkeleton';
 
 function Playlist({ data, usedFor, playTime }) {
   console.log('data :>> ', data);
   console.log('playTime :>> ', playTime);
+  const iframeRef = useRef();
+  const iframeCurrent = iframeRef.current;
+  const [isLoaded, setIsLoaded] = useState(false);
   const [playing, setPlaying] = useState('');
   const [playlistID, setPlaylistID] = useState('');
 
@@ -12,6 +16,14 @@ function Playlist({ data, usedFor, playTime }) {
     setPlaying(e.currentTarget.id);
   };
 
+  useEffect(() => {
+    iframeCurrent?.addEventListener('load', () => setIsLoaded(true));
+
+    return () => {
+      iframeCurrent?.addEventListener('load', () => setIsLoaded(true));
+    };
+  }, [iframeCurrent]);
+  
   useEffect(() => {
     let videoIds = [];
     data.map(el => videoIds.push(el.videoId));
@@ -25,7 +37,9 @@ function Playlist({ data, usedFor, playTime }) {
   return (
     <PlaylistWrapper usedFor={usedFor}>
       <VideoFrame>
+        {!isLoaded && <PlaylistSkeleton />}
         <iframe
+          ref={iframeRef}
           width="600"
           height="360"
           src={
