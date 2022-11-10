@@ -92,6 +92,7 @@ function CardSwipe() {
       <ModalPortal>
         {isPlaylistModal && (
           <Modal
+            close={handlePlaylistModal}
             leftOnClick={clickedCloseButton}
             rightOnClick={clickedCreateButton}
             usedFor={'playlist'}
