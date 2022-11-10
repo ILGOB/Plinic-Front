@@ -4,9 +4,14 @@ import Footer from './Footer';
 import PlaylistModal from './PlaylistModal';
 import MembershipWithdrawal from './MembershipWithdrawal';
 
-const Modal = ({ usedFor, leftOnClick, rightOnClick, setPlaylistData }) => {
+const Modal = ({ close, usedFor, leftOnClick, rightOnClick, setPlaylistData }) => {
+  const onWrapperClick = e => {
+    if (e.target === e.currentTarget) {
+      close();
+    }
+  };
   return (
-    <Wrapper>
+    <Wrapper onClick={onWrapperClick}>
       <Container>
         <Main>
           {usedFor === 'playlist' ? <PlaylistModal setPlaylistData={setPlaylistData} /> : <MembershipWithdrawal />}
