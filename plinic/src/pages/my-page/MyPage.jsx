@@ -38,9 +38,9 @@ function MyPage() {
         })}
       </GenreWrapper>
       {loginState ? (
-        <PostedLink to={'/post-list'}>내가 작성한 게시글</PostedLink>
+        <PostedLink to={'/posts'}>내가 작성한 게시글</PostedLink>
       ) : (
-        <PostedLink to={'/post-list'}>Lami 님이 작성한 게시글</PostedLink>
+        <PostedLink to={'/posts'}>Lami 님이 작성한 게시글</PostedLink>
       )}
     </UserInfoWrapper>
   );
